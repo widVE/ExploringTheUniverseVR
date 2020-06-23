@@ -1,0 +1,151 @@
+<?xml version="1.0" standalone="no" ?>
+<!DOCTYPE project PUBLIC "-//audacityproject-1.3.0//DTD//EN" "http://audacity.sourceforge.net/xml/audacityproject-1.3.0.dtd" >
+<project xmlns="http://audacity.sourceforge.net/xml/" projname="Ice01_data" version="1.3.0" audacityversion="2.2.2" sel0="0.7651504257" sel1="0.7651504257" vpos="0" h="0.0000000000" zoom="28.7525161848" rate="48000.0" snapto="off" selectionformat="hh:mm:ss + milliseconds" frequencyformat="Hz" bandwidthformat="octaves">
+	<tags/>
+	<wavetrack name="P1_portuguese" channel="2" linked="0" mute="0" solo="0" height="150" minimized="0" isSelected="1" rate="48000" gain="1.995262" pan="0.0" colorindex="0">
+		<waveclip offset="0.00000000" colorindex="0">
+			<sequence maxsamples="262144" sampleformat="262159" numsamples="4323797">
+				<waveblock start="0">
+					<simpleblockfile filename="e0808196.au" len="152819" min="-0.132376" max="0.167004" rms="0.015348"/>
+				</waveblock>
+				<waveblock start="152819">
+					<simpleblockfile filename="e0808e11.au" len="152820" min="-0.152274" max="0.16203" rms="0.020322"/>
+				</waveblock>
+				<waveblock start="305639">
+					<pcmaliasblockfile summaryfile="e0808407.auf" aliasfile="C:\Users\kceballos\Music\Por\P1_portuguese.wav" aliasstart="786432" aliaslen="262144" aliaschannel="0" min="-0.210886" max="0.162648" rms="0.018696"/>
+				</waveblock>
+				<waveblock start="567783">
+					<simpleblockfile filename="e0808c4e.au" len="153496" min="-0.195982" max="0.160502" rms="0.015215"/>
+				</waveblock>
+				<waveblock start="721279">
+					<simpleblockfile filename="e0808e23.au" len="150158" min="-0.155059" max="0.144269" rms="0.022406"/>
+				</waveblock>
+				<waveblock start="871437">
+					<simpleblockfile filename="e08084a7.au" len="166107" min="-0.244244" max="0.376212" rms="0.032586"/>
+				</waveblock>
+				<waveblock start="1037544">
+					<simpleblockfile filename="e080870b.au" len="166107" min="-0.182765" max="0.202961" rms="0.02141"/>
+				</waveblock>
+				<waveblock start="1203651">
+					<simpleblockfile filename="e0808177.au" len="141902" min="-0.186357" max="0.220655" rms="0.022618"/>
+				</waveblock>
+				<waveblock start="1345553">
+					<simpleblockfile filename="e0808a9a.au" len="187427" min="-0.201004" max="0.216621" rms="0.025861"/>
+				</waveblock>
+				<waveblock start="1532980">
+					<pcmaliasblockfile summaryfile="e0808c92.auf" aliasfile="C:\Users\kceballos\Music\Por\P1_portuguese.wav" aliasstart="2621440" aliaslen="262144" aliaschannel="0" min="-0.226037" max="0.173337" rms="0.022037"/>
+				</waveblock>
+				<waveblock start="1795124">
+					<pcmaliasblockfile summaryfile="e08084ae.auf" aliasfile="C:\Users\kceballos\Music\Por\P1_portuguese.wav" aliasstart="2883584" aliaslen="262144" aliaschannel="0" min="-0.205127" max="0.15894" rms="0.021739"/>
+				</waveblock>
+				<waveblock start="2057268">
+					<simpleblockfile filename="e08087f9.au" len="232094" min="-0.236879" max="0.206629" rms="0.02749"/>
+				</waveblock>
+				<waveblock start="2289362">
+					<pcmaliasblockfile summaryfile="e08080b6.auf" aliasfile="C:\Users\kceballos\Music\Por\P1_portuguese.wav" aliasstart="3407872" aliaslen="262144" aliaschannel="0" min="-0.202434" max="0.233478" rms="0.021578"/>
+				</waveblock>
+				<waveblock start="2551506">
+					<pcmaliasblockfile summaryfile="e08085f0.auf" aliasfile="C:\Users\kceballos\Music\Por\P1_portuguese.wav" aliasstart="3670016" aliaslen="262144" aliaschannel="0" min="-0.180299" max="0.21067" rms="0.022117"/>
+				</waveblock>
+				<waveblock start="2813650">
+					<pcmaliasblockfile summaryfile="e0808ebf.auf" aliasfile="C:\Users\kceballos\Music\Por\P1_portuguese.wav" aliasstart="3932160" aliaslen="262144" aliaschannel="0" min="-0.320077" max="0.299068" rms="0.029696"/>
+				</waveblock>
+				<waveblock start="3075794">
+					<simpleblockfile filename="e0808a73.au" len="151555" min="-0.17683" max="0.21149" rms="0.025957"/>
+				</waveblock>
+				<waveblock start="3227349">
+					<simpleblockfile filename="e080839c.au" len="151556" min="-0.567792" max="0.356373" rms="0.032504"/>
+				</waveblock>
+				<waveblock start="3378905">
+					<simpleblockfile filename="e0808ad9.au" len="181201" min="-0.212555" max="0.220685" rms="0.024051"/>
+				</waveblock>
+				<waveblock start="3560106">
+					<pcmaliasblockfile summaryfile="e0808166.auf" aliasfile="C:\Users\kceballos\Music\Por\P1_portuguese.wav" aliasstart="5242880" aliaslen="262144" aliaschannel="0" min="-0.212167" max="0.212843" rms="0.026437"/>
+				</waveblock>
+				<waveblock start="3822250">
+					<simpleblockfile filename="e0808da0.au" len="201051" min="-0.170145" max="0.213713" rms="0.023222"/>
+				</waveblock>
+				<waveblock start="4023301">
+					<simpleblockfile filename="e0808998.au" len="150248" min="-0.194547" max="0.144633" rms="0.025381"/>
+				</waveblock>
+				<waveblock start="4173549">
+					<simpleblockfile filename="e08082f2.au" len="150248" min="-0.17737" max="0.16582" rms="0.021641"/>
+				</waveblock>
+			</sequence>
+			<envelope numpoints="0"/>
+		</waveclip>
+	</wavetrack>
+	<wavetrack name="P1_portuguese" channel="2" linked="0" mute="0" solo="0" height="150" minimized="0" isSelected="0" rate="48000" gain="1.0" pan="0.0" colorindex="0">
+		<waveclip offset="0.00000000" colorindex="0">
+			<sequence maxsamples="262144" sampleformat="262159" numsamples="4470705">
+				<waveblock start="0">
+					<simpleblockfile filename="e0808fee.au" len="152819" min="-0.001096" max="0.002169" rms="0.000412"/>
+				</waveblock>
+				<waveblock start="152819">
+					<simpleblockfile filename="e0808eac.au" len="152820" min="-0.000977" max="0.001301" rms="0.000308"/>
+				</waveblock>
+				<waveblock start="305639">
+					<pcmaliasblockfile summaryfile="e0808107.auf" aliasfile="C:\Users\kceballos\Music\Por\P1_portuguese.wav" aliasstart="786432" aliaslen="262144" aliaschannel="1" min="-0.000927" max="0.002404" rms="0.000353"/>
+				</waveblock>
+				<waveblock start="567783">
+					<simpleblockfile filename="e08089c0.au" len="183546" min="-0.000765" max="0.001306" rms="0.000285"/>
+				</waveblock>
+				<waveblock start="751329">
+					<simpleblockfile filename="e0808afc.au" len="183546" min="-0.00097" max="0.001313" rms="0.000234"/>
+				</waveblock>
+				<waveblock start="934875">
+					<simpleblockfile filename="e08087f0.au" len="245721" min="-0.001768" max="0.003115" rms="0.000605"/>
+				</waveblock>
+				<waveblock start="1180596">
+					<simpleblockfile filename="e0808a36.au" len="155932" min="-0.001585" max="0.002377" rms="0.000546"/>
+				</waveblock>
+				<waveblock start="1336528">
+					<simpleblockfile filename="e08086a8.au" len="155933" min="-0.001503" max="0.001705" rms="0.000456"/>
+				</waveblock>
+				<waveblock start="1492461">
+					<simpleblockfile filename="e08086cf.au" len="187427" min="-0.001388" max="0.002092" rms="0.000448"/>
+				</waveblock>
+				<waveblock start="1679888">
+					<pcmaliasblockfile summaryfile="e0808bc1.auf" aliasfile="C:\Users\kceballos\Music\Por\P1_portuguese.wav" aliasstart="2621440" aliaslen="262144" aliaschannel="1" min="-0.001148" max="0.002575" rms="0.000392"/>
+				</waveblock>
+				<waveblock start="1942032">
+					<pcmaliasblockfile summaryfile="e08081cd.auf" aliasfile="C:\Users\kceballos\Music\Por\P1_portuguese.wav" aliasstart="2883584" aliaslen="262144" aliaschannel="1" min="-0.001282" max="0.001688" rms="0.000364"/>
+				</waveblock>
+				<waveblock start="2204176">
+					<simpleblockfile filename="e0808160.au" len="232094" min="-0.001529" max="0.003678" rms="0.000574"/>
+				</waveblock>
+				<waveblock start="2436270">
+					<pcmaliasblockfile summaryfile="e0808424.auf" aliasfile="C:\Users\kceballos\Music\Por\P1_portuguese.wav" aliasstart="3407872" aliaslen="262144" aliaschannel="1" min="-0.001107" max="0.002349" rms="0.00036"/>
+				</waveblock>
+				<waveblock start="2698414">
+					<pcmaliasblockfile summaryfile="e0808434.auf" aliasfile="C:\Users\kceballos\Music\Por\P1_portuguese.wav" aliasstart="3670016" aliaslen="262144" aliaschannel="1" min="-0.001203" max="0.001479" rms="0.00038"/>
+				</waveblock>
+				<waveblock start="2960558">
+					<pcmaliasblockfile summaryfile="e0808630.auf" aliasfile="C:\Users\kceballos\Music\Por\P1_portuguese.wav" aliasstart="3932160" aliaslen="262144" aliaschannel="1" min="-0.001681" max="0.003437" rms="0.000698"/>
+				</waveblock>
+				<waveblock start="3222702">
+					<simpleblockfile filename="e080876a.au" len="151555" min="-0.001335" max="0.002012" rms="0.000456"/>
+				</waveblock>
+				<waveblock start="3374257">
+					<simpleblockfile filename="e0808398.au" len="151556" min="-0.002604" max="0.003618" rms="0.000798"/>
+				</waveblock>
+				<waveblock start="3525813">
+					<simpleblockfile filename="e0808746.au" len="181201" min="-0.001322" max="0.002174" rms="0.000434"/>
+				</waveblock>
+				<waveblock start="3707014">
+					<pcmaliasblockfile summaryfile="e0808ada.auf" aliasfile="C:\Users\kceballos\Music\Por\P1_portuguese.wav" aliasstart="5242880" aliaslen="262144" aliaschannel="1" min="-0.001494" max="0.002007" rms="0.000457"/>
+				</waveblock>
+				<waveblock start="3969158">
+					<simpleblockfile filename="e0808f53.au" len="201051" min="-0.001585" max="0.00168" rms="0.000385"/>
+				</waveblock>
+				<waveblock start="4170209">
+					<simpleblockfile filename="e0808843.au" len="150248" min="-0.00135" max="0.002144" rms="0.000504"/>
+				</waveblock>
+				<waveblock start="4320457">
+					<simpleblockfile filename="e080851f.au" len="150248" min="-0.001114" max="0.00148" rms="0.000455"/>
+				</waveblock>
+			</sequence>
+			<envelope numpoints="0"/>
+		</waveclip>
+	</wavetrack>
+</project>

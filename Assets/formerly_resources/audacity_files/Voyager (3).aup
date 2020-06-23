@@ -1,0 +1,61 @@
+<?xml version="1.0" standalone="no" ?>
+<!DOCTYPE project PUBLIC "-//audacityproject-1.3.0//DTD//EN" "http://audacity.sourceforge.net/xml/audacityproject-1.3.0.dtd" >
+<project xmlns="http://audacity.sourceforge.net/xml/" projname="Voyager_data" version="1.3.0" audacityversion="2.2.2" sel0="0.0000000000" sel1="0.0000000000" vpos="0" h="0.0000000000" zoom="14.3762580926" rate="48000.0" snapto="off" selectionformat="hh:mm:ss + milliseconds" frequencyformat="Hz" bandwidthformat="octaves">
+	<tags/>
+	<wavetrack name="P1_portuguese" channel="2" linked="0" mute="0" solo="0" height="150" minimized="0" isSelected="1" rate="48000" gain="1.0" pan="0.0" colorindex="0">
+		<waveclip offset="0.00000000" colorindex="0">
+			<sequence maxsamples="262144" sampleformat="262159" numsamples="1336370">
+				<waveblock start="0">
+					<simpleblockfile filename="e080890d.au" len="165229" min="-0.273318" max="0.267865" rms="0.032012"/>
+				</waveblock>
+				<waveblock start="165229">
+					<simpleblockfile filename="e0808f56.au" len="165229" min="-0.209189" max="0.192882" rms="0.026688"/>
+				</waveblock>
+				<waveblock start="330458">
+					<pcmaliasblockfile summaryfile="e0808354.auf" aliasfile="C:\Users\kceballos\Music\Por\P1_portuguese.wav" aliasstart="9175040" aliaslen="262144" aliaschannel="0" min="-0.223026" max="0.186568" rms="0.027857"/>
+				</waveblock>
+				<waveblock start="592602">
+					<pcmaliasblockfile summaryfile="e08082e0.auf" aliasfile="C:\Users\kceballos\Music\Por\P1_portuguese.wav" aliasstart="9437184" aliaslen="262144" aliaschannel="0" min="-0.220208" max="0.2302" rms="0.027976"/>
+				</waveblock>
+				<waveblock start="854746">
+					<simpleblockfile filename="e0808576.au" len="161932" min="-0.184624" max="0.167576" rms="0.025541"/>
+				</waveblock>
+				<waveblock start="1016678">
+					<simpleblockfile filename="e0808fac.au" len="161932" min="-0.209296" max="0.209169" rms="0.026021"/>
+				</waveblock>
+				<waveblock start="1178610">
+					<simpleblockfile filename="e0808690.au" len="157760" min="-0.250176" max="0.216987" rms="0.033699"/>
+				</waveblock>
+			</sequence>
+			<envelope numpoints="0"/>
+		</waveclip>
+	</wavetrack>
+	<wavetrack name="P1_portuguese" channel="2" linked="0" mute="0" solo="0" height="150" minimized="0" isSelected="1" rate="48000" gain="1.0" pan="0.0" colorindex="0">
+		<waveclip offset="0.00000000" colorindex="0">
+			<sequence maxsamples="262144" sampleformat="262159" numsamples="1336370">
+				<waveblock start="0">
+					<simpleblockfile filename="e0808a75.au" len="165229" min="-0.002203" max="0.002202" rms="0.000721"/>
+				</waveblock>
+				<waveblock start="165229">
+					<simpleblockfile filename="e0808c1e.au" len="165229" min="-0.001461" max="0.001503" rms="0.000392"/>
+				</waveblock>
+				<waveblock start="330458">
+					<pcmaliasblockfile summaryfile="e0808fa9.auf" aliasfile="C:\Users\kceballos\Music\Por\P1_portuguese.wav" aliasstart="9175040" aliaslen="262144" aliaschannel="1" min="-0.001236" max="0.002658" rms="0.000489"/>
+				</waveblock>
+				<waveblock start="592602">
+					<pcmaliasblockfile summaryfile="e0808a29.auf" aliasfile="C:\Users\kceballos\Music\Por\P1_portuguese.wav" aliasstart="9437184" aliaslen="262144" aliaschannel="1" min="-0.001305" max="0.002158" rms="0.000427"/>
+				</waveblock>
+				<waveblock start="854746">
+					<simpleblockfile filename="e0808700.au" len="161932" min="-0.001153" max="0.001659" rms="0.000419"/>
+				</waveblock>
+				<waveblock start="1016678">
+					<simpleblockfile filename="e08086a9.au" len="161932" min="-0.001143" max="0.001472" rms="0.000411"/>
+				</waveblock>
+				<waveblock start="1178610">
+					<simpleblockfile filename="e08083d6.au" len="157760" min="-0.002063" max="0.002663" rms="0.000776"/>
+				</waveblock>
+			</sequence>
+			<envelope numpoints="0"/>
+		</waveclip>
+	</wavetrack>
+</project>

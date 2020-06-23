@@ -1,0 +1,99 @@
+<?xml version="1.0" standalone="no" ?>
+<!DOCTYPE project PUBLIC "-//audacityproject-1.3.0//DTD//EN" "http://audacity.sourceforge.net/xml/audacityproject-1.3.0.dtd" >
+<project xmlns="http://audacity.sourceforge.net/xml/" projname="original_data" version="1.3.0" audacityversion="2.2.2" sel0="0.0000000000" sel1="0.0000000000" vpos="0" h="0.0000000000" zoom="60.4138088706" rate="48000.0" snapto="off" selectionformat="hh:mm:ss + milliseconds" frequencyformat="Hz" bandwidthformat="octaves">
+	<tags>
+		<tag name="YEAR" value="2018-04-18T11:54"/>
+	</tags>
+	<wavetrack name="slowIce" channel="0" linked="1" mute="0" solo="0" height="150" minimized="0" isSelected="1" rate="48000" gain="1.0" pan="0.0" colorindex="0">
+		<waveclip offset="0.00000000" colorindex="0">
+			<sequence maxsamples="262144" sampleformat="262159" numsamples="3359232">
+				<waveblock start="0">
+					<simpleblockfile filename="e0808194.au" len="262144" min="-0.900104" max="0.963524" rms="0.142956"/>
+				</waveblock>
+				<waveblock start="262144">
+					<simpleblockfile filename="e080801d.au" len="262144" min="-1.000964" max="0.971119" rms="0.156119"/>
+				</waveblock>
+				<waveblock start="524288">
+					<simpleblockfile filename="e080848b.au" len="262144" min="-0.930452" max="0.963955" rms="0.149098"/>
+				</waveblock>
+				<waveblock start="786432">
+					<simpleblockfile filename="e0808763.au" len="262144" min="-0.998642" max="0.998787" rms="0.129443"/>
+				</waveblock>
+				<waveblock start="1048576">
+					<simpleblockfile filename="e08084f7.au" len="262144" min="-0.994543" max="0.933582" rms="0.152467"/>
+				</waveblock>
+				<waveblock start="1310720">
+					<simpleblockfile filename="e0808c5f.au" len="262144" min="-0.926188" max="0.875289" rms="0.161761"/>
+				</waveblock>
+				<waveblock start="1572864">
+					<simpleblockfile filename="e0808c24.au" len="262144" min="-0.969635" max="0.862925" rms="0.156444"/>
+				</waveblock>
+				<waveblock start="1835008">
+					<simpleblockfile filename="e08086a9.au" len="262144" min="-0.97342" max="0.960788" rms="0.163759"/>
+				</waveblock>
+				<waveblock start="2097152">
+					<simpleblockfile filename="e080817e.au" len="262144" min="-0.898351" max="0.912907" rms="0.15269"/>
+				</waveblock>
+				<waveblock start="2359296">
+					<simpleblockfile filename="e080841c.au" len="262144" min="-0.864621" max="0.688861" rms="0.187251"/>
+				</waveblock>
+				<waveblock start="2621440">
+					<simpleblockfile filename="e08085f3.au" len="262144" min="-0.899737" max="0.930556" rms="0.14169"/>
+				</waveblock>
+				<waveblock start="2883584">
+					<simpleblockfile filename="e0808392.au" len="262144" min="-0.938797" max="0.800586" rms="0.158507"/>
+				</waveblock>
+				<waveblock start="3145728">
+					<simpleblockfile filename="e08088af.au" len="213504" min="-0.79116" max="0.880569" rms="0.151843"/>
+				</waveblock>
+			</sequence>
+			<envelope numpoints="0"/>
+		</waveclip>
+	</wavetrack>
+	<wavetrack name="slowIce" channel="1" linked="0" mute="0" solo="0" height="150" minimized="0" isSelected="1" rate="48000" gain="1.0" pan="0.0" colorindex="0">
+		<waveclip offset="0.00000000" colorindex="0">
+			<sequence maxsamples="262144" sampleformat="262159" numsamples="3359232">
+				<waveblock start="0">
+					<simpleblockfile filename="e0808435.au" len="262144" min="-0.894107" max="0.955212" rms="0.142047"/>
+				</waveblock>
+				<waveblock start="262144">
+					<simpleblockfile filename="e0808780.au" len="262144" min="-0.99801" max="0.965335" rms="0.154974"/>
+				</waveblock>
+				<waveblock start="524288">
+					<simpleblockfile filename="e0808e3d.au" len="262144" min="-0.923608" max="0.958644" rms="0.147706"/>
+				</waveblock>
+				<waveblock start="786432">
+					<simpleblockfile filename="e0808716.au" len="262144" min="-0.991147" max="0.992336" rms="0.128328"/>
+				</waveblock>
+				<waveblock start="1048576">
+					<simpleblockfile filename="e0808138.au" len="262144" min="-0.989623" max="0.932147" rms="0.151134"/>
+				</waveblock>
+				<waveblock start="1310720">
+					<simpleblockfile filename="e0808e67.au" len="262144" min="-0.910293" max="0.868589" rms="0.16028"/>
+				</waveblock>
+				<waveblock start="1572864">
+					<simpleblockfile filename="e0808499.au" len="262144" min="-0.970349" max="0.861541" rms="0.155269"/>
+				</waveblock>
+				<waveblock start="1835008">
+					<simpleblockfile filename="e08084cf.au" len="262144" min="-0.973157" max="0.953539" rms="0.162513"/>
+				</waveblock>
+				<waveblock start="2097152">
+					<simpleblockfile filename="e080819b.au" len="262144" min="-0.889516" max="0.912879" rms="0.151311"/>
+				</waveblock>
+				<waveblock start="2359296">
+					<simpleblockfile filename="e0808c0b.au" len="262144" min="-0.851905" max="0.67946" rms="0.185472"/>
+				</waveblock>
+				<waveblock start="2621440">
+					<simpleblockfile filename="e0808b09.au" len="262144" min="-0.889835" max="0.930712" rms="0.140788"/>
+				</waveblock>
+				<waveblock start="2883584">
+					<simpleblockfile filename="e08089f7.au" len="262144" min="-0.935633" max="0.794474" rms="0.157237"/>
+				</waveblock>
+				<waveblock start="3145728">
+					<simpleblockfile filename="e080891d.au" len="213504" min="-0.773135" max="0.880459" rms="0.150716"/>
+				</waveblock>
+			</sequence>
+			<envelope numpoints="0"/>
+		</waveclip>
+	</wavetrack>
+</project>

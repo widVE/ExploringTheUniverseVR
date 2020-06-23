@@ -1,0 +1,68 @@
+<?xml version="1.0" standalone="no" ?>
+<!DOCTYPE project PUBLIC "-//audacityproject-1.3.0//DTD//EN" "http://audacity.sourceforge.net/xml/audacityproject-1.3.0.dtd" >
+<project xmlns="http://audacity.sourceforge.net/xml/" projname="Voyager02_data" version="1.3.0" audacityversion="2.2.2" sel0="0.3243750000" sel1="23.2690416667" vpos="0" h="0.0000000000" zoom="184.9668386146" rate="48000.0" snapto="off" selectionformat="hh:mm:ss + milliseconds" frequencyformat="Hz" bandwidthformat="octaves">
+	<tags>
+		<tag name="TITLE" value="neu"/>
+		<tag name="YEAR" value="2018-04-18T11:54"/>
+	</tags>
+	<wavetrack name="Voyager" channel="0" linked="1" mute="0" solo="0" height="150" minimized="0" isSelected="1" rate="48000" gain="1.0" pan="0.0" colorindex="0">
+		<waveclip offset="0.32437500" colorindex="0">
+			<sequence maxsamples="262144" sampleformat="262159" numsamples="1094530">
+				<waveblock start="0">
+					<simpleblockfile filename="e08088c4.au" len="262144" min="-1.67492" max="0.77995" rms="0.175522"/>
+				</waveblock>
+				<waveblock start="262144">
+					<simpleblockfile filename="e0808ed1.au" len="262144" min="-1.270902" max="0.932379" rms="0.192183"/>
+				</waveblock>
+				<waveblock start="524288">
+					<simpleblockfile filename="e0808dd3.au" len="262144" min="-1.177882" max="1.062609" rms="0.173261"/>
+				</waveblock>
+				<waveblock start="786432">
+					<simpleblockfile filename="e0808cde.au" len="154049" min="-1.578726" max="0.896518" rms="0.176333"/>
+				</waveblock>
+				<waveblock start="940481">
+					<simpleblockfile filename="e08080cc.au" len="154049" min="-1.583488" max="1.105988" rms="0.150357"/>
+				</waveblock>
+			</sequence>
+			<envelope numpoints="0"/>
+		</waveclip>
+		<waveclip offset="23.12708333" colorindex="0">
+			<sequence maxsamples="262144" sampleformat="262159" numsamples="6814">
+				<waveblock start="0">
+					<simpleblockfile filename="e08081c9.au" len="6814" min="-0.003984" max="0.003568" rms="0.001265"/>
+				</waveblock>
+			</sequence>
+			<envelope numpoints="0"/>
+		</waveclip>
+	</wavetrack>
+	<wavetrack name="Voyager" channel="1" linked="0" mute="0" solo="0" height="150" minimized="0" isSelected="1" rate="48000" gain="1.0" pan="0.0" colorindex="0">
+		<waveclip offset="0.32437500" colorindex="0">
+			<sequence maxsamples="262144" sampleformat="262159" numsamples="1094530">
+				<waveblock start="0">
+					<simpleblockfile filename="e08088c4.au" len="262144" min="-1.67492" max="0.77995" rms="0.175522"/>
+				</waveblock>
+				<waveblock start="262144">
+					<simpleblockfile filename="e0808ed1.au" len="262144" min="-1.270902" max="0.932379" rms="0.192183"/>
+				</waveblock>
+				<waveblock start="524288">
+					<simpleblockfile filename="e0808dd3.au" len="262144" min="-1.177882" max="1.062609" rms="0.173261"/>
+				</waveblock>
+				<waveblock start="786432">
+					<simpleblockfile filename="e0808ba5.au" len="154049" min="-1.578726" max="0.896518" rms="0.176333"/>
+				</waveblock>
+				<waveblock start="940481">
+					<simpleblockfile filename="e0808627.au" len="154049" min="-1.583488" max="1.105988" rms="0.150357"/>
+				</waveblock>
+			</sequence>
+			<envelope numpoints="0"/>
+		</waveclip>
+		<waveclip offset="23.12708333" colorindex="0">
+			<sequence maxsamples="262144" sampleformat="262159" numsamples="6814">
+				<waveblock start="0">
+					<simpleblockfile filename="e0808ab4.au" len="6814" min="-0.003984" max="0.003568" rms="0.001265"/>
+				</waveblock>
+			</sequence>
+			<envelope numpoints="0"/>
+		</waveclip>
+	</wavetrack>
+</project>

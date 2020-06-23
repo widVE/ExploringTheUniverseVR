@@ -1,0 +1,71 @@
+<?xml version="1.0" standalone="no" ?>
+<!DOCTYPE project PUBLIC "-//audacityproject-1.3.0//DTD//EN" "http://audacity.sourceforge.net/xml/audacityproject-1.3.0.dtd" >
+<project xmlns="http://audacity.sourceforge.net/xml/" projname="Voyager_data" version="1.3.0" audacityversion="2.2.2" sel0="0.0000000000" sel1="38.5000000000" vpos="0" h="0.0000000000" zoom="1.0517799353" rate="48000.0" snapto="off" selectionformat="hh:mm:ss + milliseconds" frequencyformat="Hz" bandwidthformat="octaves">
+	<tags>
+		<tag name="ARTIST" value="Viz"/>
+		<tag name="TITLE" value="Voyager"/>
+		<tag name="YEAR" value="2018-04-18T11:54"/>
+	</tags>
+	<wavetrack name="Virtual Reality Recording" channel="0" linked="1" mute="0" solo="0" height="150" minimized="0" isSelected="1" rate="48000" gain="1.0" pan="0.0" colorindex="0">
+		<waveclip offset="0.00000000" colorindex="0">
+			<sequence maxsamples="262144" sampleformat="262159" numsamples="1848000">
+				<waveblock start="0">
+					<simpleblockfile filename="e08004de.au" len="192800" min="-1.027943" max="1.021845" rms="0.148448"/>
+				</waveblock>
+				<waveblock start="192800">
+					<simpleblockfile filename="e0800a56.au" len="192800" min="-1.014547" max="0.999841" rms="0.146113"/>
+				</waveblock>
+				<waveblock start="385600">
+					<simpleblockfile filename="e0808195.au" len="262144" min="-1.009888" max="0.99873" rms="0.160745"/>
+				</waveblock>
+				<waveblock start="647744">
+					<simpleblockfile filename="e0808152.au" len="262144" min="-1.009985" max="1.008899" rms="0.164562"/>
+				</waveblock>
+				<waveblock start="909888">
+					<simpleblockfile filename="e080885e.au" len="262144" min="-0.996383" max="1.010938" rms="0.160184"/>
+				</waveblock>
+				<waveblock start="1172032">
+					<simpleblockfile filename="e0808e1f.au" len="262144" min="-1.017932" max="1.016347" rms="0.162614"/>
+				</waveblock>
+				<waveblock start="1434176">
+					<simpleblockfile filename="e080890d.au" len="262144" min="-1.015338" max="0.935112" rms="0.137936"/>
+				</waveblock>
+				<waveblock start="1696320">
+					<simpleblockfile filename="e080077a.au" len="151680" min="-0.865645" max="0.740704" rms="0.143191"/>
+				</waveblock>
+			</sequence>
+			<envelope numpoints="0"/>
+		</waveclip>
+	</wavetrack>
+	<wavetrack name="Virtual Reality Recording" channel="1" linked="0" mute="0" solo="0" height="150" minimized="0" isSelected="1" rate="48000" gain="1.0" pan="0.0" colorindex="0">
+		<waveclip offset="0.00000000" colorindex="0">
+			<sequence maxsamples="262144" sampleformat="262159" numsamples="1848000">
+				<waveblock start="0">
+					<simpleblockfile filename="e0800517.au" len="192800" min="-1.017129" max="1.012546" rms="0.146978"/>
+				</waveblock>
+				<waveblock start="192800">
+					<simpleblockfile filename="e0800894.au" len="192800" min="-1.015256" max="0.999427" rms="0.145104"/>
+				</waveblock>
+				<waveblock start="385600">
+					<simpleblockfile filename="e0808abb.au" len="262144" min="-1.00601" max="0.995524" rms="0.159756"/>
+				</waveblock>
+				<waveblock start="647744">
+					<simpleblockfile filename="e0808c54.au" len="262144" min="-1.00371" max="1.00306" rms="0.163488"/>
+				</waveblock>
+				<waveblock start="909888">
+					<simpleblockfile filename="e08088de.au" len="262144" min="-0.997565" max="1.011909" rms="0.158815"/>
+				</waveblock>
+				<waveblock start="1172032">
+					<simpleblockfile filename="e0808455.au" len="262144" min="-1.014661" max="1.021194" rms="0.161346"/>
+				</waveblock>
+				<waveblock start="1434176">
+					<simpleblockfile filename="e0808105.au" len="262144" min="-1.015338" max="0.927572" rms="0.136983"/>
+				</waveblock>
+				<waveblock start="1696320">
+					<simpleblockfile filename="e0800257.au" len="151680" min="-0.851624" max="0.739502" rms="0.141971"/>
+				</waveblock>
+			</sequence>
+			<envelope numpoints="0"/>
+		</waveclip>
+	</wavetrack>
+</project>

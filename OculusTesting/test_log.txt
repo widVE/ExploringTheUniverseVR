@@ -1,0 +1,1315 @@
+INFO: Starting TestSdkVersion
+INFO: SDK version detected 1.28 for processId 0x412c
+
+INFO: SDK version detected 1.28 for processId 0x412c
+
+INFO: Engine Identification for processId 0x412c
+	EngineName: Unity
+	EnginePluginName: OVRPlugin
+	EnginePluginVersion: 1.30.0
+	EngineVersion: 2019.1.8.7944413
+ERROR: Transient internal error occurred. Please try running the test again.
+If issue persists after several re-runs, please report it at
+https://developer.oculus.com/bugs/
+INFO: Cleaning up...
+ERROR: Could not quit application gracefully in 20.000000 seconds, force quitting
+INFO: Test FAILED
+
+INFO: *** Retrying the test ***
+INFO: Starting TestSdkVersion
+INFO: SDK version detected 1.28 for processId 0x42f0
+
+ERROR: Failed to launch the app
+INFO: Cleaning up...
+ERROR: Could not quit application gracefully in 20.000000 seconds, force quitting
+============================= 2019-07-03 09:53:35 ==============================
+INFO: Starting TestSdkVersion
+INFO: SDK version detected 1.28 for processId 0x4300
+
+INFO: SDK version detected 1.28 for processId 0x4300
+
+INFO: Engine Identification for processId 0x4300
+	EngineName: Unity
+	EnginePluginName: OVRPlugin
+	EnginePluginVersion: 1.30.0
+	EngineVersion: 2019.1.8.7944413
+INFO: Cleaning up...
+INFO: Test PASSED
+
+INFO: Starting TestEntitlementCheck
+INFO: Implementation of Entitlement Check is recommended.
+INFO: Please refer to VRC Guidelines: https://developer.oculus.com/distribute/latest/concepts/vrc-pc-security-1/
+INFO: Cleaning up...
+INFO: Test PASSED
+
+INFO: Starting TestOculusDLLIncludes
+============================= 2019-07-03 10:19:35 ==============================
+INFO: Starting TestSdkVersion
+INFO: SDK version detected 1.28 for processId 0x4948
+
+INFO: SDK version detected 1.28 for processId 0x4948
+
+INFO: Engine Identification for processId 0x4948
+	EngineName: Unity
+	EnginePluginName: OVRPlugin
+	EnginePluginVersion: 1.30.0
+	EngineVersion: 2019.1.8.7944413
+INFO: Cleaning up...
+INFO: Test PASSED
+
+INFO: Starting TestEntitlementCheck
+INFO: Implementation of Entitlement Check is recommended.
+INFO: Please refer to VRC Guidelines: https://developer.oculus.com/distribute/latest/concepts/vrc-pc-security-1/
+INFO: Cleaning up...
+INFO: Test PASSED
+
+INFO: Starting TestOculusDLLIncludes
+INFO: Enumerating the DLLs loaded by the application and verifying that Oculus DLLs are loaded from the Oculus runtime directory.
+INFO: Cleaning up...
+INFO: Test PASSED
+
+INFO: Starting TestLaunchIntoVR
+INFO: Time taken to submit the first frame: 0.297866 seconds
+INFO: Cleaning up...
+INFO: Test PASSED
+
+INFO: Starting TestFrameRate
+INFO: Waiting for the application to run for 5 seconds before testing begins...
+INFO: Starting test...
+INFO: Average FPS: 60.917031
+INFO: You can use Lost Frame Capture tool to diagnose frame rate issues.
+ERROR: The application did not maintain enough frame rate.
+INFO: Please refer to VRC Guidelines: https://developer.oculus.com/distribute/latest/concepts/vrc-pc-performance-3/
+INFO: Cleaning up...
+INFO: Test FAILED
+
+INFO: Starting TestSubmitFramesWhenVisible
+============================= 2019-07-03 10:22:01 ==============================
+INFO: Starting TestSdkVersion
+INFO: SDK version detected 1.28 for processId 0x4a40
+
+INFO: SDK version detected 1.28 for processId 0x4a40
+
+INFO: Engine Identification for processId 0x4a40
+	EngineName: Unity
+	EnginePluginName: OVRPlugin
+	EnginePluginVersion: 1.30.0
+	EngineVersion: 2019.1.8.7944413
+INFO: Cleaning up...
+INFO: Test PASSED
+
+INFO: Starting TestEntitlementCheck
+INFO: Implementation of Entitlement Check is recommended.
+INFO: Please refer to VRC Guidelines: https://developer.oculus.com/distribute/latest/concepts/vrc-pc-security-1/
+INFO: Cleaning up...
+INFO: Test PASSED
+
+INFO: Starting TestOculusDLLIncludes
+INFO: Enumerating the DLLs loaded by the application and verifying that Oculus DLLs are loaded from the Oculus runtime directory.
+INFO: Cleaning up...
+INFO: Test PASSED
+
+INFO: Starting TestLaunchIntoVR
+INFO: Time taken to submit the first frame: 0.277662 seconds
+INFO: Cleaning up...
+INFO: Test PASSED
+
+INFO: Starting TestFrameRate
+INFO: Waiting for the application to run for 5 seconds before testing begins...
+INFO: Starting test...
+INFO: Average FPS: 59.943925
+INFO: You can use Lost Frame Capture tool to diagnose frame rate issues.
+ERROR: The application did not maintain enough frame rate.
+INFO: Please refer to VRC Guidelines: https://developer.oculus.com/distribute/latest/concepts/vrc-pc-performance-3/
+INFO: Cleaning up...
+INFO: Test FAILED
+
+INFO: Starting TestSubmitFramesWhenVisible
+INFO: Waiting for the application to run for 5 seconds before testing begins...
+INFO: Starting test...
+INFO: Number of texture swap chains committed when visible 528
+INFO: Number of texture swap chains committed when not visible 0
+INFO: Cleaning up...
+INFO: Test PASSED
+
+INFO: Starting TestSubmitFramesWhenNotVisible
+INFO: Waiting for the application to run for 5 seconds before testing begins...
+ERROR: Transient internal error occurred. Please try running the test again.
+If issue persists after several re-runs, please report it at
+https://developer.oculus.com/bugs/
+INFO: Cleaning up...
+INFO: Test FAILED
+
+INFO: *** Retrying the test ***
+INFO: Starting TestSubmitFramesWhenNotVisible
+INFO: Waiting for the application to run for 5 seconds before testing begins...
+INFO: Starting test...
+INFO: Requesting the void...
+INFO: Number of texture swap chains committed when visible 0
+INFO: Number of texture swap chains committed when not visible 0
+INFO: Cleaning up...
+INFO: Test PASSED
+
+INFO: Starting TestResponseToRecenterRequest
+ERROR: Transient internal error occurred. Please try running the test again.
+If issue persists after several re-runs, please report it at
+https://developer.oculus.com/bugs/
+INFO: Cleaning up...
+ERROR: Could not quit application gracefully in 20.000000 seconds, force quitting
+INFO: Test FAILED
+
+INFO: *** Retrying the test ***
+INFO: Starting TestResponseToRecenterRequest
+INFO: Waiting for the application to run for 5 seconds before testing begins...
+INFO: Starting test...
+INFO: Sending a request to recenter...
+ERROR: Failed to receive a call for ovr_RecenterTrackingOrigin or ovr_ClearShouldRecenterFlag within 1 second of recentering request
+INFO: Please refer to VRC Guidelines: https://developer.oculus.com/distribute/latest/concepts/vrc-pc-input-3/
+INFO: Cleaning up...
+INFO: Test FAILED
+
+INFO: Starting TestAppShouldQuit
+INFO: Waiting for the application to run for 5 seconds before testing begins...
+INFO: Starting test...
+INFO: Sending a request to quit...
+INFO: Application successfully called ovr_Destroy on request to quit
+INFO: Cleaning up...
+INFO: Test PASSED
+
+INFO: Starting CheckForExtraneousFiles
+ERROR: Found pdb file(s) that need to be removed from submission package:
+ERROR:    D:\PolarVR\OculusTesting\test_build\PVRE IceCube VR_Data\Managed\Assembly-CSharp.pdb
+ERROR:    D:\PolarVR\OculusTesting\test_build\PVRE IceCube VR_Data\Managed\com.unity.multiplayer-hlapi.Runtime.pdb
+ERROR:    D:\PolarVR\OculusTesting\test_build\PVRE IceCube VR_Data\Managed\Unity.Analytics.DataPrivacy.pdb
+ERROR:    D:\PolarVR\OculusTesting\test_build\PVRE IceCube VR_Data\Managed\Unity.TextMeshPro.pdb
+ERROR:    D:\PolarVR\OculusTesting\test_build\PVRE IceCube VR_Data\Managed\Unity.Timeline.pdb
+ERROR:    D:\PolarVR\OculusTesting\test_build\PVRE IceCube VR_Data\Managed\UnityEngine.SpatialTracking.pdb
+ERROR:    D:\PolarVR\OculusTesting\test_build\PVRE IceCube VR_Data\Managed\UnityEngine.XR.LegacyInputHelpers.pdb
+INFO: Please refer to VRC Guidelines: https://developer.oculus.com/distribute/latest/concepts/vrc-pc-security-3/
+INFO: Cleaning up...
+INFO: Test FAILED
+
+INFO: Starting TestAudioOutput
+ERROR: Rift Audio device can not be found!
+INFO: Cleaning up...
+INFO: Test FAILED
+
+INFO: Summary:
+INFO: TestSdkVersion: Passed
+INFO: TestEntitlementCheck: Passed
+INFO: TestOculusDLLIncludes: Passed
+INFO: TestLaunchIntoVR: Passed
+INFO: TestFrameRate: Failed
+INFO: TestSubmitFramesWhenVisible: Passed
+INFO: TestSubmitFramesWhenNotVisible: Failed
+INFO: TestSubmitFramesWhenNotVisible: Passed
+INFO: TestResponseToRecenterRequest: Failed
+INFO: TestResponseToRecenterRequest: Failed
+INFO: TestAppShouldQuit: Passed
+INFO: CheckForExtraneousFiles: Failed
+INFO: TestAudioOutput: Failed
+INFO: Generated by OculusVRCValidator version 1.38.0.0
+============================= 2019-07-03 10:30:01 ==============================
+INFO: Starting TestSdkVersion
+INFO: SDK version detected 1.28 for processId 0x1894
+
+INFO: SDK version detected 1.28 for processId 0x1894
+
+INFO: Engine Identification for processId 0x1894
+	EngineName: Unity
+	EnginePluginName: OVRPlugin
+	EnginePluginVersion: 1.30.0
+	EngineVersion: 2019.1.8.7944413
+INFO: Cleaning up...
+INFO: Test PASSED
+
+INFO: Summary:
+INFO: TestSdkVersion: Passed
+INFO: Generated by OculusVRCValidator version 1.38.0.0
+============================= 2019-07-03 10:37:18 ==============================
+INFO: Starting TestAudioOutput
+ERROR: Rift Audio device can not be found!
+INFO: Cleaning up...
+INFO: Test FAILED
+
+INFO: Summary:
+INFO: TestAudioOutput: Failed
+INFO: Generated by OculusVRCValidator version 1.38.0.0
+============================= 2019-07-03 10:37:28 ==============================
+INFO: Starting TestAudioOutput
+ERROR: Rift Audio device can not be found!
+INFO: Cleaning up...
+INFO: Test FAILED
+
+INFO: Summary:
+INFO: TestAudioOutput: Failed
+INFO: Generated by OculusVRCValidator version 1.38.0.0
+============================= 2019-07-03 10:37:32 ==============================
+INFO: Starting TestAudioOutput
+ERROR: Rift Audio device can not be found!
+INFO: Cleaning up...
+INFO: Test FAILED
+
+INFO: Summary:
+INFO: TestAudioOutput: Failed
+INFO: Generated by OculusVRCValidator version 1.38.0.0
+============================= 2019-07-03 10:37:48 ==============================
+INFO: Starting TestAudioOutput
+ERROR: Rift Audio device can not be found!
+INFO: Cleaning up...
+INFO: Test FAILED
+
+INFO: Summary:
+INFO: TestAudioOutput: Failed
+INFO: Generated by OculusVRCValidator version 1.38.0.0
+============================= 2019-07-03 10:38:28 ==============================
+INFO: Starting TestAudioOutput
+ERROR: Rift Audio device can not be found!
+INFO: Cleaning up...
+INFO: Test FAILED
+
+INFO: Summary:
+INFO: TestAudioOutput: Failed
+INFO: Generated by OculusVRCValidator version 1.38.0.0
+============================= 2019-07-03 10:38:39 ==============================
+INFO: Starting TestAudioOutput
+ERROR: Rift Audio device can not be found!
+INFO: Cleaning up...
+VERBOSE: Sending message to OAF: {"requestData":{"wearing_hmd":false},"requestName":"/hardware/set_proximity_sensor","sequenceId":"0"}
+VERBOSE: Response from OAF: {"messageType":"RESPONSE","payload":{"value":"OK"},"payloadType":"PLAIN_STRING","sequenceId":"0","timestamp":"1562168320000"}
+
+INFO: Test FAILED
+
+INFO: Summary:
+INFO: TestAudioOutput: Failed
+INFO: Generated by OculusVRCValidator version 1.38.0.0
+============================= 2019-07-03 10:38:51 ==============================
+INFO: Starting TestAudioOutput
+ERROR: Rift Audio device can not be found!
+INFO: Cleaning up...
+INFO: Test FAILED
+
+INFO: Summary:
+INFO: TestAudioOutput: Failed
+INFO: Generated by OculusVRCValidator version 1.38.0.0
+============================= 2019-07-03 10:49:12 ==============================
+INFO: Starting TestLaunchIntoVR
+INFO: Time taken to submit the first frame: 0.373306 seconds
+INFO: Cleaning up...
+INFO: Test PASSED
+
+INFO: Summary:
+INFO: TestLaunchIntoVR: Passed
+INFO: Generated by OculusVRCValidator version 1.38.0.0
+============================= 2019-07-03 10:55:53 ==============================
+INFO: Starting TestEntitlementCheck
+ERROR: Transient internal error occurred. Please try running the test again.
+If issue persists after several re-runs, please report it at
+https://developer.oculus.com/bugs/
+INFO: Implementation of Entitlement Check is recommended.
+INFO: Please refer to VRC Guidelines: https://developer.oculus.com/distribute/latest/concepts/vrc-pc-security-1/
+INFO: Cleaning up...
+INFO: Test PASSED
+
+INFO: Summary:
+INFO: TestEntitlementCheck: Passed
+INFO: Generated by OculusVRCValidator version 1.38.0.0
+============================= 2019-07-03 10:56:07 ==============================
+INFO: Starting TestEntitlementCheck
+INFO: Implementation of Entitlement Check is recommended.
+INFO: Please refer to VRC Guidelines: https://developer.oculus.com/distribute/latest/concepts/vrc-pc-security-1/
+INFO: Cleaning up...
+INFO: Test PASSED
+
+INFO: Summary:
+INFO: TestEntitlementCheck: Passed
+INFO: Generated by OculusVRCValidator version 1.38.0.0
+============================= 2019-07-03 10:58:00 ==============================
+INFO: Starting CheckForExtraneousFiles
+ERROR: Found pdb file(s) that need to be removed from submission package:
+ERROR:    D:\PolarVR\OculusTesting\test_build\PVRE IceCube VR_Data\Managed\Assembly-CSharp.pdb
+ERROR:    D:\PolarVR\OculusTesting\test_build\PVRE IceCube VR_Data\Managed\com.unity.multiplayer-hlapi.Runtime.pdb
+ERROR:    D:\PolarVR\OculusTesting\test_build\PVRE IceCube VR_Data\Managed\Unity.Analytics.DataPrivacy.pdb
+ERROR:    D:\PolarVR\OculusTesting\test_build\PVRE IceCube VR_Data\Managed\Unity.TextMeshPro.pdb
+ERROR:    D:\PolarVR\OculusTesting\test_build\PVRE IceCube VR_Data\Managed\Unity.Timeline.pdb
+ERROR:    D:\PolarVR\OculusTesting\test_build\PVRE IceCube VR_Data\Managed\UnityEngine.SpatialTracking.pdb
+ERROR:    D:\PolarVR\OculusTesting\test_build\PVRE IceCube VR_Data\Managed\UnityEngine.XR.LegacyInputHelpers.pdb
+INFO: Please refer to VRC Guidelines: https://developer.oculus.com/distribute/latest/concepts/vrc-pc-security-3/
+INFO: Cleaning up...
+INFO: Test FAILED
+
+INFO: Starting TestOculusDLLIncludes
+INFO: Enumerating the DLLs loaded by the application and verifying that Oculus DLLs are loaded from the Oculus runtime directory.
+INFO: Cleaning up...
+INFO: Test PASSED
+
+INFO: Summary:
+INFO: CheckForExtraneousFiles: Failed
+INFO: TestOculusDLLIncludes: Passed
+INFO: Generated by OculusVRCValidator version 1.38.0.0
+============================= 2019-07-03 11:00:16 ==============================
+INFO: Starting CheckForExtraneousFiles
+INFO: Cleaning up...
+INFO: Test PASSED
+
+INFO: Starting TestOculusDLLIncludes
+INFO: Enumerating the DLLs loaded by the application and verifying that Oculus DLLs are loaded from the Oculus runtime directory.
+INFO: Cleaning up...
+INFO: Test PASSED
+
+INFO: Summary:
+INFO: CheckForExtraneousFiles: Passed
+INFO: TestOculusDLLIncludes: Passed
+INFO: Generated by OculusVRCValidator version 1.38.0.0
+============================= 2019-07-03 11:01:55 ==============================
+INFO: Starting TestSubmitFramesWhenNotVisible
+INFO: Waiting for the application to run for 5 seconds before testing begins...
+ERROR: Transient internal error occurred. Please try running the test again.
+If issue persists after several re-runs, please report it at
+https://developer.oculus.com/bugs/
+INFO: Cleaning up...
+INFO: Test FAILED
+
+INFO: *** Retrying the test ***
+INFO: Starting TestSubmitFramesWhenNotVisible
+INFO: Waiting for the application to run for 5 seconds before testing begins...
+INFO: Starting test...
+INFO: Requesting the void...
+INFO: Number of texture swap chains committed when visible 0
+INFO: Number of texture swap chains committed when not visible 0
+INFO: Cleaning up...
+INFO: Test PASSED
+
+INFO: Summary:
+INFO: TestSubmitFramesWhenNotVisible: Failed
+INFO: TestSubmitFramesWhenNotVisible: Passed
+INFO: Generated by OculusVRCValidator version 1.38.0.0
+============================= 2019-08-01 11:36:09 ==============================
+INFO: Starting TestSdkVersion
+INFO: SDK version detected 1.28 for processId 0x4858
+
+INFO: SDK version detected 1.28 for processId 0x4858
+
+INFO: Engine Identification for processId 0x4858
+	EngineName: Unity
+	EnginePluginName: OVRPlugin
+	EnginePluginVersion: 1.30.0
+	EngineVersion: 2019.1.8.7944413
+INFO: Cleaning up...
+INFO: Test PASSED
+
+INFO: Starting TestEntitlementCheck
+INFO: Implementation of Entitlement Check is recommended.
+INFO: Please refer to VRC Guidelines: https://developer.oculus.com/distribute/latest/concepts/vrc-pc-security-1/
+INFO: Cleaning up...
+INFO: Test PASSED
+
+INFO: Starting TestOculusDLLIncludes
+INFO: Enumerating the DLLs loaded by the application and verifying that Oculus DLLs are loaded from the Oculus runtime directory.
+INFO: Cleaning up...
+INFO: Test PASSED
+
+INFO: Starting TestLaunchIntoVR
+INFO: Time taken to submit the first frame: 0.422072 seconds
+INFO: Cleaning up...
+INFO: Test PASSED
+
+INFO: Starting TestFrameRate
+INFO: Waiting for the application to run for 5 seconds before testing begins...
+INFO: Starting test...
+INFO: Average FPS: 54.969461
+INFO: You can use Lost Frame Capture tool to diagnose frame rate issues.
+ERROR: The application did not maintain enough frame rate.
+INFO: Please refer to VRC Guidelines: https://developer.oculus.com/distribute/latest/concepts/vrc-pc-performance-3/
+INFO: Cleaning up...
+INFO: Test FAILED
+
+INFO: Starting TestSubmitFramesWhenVisible
+INFO: Waiting for the application to run for 5 seconds before testing begins...
+INFO: Starting test...
+INFO: Number of texture swap chains committed when visible 0
+INFO: Number of texture swap chains committed when not visible 0
+ERROR: The application did not commit any texture swap chains
+INFO: Please refer to VRC Guidelines: https://developer.oculus.com/distribute/latest/concepts/publish-rift-app-submission/
+INFO: Cleaning up...
+INFO: Test FAILED
+
+INFO: Starting TestSubmitFramesWhenNotVisible
+INFO: Waiting for the application to run for 5 seconds before testing begins...
+INFO: Starting test...
+INFO: Requesting the void...
+INFO: Number of texture swap chains committed when visible 0
+INFO: Number of texture swap chains committed when not visible 0
+INFO: Cleaning up...
+INFO: Test PASSED
+
+INFO: Starting TestResponseToRecenterRequest
+INFO: Waiting for the application to run for 5 seconds before testing begins...
+INFO: Starting test...
+INFO: Sending a request to recenter...
+ERROR: Failed to receive a call for ovr_RecenterTrackingOrigin or ovr_ClearShouldRecenterFlag within 1 second of recentering request
+INFO: Please refer to VRC Guidelines: https://developer.oculus.com/distribute/latest/concepts/vrc-pc-input-3/
+INFO: Cleaning up...
+INFO: Test FAILED
+
+INFO: Starting TestAppShouldQuit
+INFO: Waiting for the application to run for 5 seconds before testing begins...
+INFO: Starting test...
+INFO: Sending a request to quit...
+INFO: Application successfully called ovr_Destroy on request to quit
+INFO: Cleaning up...
+INFO: Test PASSED
+
+INFO: Starting CheckForExtraneousFiles
+INFO: Cleaning up...
+INFO: Test PASSED
+
+INFO: Starting TestAudioOutput
+INFO: Disable audio mirroring
+INFO: Setting audio mode to Windows
+INFO: Waiting for the application to run for 5 seconds before testing begins...
+INFO: Starting test...
+INFO: Application played sound thru default audio device
+INFO: Setting audio mode to Rift
+INFO: Waiting for the application to run for 5 seconds before testing begins...
+INFO: Starting test...
+INFO: Application played sound thru Rift Audio device
+INFO: Cleaning up...
+INFO: Test PASSED
+
+INFO: Summary:
+INFO: TestSdkVersion: Passed
+INFO: TestEntitlementCheck: Passed
+INFO: TestOculusDLLIncludes: Passed
+INFO: TestLaunchIntoVR: Passed
+INFO: TestFrameRate: Failed
+INFO: TestSubmitFramesWhenVisible: Failed
+INFO: TestSubmitFramesWhenNotVisible: Passed
+INFO: TestResponseToRecenterRequest: Failed
+INFO: TestAppShouldQuit: Passed
+INFO: CheckForExtraneousFiles: Passed
+INFO: TestAudioOutput: Passed
+INFO: Generated by OculusVRCValidator version 1.39.0.0
+============================= 2019-08-01 11:43:28 ==============================
+INFO: Starting TestFrameRate
+INFO: Waiting for the application to run for 5 seconds before testing begins...
+INFO: Starting test...
+INFO: Average FPS: 54.419767
+INFO: You can use Lost Frame Capture tool to diagnose frame rate issues.
+ERROR: The application did not maintain enough frame rate.
+INFO: Please refer to VRC Guidelines: https://developer.oculus.com/distribute/latest/concepts/vrc-pc-performance-3/
+INFO: Cleaning up...
+INFO: Test FAILED
+
+INFO: Summary:
+INFO: TestFrameRate: Failed
+INFO: Generated by OculusVRCValidator version 1.39.0.0
+============================= 2019-08-01 11:44:20 ==============================
+INFO: Starting TestSubmitFramesWhenVisible
+INFO: Waiting for the application to run for 5 seconds before testing begins...
+INFO: Starting test...
+INFO: Number of texture swap chains committed when visible 0
+INFO: Number of texture swap chains committed when not visible 0
+ERROR: The application did not commit any texture swap chains
+INFO: Please refer to VRC Guidelines: https://developer.oculus.com/distribute/latest/concepts/publish-rift-app-submission/
+INFO: Cleaning up...
+INFO: Test FAILED
+
+INFO: Summary:
+INFO: TestSubmitFramesWhenVisible: Failed
+INFO: Generated by OculusVRCValidator version 1.39.0.0
+============================= 2019-08-02 10:51:16 ==============================
+INFO: Starting TestSdkVersion
+INFO: SDK version detected 1.28 for processId 0x477c
+
+INFO: SDK version detected 1.28 for processId 0x477c
+
+INFO: Engine Identification for processId 0x477c
+	EngineName: Unity
+	EnginePluginName: OVRPlugin
+	EnginePluginVersion: 1.30.0
+	EngineVersion: 2019.1.8.7944413
+INFO: Cleaning up...
+INFO: Test PASSED
+
+INFO: Starting TestEntitlementCheck
+INFO: Implementation of Entitlement Check is recommended.
+INFO: Please refer to VRC Guidelines: https://developer.oculus.com/distribute/latest/concepts/vrc-pc-security-1/
+INFO: Cleaning up...
+INFO: Test PASSED
+
+INFO: Starting TestOculusDLLIncludes
+INFO: Enumerating the DLLs loaded by the application and verifying that Oculus DLLs are loaded from the Oculus runtime directory.
+INFO: Cleaning up...
+INFO: Test PASSED
+
+INFO: Starting TestLaunchIntoVR
+INFO: Time taken to submit the first frame: 0.387469 seconds
+INFO: Cleaning up...
+INFO: Test PASSED
+
+INFO: Starting TestFrameRate
+INFO: Waiting for the application to run for 5 seconds before testing begins...
+INFO: Starting test...
+INFO: Average FPS: 52.237062
+INFO: You can use Lost Frame Capture tool to diagnose frame rate issues.
+ERROR: The application did not maintain enough frame rate.
+INFO: Please refer to VRC Guidelines: https://developer.oculus.com/distribute/latest/concepts/vrc-pc-performance-3/
+INFO: Cleaning up...
+INFO: Test FAILED
+
+INFO: Starting TestSubmitFramesWhenVisible
+INFO: Waiting for the application to run for 5 seconds before testing begins...
+INFO: Starting test...
+INFO: Number of texture swap chains committed when visible 0
+INFO: Number of texture swap chains committed when not visible 0
+ERROR: The application did not commit any texture swap chains
+INFO: Please refer to VRC Guidelines: https://developer.oculus.com/distribute/latest/concepts/publish-rift-app-submission/
+INFO: Cleaning up...
+INFO: Test FAILED
+
+INFO: Starting TestSubmitFramesWhenNotVisible
+INFO: Waiting for the application to run for 5 seconds before testing begins...
+INFO: Starting test...
+INFO: Requesting the void...
+INFO: Number of texture swap chains committed when visible 0
+INFO: Number of texture swap chains committed when not visible 0
+INFO: Cleaning up...
+INFO: Test PASSED
+
+INFO: Starting TestResponseToRecenterRequest
+INFO: Waiting for the application to run for 5 seconds before testing begins...
+INFO: Starting test...
+INFO: Sending a request to recenter...
+ERROR: Failed to receive a call for ovr_RecenterTrackingOrigin or ovr_ClearShouldRecenterFlag within 1 second of recentering request
+INFO: Please refer to VRC Guidelines: https://developer.oculus.com/distribute/latest/concepts/vrc-pc-input-3/
+INFO: Cleaning up...
+INFO: Test FAILED
+
+INFO: Starting TestAppShouldQuit
+INFO: Waiting for the application to run for 5 seconds before testing begins...
+INFO: Starting test...
+INFO: Sending a request to quit...
+INFO: Application successfully called ovr_Destroy on request to quit
+INFO: Cleaning up...
+INFO: Test PASSED
+
+INFO: Starting CheckForExtraneousFiles
+INFO: Cleaning up...
+INFO: Test PASSED
+
+INFO: Starting TestAudioOutput
+INFO: Disable audio mirroring
+INFO: Setting audio mode to Windows
+INFO: Waiting for the application to run for 5 seconds before testing begins...
+INFO: Starting test...
+INFO: Application played sound thru default audio device
+INFO: Setting audio mode to Rift
+INFO: Waiting for the application to run for 5 seconds before testing begins...
+INFO: Starting test...
+INFO: Application played sound thru Rift Audio device
+INFO: Cleaning up...
+INFO: Test PASSED
+
+INFO: Summary:
+INFO: TestSdkVersion: Passed
+INFO: TestEntitlementCheck: Passed
+INFO: TestOculusDLLIncludes: Passed
+INFO: TestLaunchIntoVR: Passed
+INFO: TestFrameRate: Failed
+INFO: TestSubmitFramesWhenVisible: Failed
+INFO: TestSubmitFramesWhenNotVisible: Passed
+INFO: TestResponseToRecenterRequest: Failed
+INFO: TestAppShouldQuit: Passed
+INFO: CheckForExtraneousFiles: Passed
+INFO: TestAudioOutput: Passed
+INFO: Generated by OculusVRCValidator version 1.39.0.0
+============================= 2019-08-02 10:54:23 ==============================
+INFO: Starting TestSubmitFramesWhenVisible
+INFO: Waiting for the application to run for 5 seconds before testing begins...
+INFO: Starting test...
+INFO: Number of texture swap chains committed when visible 0
+INFO: Number of texture swap chains committed when not visible 0
+ERROR: The application did not commit any texture swap chains
+INFO: Please refer to VRC Guidelines: https://developer.oculus.com/distribute/latest/concepts/publish-rift-app-submission/
+INFO: Cleaning up...
+INFO: Test FAILED
+
+INFO: Summary:
+INFO: TestSubmitFramesWhenVisible: Failed
+INFO: Generated by OculusVRCValidator version 1.39.0.0
+============================= 2019-08-02 10:54:51 ==============================
+INFO: Starting TestFrameRate
+INFO: Waiting for the application to run for 5 seconds before testing begins...
+INFO: Starting test...
+INFO: Average FPS: 54.090402
+INFO: You can use Lost Frame Capture tool to diagnose frame rate issues.
+ERROR: The application did not maintain enough frame rate.
+INFO: Please refer to VRC Guidelines: https://developer.oculus.com/distribute/latest/concepts/vrc-pc-performance-3/
+INFO: Cleaning up...
+INFO: Test FAILED
+
+INFO: Summary:
+INFO: TestFrameRate: Failed
+INFO: Generated by OculusVRCValidator version 1.39.0.0
+============================= 2019-08-02 10:58:50 ==============================
+INFO: Starting TestFrameRate
+INFO: Waiting for the application to run for 5 seconds before testing begins...
+INFO: Starting test...
+INFO: Starting measuring FPS at 1564761538 seconds since epoch
+INFO: Seconds elapsed: 0.000    FPS: 90.00
+INFO: Seconds elapsed: 0.500    FPS: 0.00
+INFO: Seconds elapsed: 1.000    FPS: 0.00
+INFO: Seconds elapsed: 1.501    FPS: 0.00
+INFO: Seconds elapsed: 2.001    FPS: 0.00
+INFO: Seconds elapsed: 2.501    FPS: 0.00
+INFO: Seconds elapsed: 3.001    FPS: 0.00
+INFO: Seconds elapsed: 3.501    FPS: 0.00
+INFO: Seconds elapsed: 4.001    FPS: 0.00
+INFO: Seconds elapsed: 4.501    FPS: 0.00
+INFO: Seconds elapsed: 5.002    FPS: 0.00
+INFO: Seconds elapsed: 5.502    FPS: 0.00
+INFO: Seconds elapsed: 6.002    FPS: 0.00
+INFO: Seconds elapsed: 6.502    FPS: 0.00
+INFO: Seconds elapsed: 7.002    FPS: 0.00
+INFO: Seconds elapsed: 7.502    FPS: 16.88
+INFO: Seconds elapsed: 8.002    FPS: 33.75
+INFO: Seconds elapsed: 8.502    FPS: 87.19
+INFO: Seconds elapsed: 9.002    FPS: 73.13
+INFO: Seconds elapsed: 9.502    FPS: 87.19
+INFO: Seconds elapsed: 10.002    FPS: 84.38
+INFO: Seconds elapsed: 10.502    FPS: 84.38
+INFO: Seconds elapsed: 11.002    FPS: 90.00
+INFO: Seconds elapsed: 11.502    FPS: 90.00
+INFO: Seconds elapsed: 12.002    FPS: 90.00
+INFO: Seconds elapsed: 12.502    FPS: 90.00
+INFO: Seconds elapsed: 13.002    FPS: 90.00
+INFO: Seconds elapsed: 13.502    FPS: 87.19
+INFO: Seconds elapsed: 14.002    FPS: 90.00
+INFO: Seconds elapsed: 14.502    FPS: 90.00
+INFO: Seconds elapsed: 15.003    FPS: 90.00
+INFO: Seconds elapsed: 15.503    FPS: 90.00
+INFO: Seconds elapsed: 16.003    FPS: 87.19
+INFO: Seconds elapsed: 16.503    FPS: 90.00
+INFO: Seconds elapsed: 17.003    FPS: 90.00
+INFO: Seconds elapsed: 17.503    FPS: 90.00
+INFO: Seconds elapsed: 18.004    FPS: 90.00
+INFO: Seconds elapsed: 18.504    FPS: 87.19
+INFO: Seconds elapsed: 19.004    FPS: 90.00
+INFO: Seconds elapsed: 19.504    FPS: 90.00
+INFO: Average FPS: 54.373947
+INFO: You can use Lost Frame Capture tool to diagnose frame rate issues.
+ERROR: The application did not maintain enough frame rate.
+INFO: Please refer to VRC Guidelines: https://developer.oculus.com/distribute/latest/concepts/vrc-pc-performance-3/
+INFO: Cleaning up...
+INFO: Test FAILED
+
+INFO: Summary:
+INFO: TestFrameRate: Failed
+INFO: Generated by OculusVRCValidator version 1.39.0.0
+============================= 2019-08-02 11:06:45 ==============================
+INFO: Starting TestFrameRate
+INFO: Waiting for the application to run for 5 seconds before testing begins...
+ERROR: Transient internal error occurred. Please try running the test again.
+If issue persists after several re-runs, please report it at
+https://developer.oculus.com/bugs/
+INFO: Cleaning up...
+INFO: Test FAILED
+
+INFO: *** Retrying the test ***
+INFO: Starting TestFrameRate
+INFO: Waiting for the application to run for 5 seconds before testing begins...
+INFO: Starting test...
+INFO: Starting measuring FPS at 1564762020 seconds since epoch
+INFO: Seconds elapsed: 0.000    FPS: 90.00
+INFO: Seconds elapsed: 0.500    FPS: 0.00
+INFO: Seconds elapsed: 1.000    FPS: 0.00
+INFO: Seconds elapsed: 1.500    FPS: 0.00
+INFO: Seconds elapsed: 2.000    FPS: 0.00
+INFO: Seconds elapsed: 2.500    FPS: 0.00
+INFO: Seconds elapsed: 3.000    FPS: 0.00
+INFO: Seconds elapsed: 3.500    FPS: 0.00
+INFO: Seconds elapsed: 4.000    FPS: 0.00
+INFO: Seconds elapsed: 4.500    FPS: 0.00
+INFO: Seconds elapsed: 5.000    FPS: 0.00
+INFO: Seconds elapsed: 5.501    FPS: 0.00
+INFO: Seconds elapsed: 6.001    FPS: 0.00
+INFO: Seconds elapsed: 6.501    FPS: 0.00
+INFO: Seconds elapsed: 7.001    FPS: 0.00
+INFO: Seconds elapsed: 7.501    FPS: 0.00
+INFO: Seconds elapsed: 8.001    FPS: 50.63
+INFO: Seconds elapsed: 8.501    FPS: 84.38
+INFO: Seconds elapsed: 9.001    FPS: 90.00
+INFO: Seconds elapsed: 9.501    FPS: 90.00
+INFO: Seconds elapsed: 10.001    FPS: 90.00
+INFO: Seconds elapsed: 10.501    FPS: 90.00
+INFO: Seconds elapsed: 11.001    FPS: 90.00
+INFO: Seconds elapsed: 11.501    FPS: 90.00
+INFO: Seconds elapsed: 12.001    FPS: 87.19
+INFO: Seconds elapsed: 12.501    FPS: 90.00
+INFO: Seconds elapsed: 13.001    FPS: 90.00
+INFO: Seconds elapsed: 13.501    FPS: 90.00
+INFO: Seconds elapsed: 14.001    FPS: 90.00
+INFO: Seconds elapsed: 14.501    FPS: 90.00
+INFO: Seconds elapsed: 15.002    FPS: 90.00
+INFO: Seconds elapsed: 15.502    FPS: 90.00
+INFO: Seconds elapsed: 16.002    FPS: 90.00
+INFO: Seconds elapsed: 16.502    FPS: 90.00
+INFO: Seconds elapsed: 17.002    FPS: 90.00
+INFO: Seconds elapsed: 17.502    FPS: 90.00
+INFO: Seconds elapsed: 18.002    FPS: 90.00
+INFO: Seconds elapsed: 18.502    FPS: 90.00
+INFO: Seconds elapsed: 19.002    FPS: 90.00
+INFO: Seconds elapsed: 19.502    FPS: 90.00
+INFO: Average FPS: 54.860957
+INFO: You can use Lost Frame Capture tool to diagnose frame rate issues.
+ERROR: The application did not maintain enough frame rate.
+INFO: Please refer to VRC Guidelines: https://developer.oculus.com/distribute/latest/concepts/vrc-pc-performance-3/
+INFO: Cleaning up...
+INFO: Test FAILED
+
+INFO: Summary:
+INFO: TestFrameRate: Failed
+INFO: TestFrameRate: Failed
+INFO: Generated by OculusVRCValidator version 1.39.0.0
+============================= 2019-08-02 11:10:02 ==============================
+INFO: Starting TestFrameRate
+INFO: Waiting for the application to run for 5 seconds before testing begins...
+INFO: Starting test...
+INFO: Starting measuring FPS at 1564762210 seconds since epoch
+INFO: Seconds elapsed: 0.000    FPS: 90.00
+INFO: Seconds elapsed: 0.501    FPS: 0.00
+INFO: Seconds elapsed: 1.001    FPS: 0.00
+INFO: Seconds elapsed: 1.501    FPS: 0.00
+INFO: Seconds elapsed: 2.001    FPS: 0.00
+INFO: Seconds elapsed: 2.501    FPS: 0.00
+INFO: Seconds elapsed: 3.001    FPS: 0.00
+INFO: Seconds elapsed: 3.501    FPS: 0.00
+INFO: Seconds elapsed: 4.001    FPS: 0.00
+INFO: Seconds elapsed: 4.501    FPS: 0.00
+INFO: Seconds elapsed: 5.002    FPS: 0.00
+INFO: Seconds elapsed: 5.502    FPS: 0.00
+INFO: Seconds elapsed: 6.002    FPS: 0.00
+INFO: Seconds elapsed: 6.502    FPS: 0.00
+INFO: Seconds elapsed: 7.002    FPS: 0.00
+INFO: Seconds elapsed: 7.502    FPS: 0.00
+INFO: Seconds elapsed: 8.002    FPS: 0.00
+INFO: Seconds elapsed: 8.502    FPS: 0.00
+INFO: Seconds elapsed: 9.002    FPS: 0.00
+INFO: Seconds elapsed: 9.502    FPS: 36.56
+INFO: Seconds elapsed: 10.002    FPS: 87.19
+INFO: Seconds elapsed: 10.502    FPS: 90.00
+INFO: Seconds elapsed: 11.002    FPS: 87.19
+INFO: Seconds elapsed: 11.502    FPS: 87.19
+INFO: Seconds elapsed: 12.005    FPS: 84.38
+INFO: Seconds elapsed: 12.506    FPS: 90.00
+INFO: Seconds elapsed: 13.007    FPS: 90.00
+INFO: Seconds elapsed: 13.507    FPS: 90.00
+INFO: Seconds elapsed: 14.007    FPS: 90.00
+INFO: Seconds elapsed: 14.507    FPS: 90.00
+INFO: Seconds elapsed: 15.008    FPS: 90.00
+INFO: Seconds elapsed: 15.508    FPS: 90.00
+INFO: Seconds elapsed: 16.009    FPS: 90.00
+INFO: Seconds elapsed: 16.509    FPS: 90.00
+INFO: Seconds elapsed: 17.009    FPS: 90.00
+INFO: Seconds elapsed: 17.509    FPS: 90.00
+INFO: Seconds elapsed: 18.009    FPS: 90.00
+INFO: Seconds elapsed: 18.509    FPS: 90.00
+INFO: Seconds elapsed: 19.009    FPS: 90.00
+INFO: Seconds elapsed: 19.509    FPS: 90.00
+INFO: Average FPS: 47.197558
+INFO: You can use Lost Frame Capture tool to diagnose frame rate issues.
+ERROR: The application did not maintain enough frame rate.
+INFO: Please refer to VRC Guidelines: https://developer.oculus.com/distribute/latest/concepts/vrc-pc-performance-3/
+INFO: Cleaning up...
+INFO: Test FAILED
+
+INFO: Summary:
+INFO: TestFrameRate: Failed
+INFO: Generated by OculusVRCValidator version 1.39.0.0
+============================= 2019-08-02 11:18:15 ==============================
+INFO: Starting TestFrameRate
+INFO: Waiting for the application to run for 5 seconds before testing begins...
+INFO: Starting test...
+INFO: Starting measuring FPS at 1564762703 seconds since epoch
+INFO: Seconds elapsed: 0.000    FPS: 90.00
+INFO: Seconds elapsed: 0.501    FPS: 0.00
+INFO: Seconds elapsed: 1.001    FPS: 0.00
+INFO: Seconds elapsed: 1.501    FPS: 0.00
+INFO: Seconds elapsed: 2.001    FPS: 0.00
+INFO: Seconds elapsed: 2.501    FPS: 0.00
+INFO: Seconds elapsed: 3.001    FPS: 0.00
+INFO: Seconds elapsed: 3.501    FPS: 0.00
+INFO: Seconds elapsed: 4.001    FPS: 0.00
+INFO: Seconds elapsed: 4.501    FPS: 0.00
+INFO: Seconds elapsed: 5.002    FPS: 0.00
+INFO: Seconds elapsed: 5.502    FPS: 0.00
+INFO: Seconds elapsed: 6.002    FPS: 0.00
+INFO: Seconds elapsed: 6.502    FPS: 0.00
+INFO: Seconds elapsed: 7.002    FPS: 0.00
+INFO: Seconds elapsed: 7.502    FPS: 0.00
+INFO: Seconds elapsed: 8.002    FPS: 59.06
+INFO: Seconds elapsed: 8.502    FPS: 87.19
+INFO: Seconds elapsed: 9.002    FPS: 73.13
+INFO: Seconds elapsed: 9.502    FPS: 81.56
+INFO: Seconds elapsed: 10.002    FPS: 73.13
+INFO: Seconds elapsed: 10.502    FPS: 90.00
+INFO: Seconds elapsed: 11.002    FPS: 90.00
+INFO: Seconds elapsed: 11.502    FPS: 90.00
+INFO: Seconds elapsed: 12.002    FPS: 90.00
+INFO: Seconds elapsed: 12.502    FPS: 90.00
+INFO: Seconds elapsed: 13.002    FPS: 90.00
+INFO: Seconds elapsed: 13.502    FPS: 87.19
+INFO: Seconds elapsed: 14.002    FPS: 90.00
+INFO: Seconds elapsed: 14.502    FPS: 90.00
+INFO: Seconds elapsed: 15.003    FPS: 90.00
+INFO: Seconds elapsed: 15.503    FPS: 90.00
+INFO: Seconds elapsed: 16.003    FPS: 90.00
+INFO: Seconds elapsed: 16.503    FPS: 90.00
+INFO: Seconds elapsed: 17.003    FPS: 90.00
+INFO: Seconds elapsed: 17.503    FPS: 90.00
+INFO: Seconds elapsed: 18.003    FPS: 90.00
+INFO: Seconds elapsed: 18.503    FPS: 90.00
+INFO: Seconds elapsed: 19.003    FPS: 90.00
+INFO: Seconds elapsed: 19.503    FPS: 90.00
+INFO: Average FPS: 54.230769
+INFO: You can use Lost Frame Capture tool to diagnose frame rate issues.
+ERROR: The application did not maintain enough frame rate.
+INFO: Please refer to VRC Guidelines: https://developer.oculus.com/distribute/latest/concepts/vrc-pc-performance-3/
+INFO: Cleaning up...
+INFO: Test FAILED
+
+INFO: Summary:
+INFO: TestFrameRate: Failed
+INFO: Generated by OculusVRCValidator version 1.39.0.0
+============================= 2019-08-02 13:23:44 ==============================
+INFO: Starting TestFrameRate
+INFO: Waiting for the application to run for 5 seconds before testing begins...
+INFO: Starting test...
+INFO: Starting measuring FPS at 1564770232 seconds since epoch
+INFO: Seconds elapsed: 0.001    FPS: 90.00
+INFO: Seconds elapsed: 0.501    FPS: 0.00
+INFO: Seconds elapsed: 1.001    FPS: 0.00
+INFO: Seconds elapsed: 1.501    FPS: 0.00
+INFO: Seconds elapsed: 2.001    FPS: 0.00
+INFO: Seconds elapsed: 2.501    FPS: 0.00
+INFO: Seconds elapsed: 3.001    FPS: 0.00
+INFO: Seconds elapsed: 3.501    FPS: 0.00
+INFO: Seconds elapsed: 4.001    FPS: 0.00
+INFO: Seconds elapsed: 4.501    FPS: 0.00
+INFO: Seconds elapsed: 5.002    FPS: 0.00
+INFO: Seconds elapsed: 5.502    FPS: 0.00
+INFO: Seconds elapsed: 6.002    FPS: 0.00
+INFO: Seconds elapsed: 6.502    FPS: 0.00
+INFO: Seconds elapsed: 7.002    FPS: 0.00
+INFO: Seconds elapsed: 7.502    FPS: 0.00
+INFO: Seconds elapsed: 8.002    FPS: 2.81
+INFO: Seconds elapsed: 8.502    FPS: 30.94
+INFO: Seconds elapsed: 9.002    FPS: 78.75
+INFO: Seconds elapsed: 9.502    FPS: 81.56
+INFO: Seconds elapsed: 10.002    FPS: 70.31
+INFO: Seconds elapsed: 10.503    FPS: 90.00
+INFO: Seconds elapsed: 11.003    FPS: 90.00
+INFO: Seconds elapsed: 11.503    FPS: 90.00
+INFO: Seconds elapsed: 12.003    FPS: 90.00
+INFO: Seconds elapsed: 12.503    FPS: 90.00
+INFO: Seconds elapsed: 13.003    FPS: 87.19
+INFO: Seconds elapsed: 13.503    FPS: 90.00
+INFO: Seconds elapsed: 14.003    FPS: 90.00
+INFO: Seconds elapsed: 14.503    FPS: 87.19
+INFO: Seconds elapsed: 15.004    FPS: 90.00
+INFO: Seconds elapsed: 15.504    FPS: 90.00
+INFO: Seconds elapsed: 16.004    FPS: 90.00
+INFO: Seconds elapsed: 16.504    FPS: 87.19
+INFO: Seconds elapsed: 17.004    FPS: 90.00
+INFO: Seconds elapsed: 17.504    FPS: 90.00
+INFO: Seconds elapsed: 18.004    FPS: 90.00
+INFO: Seconds elapsed: 18.504    FPS: 90.00
+INFO: Seconds elapsed: 19.004    FPS: 90.00
+INFO: Seconds elapsed: 19.504    FPS: 90.00
+INFO: Average FPS: 51.989166
+INFO: You can use Lost Frame Capture tool to diagnose frame rate issues.
+ERROR: The application did not maintain enough frame rate.
+INFO: Please refer to VRC Guidelines: https://developer.oculus.com/distribute/latest/concepts/vrc-pc-performance-3/
+INFO: Cleaning up...
+INFO: Test FAILED
+
+INFO: Summary:
+INFO: TestFrameRate: Failed
+INFO: Generated by OculusVRCValidator version 1.39.0.0
+============================= 2019-08-02 14:19:38 ==============================
+INFO: Starting TestFrameRate
+INFO: Waiting for the application to run for 5 seconds before testing begins...
+INFO: Starting test...
+INFO: Starting measuring FPS at 1564773586 seconds since epoch
+INFO: Seconds elapsed: 0.000    FPS: 90.00
+INFO: Seconds elapsed: 0.500    FPS: 0.00
+INFO: Seconds elapsed: 1.000    FPS: 61.88
+INFO: Seconds elapsed: 1.500    FPS: 78.75
+INFO: Seconds elapsed: 2.000    FPS: 78.75
+INFO: Seconds elapsed: 2.500    FPS: 81.56
+INFO: Seconds elapsed: 3.000    FPS: 84.38
+INFO: Seconds elapsed: 3.500    FPS: 90.00
+INFO: Seconds elapsed: 4.000    FPS: 90.00
+INFO: Seconds elapsed: 4.500    FPS: 90.00
+INFO: Seconds elapsed: 5.000    FPS: 90.00
+INFO: Seconds elapsed: 5.501    FPS: 90.00
+INFO: Seconds elapsed: 6.001    FPS: 90.00
+INFO: Seconds elapsed: 6.501    FPS: 90.00
+INFO: Seconds elapsed: 7.001    FPS: 90.00
+INFO: Seconds elapsed: 7.501    FPS: 90.00
+INFO: Seconds elapsed: 8.001    FPS: 90.00
+INFO: Seconds elapsed: 8.501    FPS: 90.00
+INFO: Seconds elapsed: 9.001    FPS: 90.00
+INFO: Seconds elapsed: 9.502    FPS: 90.00
+INFO: Seconds elapsed: 10.003    FPS: 90.00
+INFO: Seconds elapsed: 10.503    FPS: 90.00
+INFO: Seconds elapsed: 11.003    FPS: 90.00
+INFO: Seconds elapsed: 11.503    FPS: 90.00
+INFO: Seconds elapsed: 12.003    FPS: 90.00
+INFO: Seconds elapsed: 12.503    FPS: 78.75
+INFO: Seconds elapsed: 13.003    FPS: 90.00
+INFO: Seconds elapsed: 13.503    FPS: 90.00
+INFO: Seconds elapsed: 14.003    FPS: 90.00
+INFO: Seconds elapsed: 14.503    FPS: 90.00
+INFO: Seconds elapsed: 15.004    FPS: 90.00
+INFO: Seconds elapsed: 15.504    FPS: 90.00
+INFO: Seconds elapsed: 16.004    FPS: 90.00
+INFO: Seconds elapsed: 16.504    FPS: 90.00
+INFO: Seconds elapsed: 17.004    FPS: 90.00
+INFO: Seconds elapsed: 17.504    FPS: 87.19
+INFO: Seconds elapsed: 18.004    FPS: 90.00
+INFO: Seconds elapsed: 18.504    FPS: 90.00
+INFO: Seconds elapsed: 19.004    FPS: 90.00
+INFO: Seconds elapsed: 19.504    FPS: 90.00
+INFO: Average FPS: 85.367739
+INFO: You can use Lost Frame Capture tool to diagnose frame rate issues.
+INFO: Cleaning up...
+INFO: Test PASSED
+
+INFO: Summary:
+INFO: TestFrameRate: Passed
+INFO: Generated by OculusVRCValidator version 1.39.0.0
+============================= 2019-08-06 12:16:11 ==============================
+INFO: Starting TestFrameRate
+INFO: Waiting for the application to run for 5 seconds before testing begins...
+INFO: Starting test...
+INFO: Starting measuring FPS at 1565111779 seconds since epoch
+INFO: Seconds elapsed: 0.000    FPS: 90.00
+INFO: Seconds elapsed: 0.500    FPS: 64.69
+INFO: Seconds elapsed: 1.000    FPS: 81.56
+INFO: Seconds elapsed: 1.500    FPS: 81.56
+INFO: Seconds elapsed: 2.000    FPS: 78.75
+INFO: Seconds elapsed: 2.500    FPS: 87.19
+INFO: Seconds elapsed: 3.000    FPS: 87.19
+INFO: Seconds elapsed: 3.500    FPS: 81.56
+INFO: Seconds elapsed: 4.000    FPS: 81.56
+INFO: Seconds elapsed: 4.500    FPS: 78.75
+INFO: Seconds elapsed: 5.000    FPS: 81.56
+INFO: Seconds elapsed: 5.501    FPS: 84.38
+INFO: Seconds elapsed: 6.001    FPS: 78.75
+INFO: Seconds elapsed: 6.501    FPS: 73.13
+INFO: Seconds elapsed: 7.001    FPS: 87.19
+INFO: Seconds elapsed: 7.501    FPS: 73.13
+INFO: Seconds elapsed: 8.001    FPS: 78.75
+INFO: Seconds elapsed: 8.501    FPS: 81.56
+INFO: Seconds elapsed: 9.001    FPS: 90.00
+INFO: Seconds elapsed: 9.501    FPS: 90.00
+INFO: Seconds elapsed: 10.001    FPS: 90.00
+INFO: Seconds elapsed: 10.501    FPS: 87.19
+INFO: Seconds elapsed: 11.001    FPS: 90.00
+INFO: Seconds elapsed: 11.501    FPS: 90.00
+INFO: Seconds elapsed: 12.001    FPS: 90.00
+INFO: Seconds elapsed: 12.501    FPS: 90.00
+INFO: Seconds elapsed: 13.001    FPS: 90.00
+INFO: Seconds elapsed: 13.501    FPS: 90.00
+INFO: Seconds elapsed: 14.001    FPS: 90.00
+INFO: Seconds elapsed: 14.501    FPS: 90.00
+INFO: Seconds elapsed: 15.002    FPS: 81.56
+INFO: Seconds elapsed: 15.502    FPS: 90.00
+INFO: Seconds elapsed: 16.002    FPS: 90.00
+INFO: Seconds elapsed: 16.502    FPS: 90.00
+INFO: Seconds elapsed: 17.002    FPS: 90.00
+INFO: Seconds elapsed: 17.502    FPS: 90.00
+INFO: Seconds elapsed: 18.002    FPS: 90.00
+INFO: Seconds elapsed: 18.502    FPS: 90.00
+INFO: Seconds elapsed: 19.002    FPS: 90.00
+INFO: Seconds elapsed: 19.502    FPS: 90.00
+INFO: Average FPS: 85.463810
+INFO: You can use Lost Frame Capture tool to diagnose frame rate issues.
+INFO: Cleaning up...
+INFO: Test PASSED
+
+INFO: Summary:
+INFO: TestFrameRate: Passed
+INFO: Generated by OculusVRCValidator version 1.39.0.0
+============================= 2019-08-06 12:18:19 ==============================
+INFO: Starting TestSdkVersion
+INFO: SDK version detected 1.28 for processId 0x2ec8
+
+INFO: SDK version detected 1.28 for processId 0x2ec8
+
+INFO: Engine Identification for processId 0x2ec8
+	EngineName: Unity
+	EnginePluginName: OVRPlugin
+	EnginePluginVersion: 1.30.0
+	EngineVersion: 2019.1.8.7944413
+INFO: Cleaning up...
+INFO: Test PASSED
+
+INFO: Starting TestEntitlementCheck
+INFO: Implementation of Entitlement Check is recommended.
+INFO: Please refer to VRC Guidelines: https://developer.oculus.com/distribute/latest/concepts/vrc-pc-security-1/
+INFO: Cleaning up...
+INFO: Test PASSED
+
+INFO: Starting TestOculusDLLIncludes
+INFO: Enumerating the DLLs loaded by the application and verifying that Oculus DLLs are loaded from the Oculus runtime directory.
+INFO: Cleaning up...
+INFO: Test PASSED
+
+INFO: Starting TestLaunchIntoVR
+INFO: Time taken to submit the first frame: 0.100384 seconds
+INFO: Cleaning up...
+INFO: Test PASSED
+
+INFO: Starting TestFrameRate
+INFO: Waiting for the application to run for 5 seconds before testing begins...
+INFO: Starting test...
+INFO: Average FPS: 87.302997
+INFO: You can use Lost Frame Capture tool to diagnose frame rate issues.
+INFO: Cleaning up...
+INFO: Test PASSED
+
+INFO: Starting TestSubmitFramesWhenVisible
+INFO: Waiting for the application to run for 5 seconds before testing begins...
+INFO: Starting test...
+INFO: Number of texture swap chains committed when visible 902
+INFO: Number of texture swap chains committed when not visible 0
+INFO: Cleaning up...
+INFO: Test PASSED
+
+INFO: Starting TestSubmitFramesWhenNotVisible
+INFO: Waiting for the application to run for 5 seconds before testing begins...
+INFO: Starting test...
+INFO: Requesting the void...
+INFO: Number of texture swap chains committed when visible 36
+INFO: Number of texture swap chains committed when not visible 0
+INFO: Cleaning up...
+INFO: Test PASSED
+
+INFO: Starting TestResponseToRecenterRequest
+ERROR: Transient internal error occurred. Please try running the test again.
+If issue persists after several re-runs, please report it at
+https://developer.oculus.com/bugs/
+INFO: Cleaning up...
+ERROR: Could not quit application gracefully in 20.000000 seconds, force quitting
+INFO: Test FAILED
+
+INFO: *** Retrying the test ***
+INFO: Starting TestResponseToRecenterRequest
+INFO: Waiting for the application to run for 5 seconds before testing begins...
+INFO: Starting test...
+INFO: Sending a request to recenter...
+INFO: Application successfully handled the recentering request
+INFO: Cleaning up...
+INFO: Test PASSED
+
+INFO: Starting TestAppShouldQuit
+INFO: Waiting for the application to run for 5 seconds before testing begins...
+INFO: Starting test...
+INFO: Sending a request to quit...
+INFO: Application successfully called ovr_Destroy on request to quit
+INFO: Cleaning up...
+INFO: Test PASSED
+
+INFO: Starting CheckForExtraneousFiles
+INFO: Cleaning up...
+INFO: Test PASSED
+
+INFO: Starting TestAudioOutput
+INFO: Disable audio mirroring
+INFO: Setting audio mode to Windows
+INFO: Waiting for the application to run for 5 seconds before testing begins...
+INFO: Starting test...
+INFO: Application played sound thru default audio device
+INFO: Setting audio mode to Rift
+INFO: Waiting for the application to run for 5 seconds before testing begins...
+INFO: Starting test...
+INFO: Application played sound thru Rift Audio device
+INFO: Cleaning up...
+INFO: Test PASSED
+
+INFO: Summary:
+INFO: TestSdkVersion: Passed
+INFO: TestEntitlementCheck: Passed
+INFO: TestOculusDLLIncludes: Passed
+INFO: TestLaunchIntoVR: Passed
+INFO: TestFrameRate: Passed
+INFO: TestSubmitFramesWhenVisible: Passed
+INFO: TestSubmitFramesWhenNotVisible: Passed
+INFO: TestResponseToRecenterRequest: Failed
+INFO: TestResponseToRecenterRequest: Passed
+INFO: TestAppShouldQuit: Passed
+INFO: CheckForExtraneousFiles: Passed
+INFO: TestAudioOutput: Passed
+INFO: Generated by OculusVRCValidator version 1.39.0.0
+============================= 2019-08-06 12:22:19 ==============================
+INFO: Starting TestSdkVersion
+INFO: SDK version detected 1.28 for processId 0x5420
+
+INFO: SDK version detected 1.28 for processId 0x5420
+
+INFO: Engine Identification for processId 0x5420
+	EngineName: Unity
+	EnginePluginName: OVRPlugin
+	EnginePluginVersion: 1.30.0
+	EngineVersion: 2019.1.8.7944413
+INFO: Cleaning up...
+INFO: Test PASSED
+
+INFO: Starting TestEntitlementCheck
+INFO: Implementation of Entitlement Check is recommended.
+INFO: Please refer to VRC Guidelines: https://developer.oculus.com/distribute/latest/concepts/vrc-pc-security-1/
+INFO: Cleaning up...
+INFO: Test PASSED
+
+INFO: Starting TestOculusDLLIncludes
+INFO: Enumerating the DLLs loaded by the application and verifying that Oculus DLLs are loaded from the Oculus runtime directory.
+INFO: Cleaning up...
+INFO: Test PASSED
+
+INFO: Starting TestLaunchIntoVR
+INFO: Time taken to submit the first frame: 0.099681 seconds
+INFO: Cleaning up...
+INFO: Test PASSED
+
+INFO: Starting TestFrameRate
+INFO: Waiting for the application to run for 5 seconds before testing begins...
+INFO: Starting test...
+INFO: Average FPS: 86.701832
+INFO: You can use Lost Frame Capture tool to diagnose frame rate issues.
+INFO: Cleaning up...
+INFO: Test PASSED
+
+INFO: Starting TestSubmitFramesWhenVisible
+INFO: Waiting for the application to run for 5 seconds before testing begins...
+INFO: Starting test...
+INFO: Number of texture swap chains committed when visible 902
+INFO: Number of texture swap chains committed when not visible 0
+INFO: Cleaning up...
+INFO: Test PASSED
+
+INFO: Starting TestSubmitFramesWhenNotVisible
+INFO: Waiting for the application to run for 5 seconds before testing begins...
+INFO: Starting test...
+INFO: Requesting the void...
+INFO: Number of texture swap chains committed when visible 30
+INFO: Number of texture swap chains committed when not visible 0
+INFO: Cleaning up...
+INFO: Test PASSED
+
+INFO: Starting TestResponseToRecenterRequest
+ERROR: Transient internal error occurred. Please try running the test again.
+If issue persists after several re-runs, please report it at
+https://developer.oculus.com/bugs/
+INFO: Cleaning up...
+ERROR: Could not quit application gracefully in 20.000000 seconds, force quitting
+INFO: Test FAILED
+
+INFO: *** Retrying the test ***
+INFO: Starting TestResponseToRecenterRequest
+INFO: Waiting for the application to run for 5 seconds before testing begins...
+INFO: Starting test...
+INFO: Sending a request to recenter...
+INFO: Application successfully handled the recentering request
+INFO: Cleaning up...
+INFO: Test PASSED
+
+INFO: Starting TestAppShouldQuit
+INFO: Waiting for the application to run for 5 seconds before testing begins...
+INFO: Starting test...
+INFO: Sending a request to quit...
+INFO: Application successfully called ovr_Destroy on request to quit
+INFO: Cleaning up...
+INFO: Test PASSED
+
+INFO: Starting CheckForExtraneousFiles
+INFO: Cleaning up...
+INFO: Test PASSED
+
+INFO: Starting TestAudioOutput
+INFO: Disable audio mirroring
+INFO: Setting audio mode to Windows
+INFO: Waiting for the application to run for 5 seconds before testing begins...
+INFO: Starting test...
+INFO: Application played sound thru default audio device
+INFO: Setting audio mode to Rift
+INFO: Waiting for the application to run for 5 seconds before testing begins...
+INFO: Starting test...
+INFO: Application played sound thru Rift Audio device
+INFO: Cleaning up...
+INFO: Test PASSED
+
+INFO: Summary:
+INFO: TestSdkVersion: Passed
+INFO: TestEntitlementCheck: Passed
+INFO: TestOculusDLLIncludes: Passed
+INFO: TestLaunchIntoVR: Passed
+INFO: TestFrameRate: Passed
+INFO: TestSubmitFramesWhenVisible: Passed
+INFO: TestSubmitFramesWhenNotVisible: Passed
+INFO: TestResponseToRecenterRequest: Failed
+INFO: TestResponseToRecenterRequest: Passed
+INFO: TestAppShouldQuit: Passed
+INFO: CheckForExtraneousFiles: Passed
+INFO: TestAudioOutput: Passed
+INFO: Generated by OculusVRCValidator version 1.39.0.0
+============================= 2019-08-06 12:38:19 ==============================
+INFO: Starting TestResponseToRecenterRequest
+INFO: Waiting for the application to run for 5 seconds before testing begins...
+INFO: Starting test...
+INFO: Sending a request to recenter...
+INFO: Application successfully handled the recentering request
+INFO: Cleaning up...
+INFO: Test PASSED
+
+INFO: Summary:
+INFO: TestResponseToRecenterRequest: Passed
+INFO: Generated by OculusVRCValidator version 1.39.0.0
+============================= 2019-08-06 12:40:00 ==============================
+INFO: Starting TestAudioOutput
+INFO: Disable audio mirroring
+INFO: Setting audio mode to Windows
+INFO: Waiting for the application to run for 5 seconds before testing begins...
+INFO: Starting test...
+INFO: Application played sound thru default audio device
+INFO: Setting audio mode to Rift
+INFO: Waiting for the application to run for 5 seconds before testing begins...
+INFO: Starting test...
+INFO: Application played sound thru Rift Audio device
+INFO: Cleaning up...
+INFO: Test PASSED
+
+INFO: Summary:
+INFO: TestAudioOutput: Passed
+INFO: Generated by OculusVRCValidator version 1.39.0.0
+============================= 2019-08-06 12:40:50 ==============================
+INFO: Starting TestLaunchIntoVR
+INFO: Time taken to submit the first frame: 0.124203 seconds
+INFO: Cleaning up...
+INFO: Test PASSED
+
+INFO: Summary:
+INFO: TestLaunchIntoVR: Passed
+INFO: Generated by OculusVRCValidator version 1.39.0.0
+============================= 2019-08-06 12:43:19 ==============================
+INFO: Starting TestEntitlementCheck
+INFO: Implementation of Entitlement Check is recommended.
+INFO: Please refer to VRC Guidelines: https://developer.oculus.com/distribute/latest/concepts/vrc-pc-security-1/
+INFO: Cleaning up...
+INFO: Test PASSED
+
+INFO: Summary:
+INFO: TestEntitlementCheck: Passed
+INFO: Generated by OculusVRCValidator version 1.39.0.0
