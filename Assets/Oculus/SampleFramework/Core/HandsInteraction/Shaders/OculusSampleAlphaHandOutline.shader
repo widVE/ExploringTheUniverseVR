@@ -3,13 +3,13 @@
 Copyright (c) Facebook Technologies, LLC and its affiliates. All rights reserved.
 
 See SampleFramework license.txt for license terms.  Unless required by applicable law
-or agreed to in writing, the sample code is provided ìAS ISî WITHOUT WARRANTIES OR
+or agreed to in writing, the sample code is provided ‚ÄúAS IS‚Äù WITHOUT WARRANTIES OR
 CONDITIONS OF ANY KIND, either express or implied.  See the license for specific
 language governing permissions and limitations under the license.
 
 ************************************************************************************/
 
-Shader "Oculus Sample/Alpha Hand Outline" 
+Shader "Oculus Sample/Alpha Hand Outline"
 {
   Properties
   {
@@ -38,14 +38,14 @@ Shader "Oculus Sample/Alpha Hand Outline"
       #pragma fragment frag
       #include "UnityCG.cginc"
 
-      float4 vert(float4 vertex : POSITION) : SV_POSITION 
-      { 
-        return UnityObjectToClipPos(vertex); 
+      float4 vert(float4 vertex : POSITION) : SV_POSITION
+      {
+        return UnityObjectToClipPos(vertex);
       }
-      
+
       fixed4 frag() : SV_Target
-      { 
-        return 0; 
+      {
+        return 0;
       }
       ENDCG
     }
@@ -55,19 +55,6 @@ Shader "Oculus Sample/Alpha Hand Outline"
     // no deferred. support lightmaps and one light. use half vector instead of
     // view vector (less accurate but faster)
     #pragma surface surf BlinnPhong alpha:fade exclude_path:prepass noforwardadd halfasview nolightmap
-
-    inline fixed4
-    LightingBlinnPhong(SurfaceOutput s, fixed3 lightDir, fixed3 halfDir, fixed atten) {
-      fixed lambertianComp = max(0, dot(s.Normal, lightDir));
-      fixed nDotH = max(0, dot(s.Normal, halfDir));
-      fixed specularComp = pow(nDotH, s.Specular) * s.Gloss;
-
-      fixed4 finalColor;
-      finalColor.rgb =
-          (s.Albedo * _LightColor0.rgb * lambertianComp + _LightColor0.rgb * specularComp) * atten;
-      UNITY_OPAQUE_ALPHA(finalColor.a);
-      return finalColor;
-    }
 
     sampler2D _MainTex;
 
@@ -80,7 +67,7 @@ Shader "Oculus Sample/Alpha Hand Outline"
 
     #define ColorBlack half3(0, 0, 0)
     #define EmissionFactor (0.95)
-        
+
     fixed3 _ColorPrimary;
     fixed3 _ColorTop;
     fixed3 _ColorBottom;

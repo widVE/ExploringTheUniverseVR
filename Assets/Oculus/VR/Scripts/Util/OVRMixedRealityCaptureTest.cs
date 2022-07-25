@@ -1,3 +1,15 @@
+/************************************************************************************
+Copyright : Copyright (c) Facebook Technologies, LLC and its affiliates. All rights reserved.
+
+Your use of this SDK or tool is subject to the Oculus SDK License Agreement, available at
+https://developer.oculus.com/licenses/oculussdk/
+
+Unless required by applicable law or agreed to in writing, the Utilities SDK distributed
+under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF
+ANY KIND, either express or implied. See the License for the specific language governing
+permissions and limitations under the License.
+************************************************************************************/
+
 #if UNITY_ANDROID && !UNITY_EDITOR
 #define OVR_ANDROID_MRC
 #endif
@@ -63,8 +75,7 @@ public class OVRMixedRealityCaptureTest : MonoBehaviour {
 		{
 			OVRPlugin.CameraIntrinsics cameraIntrinsics;
 			OVRPlugin.CameraExtrinsics cameraExtrinsics;
-			OVRPlugin.Posef calibrationRawPose;
-			OVRPlugin.GetMixedRealityCameraInfo(0, out cameraExtrinsics, out cameraIntrinsics, out calibrationRawPose);
+			OVRPlugin.GetMixedRealityCameraInfo(0, out cameraExtrinsics, out cameraIntrinsics);
 			defaultFov = cameraIntrinsics.FOVPort;
 		}
 
@@ -117,6 +128,11 @@ public class OVRMixedRealityCaptureTest : MonoBehaviour {
 			OVRPose trackingSpacePose = trackingSpace.ToOVRPose(false);
 			OVRPose cameraPose = defaultExternalCamera.transform.ToOVRPose(false);
 			OVRPose relativePose = trackingSpacePose.Inverse() * cameraPose;
+#if OVR_ANDROID_MRC
+			OVRPose stageToLocalPose = OVRPlugin.GetTrackingTransformRelativePose(OVRPlugin.TrackingOrigin.Stage).ToOVRPose();
+			OVRPose localToStagePose = stageToLocalPose.Inverse();
+			relativePose = localToStagePose * relativePose;
+#endif
 			cameraExtrinsics.RelativePose = relativePose.ToPosef();
 		}
 		else
@@ -217,7 +233,10 @@ public class OVRMixedRealityCaptureTest : MonoBehaviour {
 				OVRPose trackingSpacePose = trackingSpace.ToOVRPose(false);
 				OVRPose cameraPose = transform.ToOVRPose(false);
 				OVRPose relativePose = trackingSpacePose.Inverse() * cameraPose;
-				OVRPlugin.Posef relativePosef = relativePose.ToPosef();
+				OVRPose stageToLocalPose = OVRPlugin.GetTrackingTransformRelativePose(OVRPlugin.TrackingOrigin.Stage).ToOVRPose();
+				OVRPose localToStagePose = stageToLocalPose.Inverse();
+				OVRPose relativePoseInStage = localToStagePose * relativePose;
+				OVRPlugin.Posef relativePosef = relativePoseInStage.ToPosef();
 				OVRPlugin.OverrideExternalCameraStaticPose(0, true, relativePosef);
 			}
 			else

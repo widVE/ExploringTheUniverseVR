@@ -1,12 +1,8 @@
 /************************************************************************************
 Copyright : Copyright (c) Facebook Technologies, LLC and its affiliates. All rights reserved.
 
-Licensed under the Oculus Utilities SDK License Version 1.31 (the "License"); you may not use
-the Utilities SDK except in compliance with the License, which is provided at the time of installation
-or download, or which otherwise accompanies this software in either electronic or hard copy form.
-
-You may obtain a copy of the License at
-https://developer.oculus.com/licenses/utilities-1.31
+Your use of this SDK or tool is subject to the Oculus SDK License Agreement, available at
+https://developer.oculus.com/licenses/oculussdk/
 
 Unless required by applicable law or agreed to in writing, the Utilities SDK distributed
 under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF
@@ -39,6 +35,8 @@ public class OVRMesh : MonoBehaviour
 	private MeshType _meshType = MeshType.None;
 	private Mesh _mesh;
 
+	public bool IsInitialized { get; private set; }
+
 	public Mesh Mesh
 	{
 		get { return _mesh; }
@@ -46,12 +44,6 @@ public class OVRMesh : MonoBehaviour
 
 	private void Awake()
 	{
-		if (_mesh != null)
-		{
-			// simply act as a mesh reference if a custom mesh is specified
-			return;
-		}
-
 		if (_dataProvider == null)
 		{
 			_dataProvider = GetComponent<IOVRMeshDataProvider>();
@@ -62,9 +54,34 @@ public class OVRMesh : MonoBehaviour
 			_meshType = _dataProvider.GetMeshType();
 		}
 
-		if (_meshType != MeshType.None)
+		if (ShouldInitialize())
 		{
 			Initialize(_meshType);
+		}
+	}
+
+	private bool ShouldInitialize()
+	{
+		if (IsInitialized)
+		{
+			return false;
+		}
+
+		if (_meshType == MeshType.None)
+		{
+			return false;
+		}
+		else if (_meshType == MeshType.HandLeft || _meshType == MeshType.HandRight)
+		{
+#if UNITY_EDITOR
+			return OVRInput.IsControllerConnected(OVRInput.Controller.Hands);
+#else
+			return true;
+#endif
+		}
+		else
+		{
+			return true;
 		}
 	}
 
@@ -78,7 +95,7 @@ public class OVRMesh : MonoBehaviour
 			var vertices = new Vector3[ovrpMesh.NumVertices];
 			for (int i = 0; i < ovrpMesh.NumVertices; ++i)
 			{
-				vertices[i] = ovrpMesh.VertexPositions[i].FromFlippedZVector3f();
+				vertices[i] = ovrpMesh.VertexPositions[i].FromFlippedXVector3f();
 			}
 			_mesh.vertices = vertices;
 
@@ -99,7 +116,7 @@ public class OVRMesh : MonoBehaviour
 			var normals = new Vector3[ovrpMesh.NumVertices];
 			for (int i = 0; i < ovrpMesh.NumVertices; ++i)
 			{
-				normals[i] = ovrpMesh.VertexNormals[i].FromFlippedZVector3f();
+				normals[i] = ovrpMesh.VertexNormals[i].FromFlippedXVector3f();
 			}
 			_mesh.normals = normals;
 
@@ -119,6 +136,19 @@ public class OVRMesh : MonoBehaviour
 				boneWeights[i].weight3 = currentBlendWeight.w;
 			}
 			_mesh.boneWeights = boneWeights;
+
+			IsInitialized = true;
 		}
 	}
+
+#if UNITY_EDITOR
+	private void Update()
+	{
+		if (ShouldInitialize())
+		{
+			Initialize(_meshType);
+		}
+	}
+#endif
+
 }

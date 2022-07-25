@@ -3556,10 +3556,10 @@ public class Main : MonoBehaviour
 		}
 
 		//recenter oculus
-		if (ovr_manager.usePositionTracking)
+		/*if (ovr_manager.usePositionTracking)
 		{
 			OVRManager.display.RecenterPose();
-		}
+		}*/
 
 		gaze_pt = new Vector3(1f, .8f, -1f).normalized;
 

@@ -1,10 +1,10 @@
 /************************************************************************************
 
-Copyright (c) Facebook Technologies, LLC and its affiliates. All rights reserved.  
+Copyright (c) Facebook Technologies, LLC and its affiliates. All rights reserved.
 
-See SampleFramework license.txt for license terms.  Unless required by applicable law 
-or agreed to in writing, the sample code is provided “AS IS” WITHOUT WARRANTIES OR 
-CONDITIONS OF ANY KIND, either express or implied.  See the license for specific 
+See SampleFramework license.txt for license terms.  Unless required by applicable law
+or agreed to in writing, the sample code is provided “AS IS” WITHOUT WARRANTIES OR
+CONDITIONS OF ANY KIND, either express or implied.  See the license for specific
 language governing permissions and limitations under the license.
 
 ************************************************************************************/
@@ -55,7 +55,6 @@ namespace OculusSampleFramework
             m_crosshairManager = FindObjectOfType<GrabManager>();
             m_mpb = new MaterialPropertyBlock();
             RefreshCrosshair();
-            m_mpb.SetColor(m_materialColorField, Color.white);
             m_renderer.SetPropertyBlock(m_mpb);
         }
 
@@ -70,23 +69,11 @@ namespace OculusSampleFramework
             if (m_materialColorField != null)
             {
                 m_renderer.GetPropertyBlock(m_mpb);
-                if (isGrabbed || !InRange) m_mpb.SetColor(m_materialColorField, Color.white);
+                if (isGrabbed || !InRange) m_mpb.SetColor(m_materialColorField, m_crosshairManager.OutlineColorOutOfRange);
                 else if (Targeted) m_mpb.SetColor(m_materialColorField, m_crosshairManager.OutlineColorHighlighted);
                 else m_mpb.SetColor(m_materialColorField, m_crosshairManager.OutlineColorInRange);
                 m_renderer.SetPropertyBlock(m_mpb);
             }
-        }
-
-        public void SetColor(Color focusColor)
-        {
-            m_mpb.SetColor(m_materialColorField, focusColor);
-            m_renderer.SetPropertyBlock(m_mpb);
-        }
-
-        public void ClearColor()
-        {
-            m_mpb.SetColor(m_materialColorField, Color.white);
-            m_renderer.SetPropertyBlock(m_mpb);
         }
     }
 }

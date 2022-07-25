@@ -1,10 +1,10 @@
 /************************************************************************************
 
-Copyright (c) Facebook Technologies, LLC and its affiliates. All rights reserved.  
+Copyright (c) Facebook Technologies, LLC and its affiliates. All rights reserved.
 
-See SampleFramework license.txt for license terms.  Unless required by applicable law 
-or agreed to in writing, the sample code is provided “AS IS” WITHOUT WARRANTIES OR 
-CONDITIONS OF ANY KIND, either express or implied.  See the license for specific 
+See SampleFramework license.txt for license terms.  Unless required by applicable law
+or agreed to in writing, the sample code is provided “AS IS” WITHOUT WARRANTIES OR
+CONDITIONS OF ANY KIND, either express or implied.  See the license for specific
 language governing permissions and limitations under the license.
 
 ************************************************************************************/
@@ -38,8 +38,8 @@ namespace OculusSampleFramework
 
 		private IEnumerator AttachToolsToHands(Transform[] toolObjects, bool isRightHand)
 		{
-			Hands handsObj = null;
-			while ((handsObj = Hands.Instance) == null || !handsObj.IsInitialized())
+			HandsManager handsManagerObj = null;
+			while ((handsManagerObj = HandsManager.Instance) == null || !handsManagerObj.IsInitialized())
 			{
 				yield return null;
 			}
@@ -53,9 +53,9 @@ namespace OculusSampleFramework
 
 			foreach (Transform toolObject in toolObjectSet)
 			{
-				Hand handToAttachTo =
-				  isRightHand ? handsObj.RightHand : handsObj.LeftHand;
-				while (handToAttachTo.Skeleton == null || handToAttachTo.Skeleton.Bones == null)
+				OVRSkeleton handSkeletonToAttachTo =
+				  isRightHand ? handsManagerObj.RightHandSkeleton : handsManagerObj.LeftHandSkeleton;
+				while (handSkeletonToAttachTo == null || handSkeletonToAttachTo.Bones == null)
 				{
 					yield return null;
 				}

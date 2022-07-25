@@ -1,10 +1,10 @@
 /************************************************************************************
 
-Copyright (c) Facebook Technologies, LLC and its affiliates. All rights reserved.  
+Copyright (c) Facebook Technologies, LLC and its affiliates. All rights reserved.
 
-See SampleFramework license.txt for license terms.  Unless required by applicable law 
-or agreed to in writing, the sample code is provided “AS IS” WITHOUT WARRANTIES OR 
-CONDITIONS OF ANY KIND, either express or implied.  See the license for specific 
+See SampleFramework license.txt for license terms.  Unless required by applicable law
+or agreed to in writing, the sample code is provided “AS IS” WITHOUT WARRANTIES OR
+CONDITIONS OF ANY KIND, either express or implied.  See the license for specific
 language governing permissions and limitations under the license.
 
 ************************************************************************************/
@@ -51,6 +51,7 @@ namespace OculusSampleFramework
 
         public Color OutlineColorInRange;
         public Color OutlineColorHighlighted;
+        public Color OutlineColorOutOfRange;
 
         void OnTriggerEnter(Collider otherCollider)
         {
