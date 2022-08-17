@@ -1,0 +1,234 @@
+// Each #kernel tells which function to compile; you can have many kernels
+#pragma kernel CSCapture
+#pragma kernel CSCompare
+#pragma kernel CSTexture
+#pragma kernel CSShow
+#pragma kernel CSUColor
+
+
+
+
+//Source  
+Texture2D<float4> SourceColor;
+Texture2D<float> SourceDepth;
+
+int SourceWidth;
+int SourceHeight;
+
+//Destination 
+RWTexture2D<float4> DestinationColor;
+RWTexture2D<float> DestinationDepth;
+
+int DestinationWidth;
+int DestinationHeight;
+
+//mat
+float4x4 inv, mat;
+
+//to store comparision results
+int simBufferIndex;
+RWStructuredBuffer<uint> simBuffer;
+
+[numthreads(8,8,1)]
+void CSCapture (uint3 id : SV_DispatchThreadID)
+{
+    // TODO: insert actual code here!
+    if ((id.x >= DestinationWidth) || (id.y >= DestinationHeight))
+        return;
+
+    int2  uv = int2(((SourceWidth)*id.x) / DestinationWidth, ((SourceHeight)*id.y) / DestinationHeight);
+
+    if ((uv.x >= SourceWidth) || (uv.y >= SourceHeight))
+        return;
+
+     DestinationColor[id.xy] = SourceColor[uv];
+     float depth = SourceDepth[uv];
+
+    
+     DestinationDepth[id.xy] = 1.0-depth;//(depth, 1-depth, 0, 1);
+}
+
+
+float4 pixelToPos(float3 p)
+{
+    float4 pixel = float4(0,0,0,1);
+    pixel.x = 2.0*(((float)p.x+.5) / (SourceWidth))-1.0;
+    pixel.y = 2.0*(((float)p.y+.5) / (SourceHeight))-1.0;
+    pixel.z = 2.0 * (p.z) - 1.0;
+
+    return mul(inv, pixel);
+}
+
+
+[numthreads(8,8,1)]
+void CSCompare (uint3 id : SV_DispatchThreadID)
+{
+    if ((id.x >= DestinationWidth) || (id.y >= DestinationHeight))
+        return;
+
+
+    float depth = DestinationDepth[id.xy];
+
+    float4 pos = pixelToPos(float3(id.xy, depth));
+
+    float4 pixel = mul(mat, pos);
+
+
+    if ((pixel.w > 0) && (pixel.x >= -pixel.w) && (pixel.x <= pixel.w) &&
+        (pixel.y >= -pixel.w) && (pixel.y <= pixel.w) //&&
+      //  (pixel.z >= -pixel.w) && (pixel.z <= pixel.w)
+        )
+    {
+         pixel/=pixel.w;
+        //put it into pixel space
+        pixel.x = (0.5*(pixel.x+1.0)) * (DestinationWidth);
+        pixel.y = (0.5*(pixel.y+1.0)) * (DestinationHeight);
+        pixel.z = (0.5*(pixel.z+1.0));
+
+
+        //check a quick window for aliasing?
+        bool match = false;
+        for (int x = -1; x<=1; x++)
+        for (int y = -1; y<=1; y++)
+        {
+            int2 lu = pixel.xy + int2(x,y);
+
+            if ((lu.x >=0) && (lu.y >=0) && (lu.x < SourceWidth) && (lu.x < SourceHeight))
+            {
+                    float currentZ= SourceDepth[lu];
+
+                    float lcz = (currentZ);
+                    float lpz = (pixel.z);
+
+                    if (distance(lcz, lpz) < .001)
+                    {
+                        match=true;
+                        break;
+                    }
+            }
+        }
+
+
+        if (match)
+        {
+             if (simBufferIndex >= 0)
+                InterlockedAdd(simBuffer[simBufferIndex], 1);
+        }
+//#ifdef DEBUG_COLORS
+//        else
+//            DestinationColor[id.xy] += float4(0,0,1,1);
+//#endif
+
+    }
+    else
+    {
+   // #ifdef DEBUG_COLORS
+   //        // DestinationColor[id.xy] *= shade;
+   //          DestinationColor[id.xy] += float4(1,0,0,1);
+   // #endif
+    }
+
+}
+
+
+[numthreads(8,8,1)]
+void CSTexture (uint3 id : SV_DispatchThreadID)
+{
+    if ((id.x >= DestinationWidth) || (id.y >= DestinationHeight))
+        return;
+
+    int index = id.x + id.y*DestinationWidth;
+
+    uint iv = simBuffer[index];
+
+    float value = iv / float(SourceWidth*SourceHeight);
+
+    DestinationColor[id.xy] = float4(value,0,1-value,1);
+}
+
+
+
+[numthreads(8,8,1)]
+void CSShow (uint3 id : SV_DispatchThreadID)
+{
+    if ((id.x >= DestinationWidth) || (id.y >= DestinationHeight))
+        return;
+
+
+    float depth = DestinationDepth[id.xy];
+
+    float4 pos = pixelToPos(float3(id.xy, depth));
+
+    float4 pixel = mul(mat, pos);
+
+
+    if ((pixel.w > 0) && (pixel.x >= -pixel.w) && (pixel.x <= pixel.w) &&
+        (pixel.y >= -pixel.w) && (pixel.y <= pixel.w) //&&
+      //  (pixel.z >= -pixel.w) && (pixel.z <= pixel.w)
+        )
+    {
+         pixel/=pixel.w;
+        //put it into pixel space
+        pixel.x = (0.5*(pixel.x+1.0)) * (DestinationWidth);
+        pixel.y = (0.5*(pixel.y+1.0)) * (DestinationHeight);
+        pixel.z = (0.5*(pixel.z+1.0));
+
+
+        //check a quick window for aliasing?
+        bool match = false;
+        int x=0;
+        int y=0;
+        for (int x = -1; x<=1; x++)
+        for (int y = -1; y<=1; y++)
+        {
+            int2 lu = pixel.xy + int2(x,y);
+
+            if ((lu.x >=0) && (lu.y >=0) && (lu.x < SourceWidth) && (lu.x < SourceHeight))
+            {
+                    float currentZ= SourceDepth[lu];
+
+                    float lcz = (currentZ);
+                    float lpz = (pixel.z);
+
+                    if (distance(lcz, lpz) < .001)
+                    {
+                        match=true;
+                        break;
+                    }
+            }
+        }
+
+
+        if (!match)
+        {
+            DestinationColor[id.xy] += float4(0,0,1,1);
+        }
+
+    }
+    else
+    {
+             DestinationColor[id.xy] += float4(1,0,0,1);
+    }
+
+}
+
+RWTexture2D<uint> UColor;
+
+[numthreads(8,8,1)]
+void CSUColor (uint3 id : SV_DispatchThreadID)
+{
+    if ((id.x >= DestinationWidth) || (id.y >= DestinationHeight))
+        return;
+    float depth = SourceColor[id.xy].x;
+
+    uint u = asuint(depth);
+
+    uint4 color;
+    color.x = 255;//u & 0x000000FF;
+    color.y = 0;//(u & 0x0000FF00) >> 8;
+    color.z = 0;//(u & 0x0000FF00) >> 16;
+    color.w = 255;//(u & 0x0000FF00) >> 24;
+
+    UColor[id.xy] = color;
+    
+}
