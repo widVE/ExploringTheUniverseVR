@@ -1,3 +1,5 @@
+#define SRP
+
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -10,7 +12,7 @@ using System.IO;
 using UnityEngine;
 using UnityEditor;
 
-
+using Firebase.Storage;
 using ViewSim;
 
 public class ViewSimSys : MonoBehaviour
@@ -41,75 +43,8 @@ public class ViewSimSys : MonoBehaviour
 
     public string CameraLog;
 
-
-    [Serializable]
-    public class TT
-    {
-        public float time;
-        public Vector3 position;
-        public Quaternion rotation;
-
-        public void set(Camera cam)
-        {
-            time = Time.time;
-            rotation = cam.transform.rotation;
-            position = cam.transform.position;
-        }
-
-
-
-        public void WriteData(BinaryWriter binaryWriter)
-        {
-            binaryWriter.Write(time);
-            binaryWriter.Write(position.x);
-            binaryWriter.Write(position.y);
-            binaryWriter.Write(position.z);
-        }
-
-        public void ReadData(BinaryReader binaryReader)
-        {
-            time = binaryReader.ReadSingle();
-            position.x = binaryReader.ReadSingle();
-            position.y = binaryReader.ReadSingle();
-            position.z = binaryReader.ReadSingle();
-        }
-
-    };
-
-
-    public List<TT> captureTT = new List<TT>();
-    public List<TT> replayTT = new List<TT>();
-
-    public void StoreCaptureTT(string filename)
-    {
-
-        using (var stream = File.Open(filename, FileMode.Create))
-        {
-            using (var bw = new BinaryWriter(stream))
-            {
-                foreach (TT tt in captureTT)
-                {
-                    tt.WriteData(bw);
-                }
-            }
-        }
-    }
-
-    public void LoadReplayTT(string filename)
-    {
-        using (BinaryReader br = new BinaryReader(File.Open(filename,
-FileMode.Open)))
-        {
-            while (br.BaseStream.Position != br.BaseStream.Length)
-            {
-                TT tt = new TT();
-                tt.ReadData(br);
-                replayTT.Add(tt);
-            }
-        }
-    }
-
-
+    public Viewpoint testView;
+    
     //public ViewSim.ListBuffer<Viewpoint> viewpoints;
 
     public ViewSim.ListBuffer<Viewpoint> viewpointsL1;
@@ -216,22 +151,36 @@ FileMode.Open)))
     {
         foreach (Viewpoint viewpoint in viewpoints)
         {
-
+			
+#if UNITY_ANDROID
+            SaveRenderTexture(viewpoint.colorTexture, UnityEngine.Application.persistentDataPath+"/Images/");
+            SaveRenderTextureBinary(viewpoint.depthTexture, UnityEngine.Application.persistentDataPath+"/Images/");
+            System.IO.File.WriteAllText(UnityEngine.Application.persistentDataPath+"/Images/" + viewpoint.name + ".json", viewpoint.SaveToString());
+#else
             SaveRenderTexture(viewpoint.colorTexture, "Images/");
             SaveRenderTextureBinary(viewpoint.depthTexture, "Images/");
             System.IO.File.WriteAllText("Images/" + viewpoint.name + ".json", viewpoint.SaveToString());
+#endif
             session.Add(viewpoint);
         }
 
     }
 
     public List<Viewpoint> session = new List<Viewpoint>();
-   public Texture2D colorTexture = null;
-   public Texture2D depthTexture = null;
+    public Texture2D colorTexture = null;
+    public Texture2D depthTexture = null;
+   
+    static Firebase.Storage.FirebaseStorage _storage;
+   
     void loadSession()
     {
         int index = 0;
+		
+#if UNITY_ANDROID
+		string path = UnityEngine.Application.persistentDataPath+"/Images/v" + index + ".json";
+#else
         string path = "Images/v" + index + ".json";
+#endif
 
         StreamReader reader = new StreamReader(path);
 
@@ -252,7 +201,11 @@ FileMode.Open)))
             }
 
             //color image path
+#if UNITY_ANDROID
+			path = UnityEngine.Application.persistentDataPath+"/Images/v" + index + "_Color.png";
+#else
             path = "Images/v" + index + "_Color.png";
+#endif
             colorTexture.LoadImage(File.ReadAllBytes(path));
             //copy it over?
             Graphics.Blit(colorTexture, v.colorTexture);
@@ -264,8 +217,12 @@ FileMode.Open)))
             }
 
             //depth image path
+#if UNITY_ANDROID
+			path = UnityEngine.Application.persistentDataPath+"/Images/v" + index + "_Depth.bin";
+#else
             path = "Images/v" + index + "_Depth.bin";
-             depthTexture.LoadRawTextureData(File.ReadAllBytes(path));
+#endif
+            depthTexture.LoadRawTextureData(File.ReadAllBytes(path));
             depthTexture.Apply();
 
             //depthTexture = AssetDatabase.LoadAssetAtPath<Texture2D>(path);
@@ -317,7 +274,19 @@ FileMode.Open)))
         handleShow = shader.FindKernel("CSShow");
         handleUColor = shader.FindKernel("CSUColor");
 
-
+#if UNITY_ANDROID
+		DirectoryInfo di = new DirectoryInfo(UnityEngine.Application.persistentDataPath+"/Images/");
+		if(!di.Exists)
+		{
+			di.Create();
+		}
+#else
+		DirectoryInfo di = new DirectoryInfo("/Images/");
+		if(!di.Exists)
+		{
+			di.Create();
+		}
+#endif
 
         int count = maxCompareFrames * maxCompareFrames;
 
@@ -330,7 +299,7 @@ FileMode.Open)))
         pairBuffer = new ComputeBuffer(2, 4);
         pairValue = new uint[2];
 
-
+		
 
         invScreenSize = 1f / (float)(captureSize.x * captureSize.y);
         viewpointsL1 = new ViewSim.ListBuffer<Viewpoint>(maxCompareFrames);
@@ -351,27 +320,27 @@ FileMode.Open)))
         viewpointsL1.IncrementBackPtr();
 
 
+        testView = viewpointsL1[0];
+
         //start coroutine
         StartCoroutine(ProcessGPURequests());
 
-        if (!captureViews)
-            loadSession();
+        // if (!captureViews)
+        //    loadSession();
 
 
-        //just a stupid test
-        for (int i=0; i <4; i++)
-        {
-            TT tt = new TT();
-            tt.time = i;
-            captureTT.Add(tt);
-        }
 
-        StoreCaptureTT("capture.bin");
-        LoadReplayTT("capture.bin");
 
+        //  StoreCaptureTT("capture.bin");
+        //  LoadReplayTT("capture.bin");
+        
+        Camera.onPostRender += MyPostRender;
+        Camera.main.depthTextureMode = DepthTextureMode.Depth;
+
+		_storage = FirebaseStorage.DefaultInstance;
     }
 
-    
+
     float computeSim(int indexA=0, int indexB=1)
     {
         return Mathf.Min(pairValue[indexA] * invScreenSize, pairValue[indexA] * invScreenSize);
@@ -388,6 +357,24 @@ FileMode.Open)))
         var bytes = tex.EncodeToPNG();
         System.IO.File.WriteAllBytes(path, bytes);
         Debug.Log($"Saved texture: {rt.width}x{rt.height} - " + path);
+		
+		/*StorageReference storageRef = ViewSimSys._storage.GetReferenceFromUrl("gs://icecubevr-a0510.appspot.com");
+		StorageReference imageRef = storageRef.Child("images");
+		StorageReference testPng = imageRef.Child("test.png");
+		Stream stream = new FileStream(path, FileMode.Open);
+		testPng.PutStreamAsync(stream).ContinueWith((System.Threading.Tasks.Task<StorageMetadata> task) => {
+			if (task.IsFaulted || task.IsCanceled) {
+				Debug.Log(task.Exception.ToString());
+				// Uh-oh, an error occurred!
+			}
+			else {
+				// Metadata contains file metadata such as size, content-type, and download URL.
+				StorageMetadata metadata = task.Result;
+				string md5Hash = metadata.Md5Hash;
+				Debug.Log("Finished uploading...");
+				Debug.Log("md5 hash = " + md5Hash);
+			}
+		});*/
     }
 
     static void SaveRenderTextureBinary(RenderTexture rt, string dir)
@@ -400,6 +387,24 @@ FileMode.Open)))
         var bytes = tex.GetRawTextureData();
         System.IO.File.WriteAllBytes(path, bytes);
         Debug.Log($"Saved texture: {rt.width}x{rt.height} - " + path);
+		
+		/*StorageReference storageRef = ViewSimSys._storage.GetReferenceFromUrl("gs://icecubevr-a0510.appspot.com");
+		StorageReference imageRef = storageRef.Child("bin_images");
+		StorageReference testPng = imageRef.Child("test.bin");
+		Stream stream = new FileStream(path, FileMode.Open);
+		testPng.PutStreamAsync(stream).ContinueWith((System.Threading.Tasks.Task<StorageMetadata> task) => {
+			if (task.IsFaulted || task.IsCanceled) {
+				Debug.Log(task.Exception.ToString());
+				// Uh-oh, an error occurred!
+			}
+			else {
+				// Metadata contains file metadata such as size, content-type, and download URL.
+				StorageMetadata metadata = task.Result;
+				string md5Hash = metadata.Md5Hash;
+				Debug.Log("Finished uploading...");
+				Debug.Log("md5 hash = " + md5Hash);
+			}
+		});*/
     }
 
 
@@ -413,6 +418,24 @@ FileMode.Open)))
         var bytes = tex.EncodeToEXR(Texture2D.EXRFlags.CompressZIP);
         System.IO.File.WriteAllBytes(path, bytes);
         Debug.Log($"Saved texture: {rt.width}x{rt.height} - " + path);
+		
+		/*StorageReference storageRef = ViewSimSys._storage.GetReferenceFromUrl("gs://icecubevr-a0510.appspot.com");
+		StorageReference imageRef = storageRef.Child("exr_images");
+		StorageReference testPng = imageRef.Child("test.exr");
+		Stream stream = new FileStream(path, FileMode.Open);
+		testPng.PutStreamAsync(stream).ContinueWith((System.Threading.Tasks.Task<StorageMetadata> task) => {
+			if (task.IsFaulted || task.IsCanceled) {
+				Debug.Log(task.Exception.ToString());
+				// Uh-oh, an error occurred!
+			}
+			else {
+				// Metadata contains file metadata such as size, content-type, and download URL.
+				StorageMetadata metadata = task.Result;
+				string md5Hash = metadata.Md5Hash;
+				Debug.Log("Finished uploading...");
+				Debug.Log("md5 hash = " + md5Hash);
+			}
+		});*/
     }
 
 
@@ -501,12 +524,24 @@ FileMode.Open)))
         foreach (Viewpoint viewpoint in viewpoints)
         {
             CreateGameObjectFromViewpoint(viewpoint);
+#if UNITY_ANDROID
+			SaveRenderTexture(viewpoint.colorTexture, UnityEngine.Application.persistentDataPath+"/Images/");
+#else
             SaveRenderTexture(viewpoint.colorTexture, "Images/");
+#endif
         }
-
+		
+#if UNITY_ANDROID
+		SaveRenderTexture(symTexture, UnityEngine.Application.persistentDataPath+"/Images/");
+#else
         SaveRenderTexture(symTexture, "Images/");
+#endif
 
+#if UNITY_ANDROID
+		StreamWriter writer = new StreamWriter(UnityEngine.Application.persistentDataPath+"/Images/mat.csv");
+#else
         StreamWriter writer = new StreamWriter("Images/mat.csv");
+#endif
 
         for (int y = 0; y < maxCompareFrames; y++) 
         {
@@ -601,8 +636,10 @@ FileMode.Open)))
 
 
     // Update is called once per frame
-    void Update()
+    void LateUpdate()
     {
+
+
        // if (viewpoints.Count == 2)
        //     request = AsyncGPUReadback.Request(simBuffer);
 
@@ -636,7 +673,10 @@ FileMode.Open)))
         shader.SetInt("SourceWidth", cam.pixelWidth);
         shader.SetInt("SourceHeight", cam.pixelHeight);
 
-        shader.SetTextureFromGlobal(handleCapture, "SourceColor", "_CameraColorTexture");
+
+
+            shader.SetTexture(handleCapture, "SourceColor", RenderTexture.active);
+       // shader.SetTextureFromGlobal(handleCapture, "SourceColor", "_CameraColorTexture");
         shader.SetTextureFromGlobal(handleCapture, "SourceDepth", "_CameraDepthTexture");
 
         shader.SetInt("DestinationWidth", v.colorTexture.width);
@@ -809,8 +849,11 @@ FileMode.Open)))
         //get the data
         simBuffer.GetData(simMatrix);
 
-
+#if UNITY_ANDROID
+		StreamWriter writer = new StreamWriter(UnityEngine.Application.persistentDataPath+"/Images/mat.csv");
+#else
         StreamWriter writer = new StreamWriter("Images/mat.csv");
+#endif
 
         for (int y = 0; y < maxCompareFrames; y++)
         {
@@ -823,7 +866,24 @@ FileMode.Open)))
         }
 
         writer.Close();
-
+		
+		StorageReference storageRef = ViewSimSys._storage.GetReferenceFromUrl("gs://icecubevr-a0510.appspot.com");
+		StorageReference imageRef = storageRef.Child("transforms");
+		StorageReference testPng = imageRef.Child("mat.csv");
+		Stream stream = new FileStream(UnityEngine.Application.persistentDataPath+"/Images/mat.csv", FileMode.Open);
+		testPng.PutStreamAsync(stream).ContinueWith((System.Threading.Tasks.Task<StorageMetadata> task) => {
+			if (task.IsFaulted || task.IsCanceled) {
+				Debug.Log(task.Exception.ToString());
+				// Uh-oh, an error occurred!
+			}
+			else {
+				// Metadata contains file metadata such as size, content-type, and download URL.
+				StorageMetadata metadata = task.Result;
+				string md5Hash = metadata.Md5Hash;
+				Debug.Log("Finished uploading...");
+				Debug.Log("md5 hash = " + md5Hash);
+			}
+		});
         // v = viewpoints[viewpoints.Count - 1];
         // CreateGameObjectFromViewpoint(v);
     }
@@ -833,7 +893,8 @@ FileMode.Open)))
         return Time.time + "," + cam.transform.position + "\n";
     }
 
-
+#if SRP
+#else
     private void OnEnable()
     {
         RenderPipelineManager.endCameraRendering += endRender;
@@ -843,21 +904,53 @@ FileMode.Open)))
     {
         RenderPipelineManager.endCameraRendering -= endRender;
     }
+#endif
+
+#if SRP
+    public void MyPostRender(Camera cam)
+    {
+        // Camera cam = this.GetComponent<Camera>();
 
 
-
+#else
     private void endRender(ScriptableRenderContext arg1, Camera cam)
     {
+#endif
 
-        if (CameraLog.Length < 1024)
-            CameraLog += CreateCSVString(cam);
-        else
-            Debug.Log(CameraLog);
+
+        
+
+        if (cam != Camera.main)
+            return;
+
+
+//        Debug.Log(RenderTexture.active);
+ //      CaptureView(cam, testView);
+ //
+ //  
+ //
+ //
+ //      Graphics.Blit(RenderTexture.active, testView.colorTexture);
+ //
+ //      return;
+ //
+
+        // Debug.Log("Camera callback: Camera name is " + cam.name);
+
+
+
+        //        Debug.Log("got here");
+
+        // if (CameraLog.Length < 1024)
+        //     CameraLog += CreateCSVString(cam);
+        // else
+        //     Debug.Log(CameraLog);
 
         //don't do this too fast
         if (captureViews)
         {
 
+            
 
             if ((Time.time - previousSampleTime) > samplingInterval)
             {
@@ -879,7 +972,7 @@ FileMode.Open)))
 
             CaptureView(cam, viewpoint);
 
-        
+          
 
             if (showComparison)
             {
@@ -893,10 +986,6 @@ FileMode.Open)))
 
 
         }
-
-
-
-
 
 
     }

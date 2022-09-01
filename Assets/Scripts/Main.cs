@@ -2517,7 +2517,7 @@ public class Main : MonoBehaviour
         start_trigger.reset();
         menulanguage.reset();
 
-
+		IceCubeAnalytics.Instance.LogStartGame();
         //ga.StartSession();
     }
 

@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "669598192149",
+    "project_id": "icecubevr-a0510",
+    "storage_bucket": "icecubevr-a0510.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:669598192149:android:adecd9ecb5e3703edd741c",
+        "android_client_info": {
+          "package_name": "com.WIDVE.PolarVR"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "669598192149-lktluierj4n7bklq4aruag3un4u7a54o.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCpIvNDuaxltXWKQK-PJMpJwkPV3EB-DCo"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "669598192149-lktluierj4n7bklq4aruag3un4u7a54o.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
