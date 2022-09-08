@@ -554,7 +554,26 @@ public class ViewSimSys : MonoBehaviour
         }
 
         writer.Close();
-
+		
+		StorageReference storageRef = ViewSimSys._storage.GetReferenceFromUrl("gs://icecubevr-a0510.appspot.com");
+		StorageReference imageRef = storageRef.Child("transforms");
+		StorageReference testPng = imageRef.Child("mat.csv");
+		
+		Stream stream = new FileStream(UnityEngine.Application.persistentDataPath+"/Images/mat.csv", FileMode.Open);
+		
+		testPng.PutStreamAsync(stream).ContinueWith((System.Threading.Tasks.Task<StorageMetadata> task) => {
+			if (task.IsFaulted || task.IsCanceled) {
+				Debug.Log(task.Exception.ToString());
+				// Uh-oh, an error occurred!
+			}
+			else {
+				// Metadata contains file metadata such as size, content-type, and download URL.
+				StorageMetadata metadata = task.Result;
+				string md5Hash = metadata.Md5Hash;
+				Debug.Log("Finished uploading...");
+				Debug.Log("md5 hash = " + md5Hash);
+			}
+		});
 
     }
 
