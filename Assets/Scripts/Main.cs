@@ -678,6 +678,9 @@ public class Main : MonoBehaviour
         SetupScene();
         hmd_mounted = true;
         menuscreen.SetActive(true);
+        //may need to restart analytics...
+
+        IceCubeAnalytics.Instance.LogHeadsetOn();
 		//ga.StopSession();
 		//ga.StartSession();
 		//ga.LogEvent("HMD", "On", "HMDEvent", 1);
@@ -4552,10 +4555,11 @@ public class Main : MonoBehaviour
         language_selected = true; // condition to run the game
 		if (!languageAnalyticsSent)
 		{
-			AnalyticsEvent.Custom("language_at_start", new Dictionary<string, object>
+            IceCubeAnalytics.Instance.LogLanguageSelected(LocalizationManager.instance.SelectedLanguage);
+			/*AnalyticsEvent.Custom("language_at_start", new Dictionary<string, object>
 			{
 				{ "language", LocalizationManager.instance.SelectedLanguage}
-			});
+			});*/
 			Debug.Log("Sent language at start analytics event");
 			languageAnalyticsSent = true;
 		}

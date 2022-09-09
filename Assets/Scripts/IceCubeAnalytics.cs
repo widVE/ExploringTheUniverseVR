@@ -7,6 +7,8 @@ public class IceCubeAnalytics : Singleton<IceCubeAnalytics>
     public static bool FirebaseEnabled { get; set; }
     public static int logVersion = 0;
     
+    float seconds_from_start = 0f;
+
     private void Start()
     {
         // Try to initialize Firebase and fix dependencies (will always be false in editor)
@@ -33,5 +35,22 @@ public class IceCubeAnalytics : Singleton<IceCubeAnalytics>
                 //new Parameter("app_version", logVersion));
         }	
 	}
+
+    public void LogHeadsetOn()
+    {
+        if(FirebaseEnabled)
+        {
+            seconds_from_start = UnityEngine.Time.time;
+            FirebaseAnalytics.LogEvent(FirebaseAnalytics.EventScreenView, FirebaseAnalytics.ParameterValue, "headset_on");
+        }
+    }
+
+    public void LogLanguageSelected(string language)
+    {
+        if(FirebaseEnabled)
+        {
+            FirebaseAnalytics.LogEvent(FirebaseAnalytics.EventSelectItem, new Parameter("language_selected", language), new Parameter("seconds_from_start", UnityEngine.Time.time-seconds_from_start));
+        }
+    }
     #endregion // Logging
 }
