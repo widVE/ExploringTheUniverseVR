@@ -1,5 +1,32 @@
 {
   "dependencies": {
+    "com.beauprime.beaudata": {
+      "version": "0.3.1",
+      "depth": 0,
+      "source": "registry",
+      "dependencies": {},
+      "url": "https://package.openupm.com"
+    },
+    "com.beauprime.beauroutine": {
+      "version": "0.11.1",
+      "depth": 0,
+      "source": "registry",
+      "dependencies": {},
+      "url": "https://package.openupm.com"
+    },
+    "com.beauprime.beauutil": {
+      "version": "0.7.12",
+      "depth": 0,
+      "source": "registry",
+      "dependencies": {},
+      "url": "https://package.openupm.com"
+    },
+    "com.fieldday.opengamedata-unity": {
+      "version": "file:../Submodules/opengamedata-unity/Assets/FieldDay",
+      "depth": 0,
+      "source": "local",
+      "dependencies": {}
+    },
     "com.unity.2d.sprite": {
       "version": "1.0.0",
       "depth": 0,
