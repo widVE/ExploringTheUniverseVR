@@ -31,7 +31,7 @@ public class IceCubeAnalytics : Singleton<IceCubeAnalytics>
 	{
 		if (FirebaseEnabled)
         {
-            FirebaseAnalytics.LogEvent(FirebaseAnalytics.EventLevelStart, FirebaseAnalytics.ParameterLevelName, "antarctica");
+            FirebaseAnalytics.LogEvent(FirebaseAnalytics.EventLevelStart, new Parameter(FirebaseAnalytics.ParameterLevelName, "antarctica"), new Parameter("start", UnityEngine.Time.time-seconds_from_start));
                 //new Parameter("app_version", logVersion));
         }	
 	}
@@ -51,6 +51,31 @@ public class IceCubeAnalytics : Singleton<IceCubeAnalytics>
         {
             FirebaseAnalytics.LogEvent(FirebaseAnalytics.EventSelectItem, new Parameter("language_selected", language), new Parameter("seconds_from_start", UnityEngine.Time.time-seconds_from_start));
         }
+    }
+
+    public void LogObjectAssigned(string obj)
+    {
+        if(FirebaseEnabled)
+        {
+            FirebaseAnalytics.LogEvent(FirebaseAnalytics.EventSelectItem, new Parameter("object_assigned", obj), new Parameter("seconds_from_start", UnityEngine.Time.time-seconds_from_start));
+        }
+    }
+
+    public void LogObjectSelected(string obj)
+    {
+        if(FirebaseEnabled)
+        {
+            FirebaseAnalytics.LogEvent(FirebaseAnalytics.EventSelectItem, new Parameter("gaze_point_name", obj), new Parameter("seconds_from_start", UnityEngine.Time.time-seconds_from_start));
+        }
+    }
+
+    public void LogSceneChanged(string scene)
+    {
+        if (FirebaseEnabled)
+        {
+            FirebaseAnalytics.LogEvent(FirebaseAnalytics.EventLevelStart, new Parameter(FirebaseAnalytics.ParameterLevelName, scene), new Parameter("seconds_from_start", UnityEngine.Time.time-seconds_from_start));
+                //new Parameter("app_version", logVersion));
+        }	
     }
     #endregion // Logging
 }
