@@ -22,10 +22,12 @@
       "url": "https://package.openupm.com"
     },
     "com.fieldday.opengamedata-unity": {
-      "version": "file:../Submodules/opengamedata-unity/Assets/FieldDay",
+      "version": "file:../Submodules/opengamedata-unity/Assets/OGD-Unity",
       "depth": 0,
       "source": "local",
-      "dependencies": {}
+      "dependencies": {
+        "com.beauprime.beaudata": "0.3.1"
+      }
     },
     "com.unity.2d.sprite": {
       "version": "1.0.0",
