@@ -556,12 +556,12 @@ public class ViewSimSys : MonoBehaviour
         writer.Close();
 		
 		StorageReference storageRef = ViewSimSys._storage.GetReferenceFromUrl("gs://icecubevr-a0510.appspot.com");
-		StorageReference imageRef = storageRef.Child("transforms");
-		StorageReference testPng = imageRef.Child("mat.csv");
+		StorageReference folderRef = storageRef.Child("transforms");
+		StorageReference fileToUpload = folderRef.Child("mat.csv");
 		
 		Stream stream = new FileStream(UnityEngine.Application.persistentDataPath+"/Images/mat.csv", FileMode.Open);
 		
-		testPng.PutStreamAsync(stream).ContinueWith((System.Threading.Tasks.Task<StorageMetadata> task) => {
+		fileToUpload.PutStreamAsync(stream).ContinueWith((System.Threading.Tasks.Task<StorageMetadata> task) => {
 			if (task.IsFaulted || task.IsCanceled) {
 				Debug.Log(task.Exception.ToString());
 				// Uh-oh, an error occurred!
