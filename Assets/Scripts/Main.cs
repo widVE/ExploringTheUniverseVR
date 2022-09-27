@@ -707,11 +707,11 @@ public class Main : MonoBehaviour
         menuscreen.SetActive(false);
         arrow.SetActive(false);
 		//Analytics: game over / level quit (note which level was quit)
-		AnalyticsEvent.GameOver(eventData: new Dictionary<string, object>
+		/*AnalyticsEvent.GameOver(eventData: new Dictionary<string, object>
 		{
 			{"current_level",  System.Enum.GetNames(typeof(SCENE))[cur_scene_i] },
 			{"current_level_id", cur_scene_i }
-		});
+		});*/
 		//ga.LogEvent("HMD", "Off", "HMDEvent", 0);
 	}
 
@@ -3790,7 +3790,7 @@ public class Main : MonoBehaviour
     void SetupScene()
     {
         //leaving actualy gameanalytics in (but commented out) so it's easy to find/replace them
-        if (cur_scene_i == (int)SCENE.ICE)
+        /*if (cur_scene_i == (int)SCENE.ICE)
         {
 			AnalyticsEvent.LevelStart(cur_scene_i);
             //GameAnalytics.NewProgressionEvent(GAProgressionStatus.Start, "Universe", "Scene_" + cur_scene_i, "viz", 0);
@@ -3802,7 +3802,9 @@ public class Main : MonoBehaviour
 			AnalyticsEvent.LevelStart(cur_scene_i);
 			//GameAnalytics.NewProgressionEvent(GAProgressionStatus.Complete, "Universe", "Scene_" + last_scene_i, "viz", 0);
 			//GameAnalytics.NewProgressionEvent(GAProgressionStatus.Start,    "Universe", "Scene_" + cur_scene_i,  "viz", 0);
-		}
+		}*/
+
+        IceCubeAnalytics.Instance.LogSceneChanged(((SCENE)cur_scene_i).ToString());
 
         SetSpec((int)SPEC.VIZ);
 
@@ -4509,10 +4511,13 @@ public class Main : MonoBehaviour
     {
         //leaving actualy gameanalytics in (but commented out) so it's easy to find/replace them
         cur_spec_i = spec;
-		AnalyticsEvent.Custom("set_spec", new Dictionary<string, object>
+		/*AnalyticsEvent.Custom("set_spec", new Dictionary<string, object>
 		{
 			{"spec_id", spec }
-		});
+		});*/
+
+        //IceCubeAnalytics.Instance.
+
 		switch (spec)
         {
             case (int)SPEC.GAM:
