@@ -7,6 +7,8 @@ public class IceCubeAnalytics : Singleton<IceCubeAnalytics>
     public static bool FirebaseEnabled { get; set; }
     public static int logVersion = 0;
     
+	static string _DB_NAME = "ICECUBE";
+	
     float seconds_from_start = 0f;
 	
 	OGDLog _ogdLog;
@@ -26,7 +28,7 @@ public class IceCubeAnalytics : Singleton<IceCubeAnalytics>
 	        }
 		});*/
 		
-		_ogdLog = new OGDLog("ICECUBEVR", UnityEngine.Application.version);
+		_ogdLog = new OGDLog(_DB_NAME, UnityEngine.Application.version);
         _ogdLog.SetDebug(true);
     }
 
@@ -116,7 +118,7 @@ public class IceCubeAnalytics : Singleton<IceCubeAnalytics>
 
     public void LogAudioComplete(string clip)
     {
-        _ogdLog.BeginEvent("script_audio_started");
+        _ogdLog.BeginEvent("script_audio_complete");
         _ogdLog.EventParam("clip_identifier", clip);
         _ogdLog.EventParam("seconds_from_launch", UnityEngine.Time.time-seconds_from_start);
         _ogdLog.SubmitEvent();
@@ -130,7 +132,7 @@ public class IceCubeAnalytics : Singleton<IceCubeAnalytics>
         _ogdLog.SubmitEvent();
     }
 
-    public void LogCaption(bool hasIndicator, string obj, Vector3 pos, Quaternion rot)
+    public void LogObjectDisplayed(bool hasIndicator, string obj, Vector3 pos, Quaternion rot)
     {
         _ogdLog.BeginEvent("new_object_displayed");
         _ogdLog.EventParam("has_the_indicator", hasIndicator);

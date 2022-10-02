@@ -4252,6 +4252,7 @@ public class Main : MonoBehaviour
                         grid.SetActive(true);
                         grid_yacc = 0.5f;
                     }
+					
                     if (grid_yacc != 0)
                     {
                         grid_yvel += grid_yacc;
@@ -4261,18 +4262,28 @@ public class Main : MonoBehaviour
                         if (Mathf.Abs(grid_yoff) < 1 && Mathf.Abs(grid_yvel) < 1) { grid_yoff = 0; grid_yvel = 0; grid_yacc = 0; }
                         grid.transform.position = new Vector3(grid.transform.position.x, grid_oyoff + grid_yoff, grid.transform.position.z);
                     }
+					
+					if (old_ta < grid_t) //newly here
+                    {
+						IceCubeAnalytics.Instance.LogObjectDisplayed(false, "grid", grid.transform.position, grid.transform.rotation);
+					}
                 }
 
                 //ray
                 if (cur_ta >= beam_t)
+					
                     if (old_ta < beam_t) //newly here
                     {
                         gazeray.SetActive(true);
                         gazeball.SetActive(true);
+						IceCubeAnalytics.Instance.LogObjectDisplayed(false, "gazeray", gazeray.transform.position, gazeray.transform.rotation);
+						IceCubeAnalytics.Instance.LogObjectDisplayed(false, "gazeball", gazeball.transform.position, gazeball.transform.rotation);
+						IceCubeAnalytics.Instance.LogObjectAssigned("gazeup");
                     }
                 //command, gaze up 
                 if (subtitle_i == subtitle_pause_i_ice_0 && !advance_passed_ice_0)
                 {
+					//todo - incorporate "object assigned here"
                     gaze_projection.transform.rotation = rotationFromEuler(getEuler(new Vector3(0f, 10f, 10f).normalized));
                     gaze_reticle.SetActive(true);
                     advance_trigger.position = gaze_reticle.transform.position;
@@ -4286,6 +4297,8 @@ public class Main : MonoBehaviour
                             gaze_reticle.SetActive(false);
                             PlaySFX(SFX.SELECT);
                             gaze_projection.transform.rotation = rotationFromEuler(gaze_cam_euler);
+							IceCubeAnalytics.Instance.LogObjectSelected("gazeup");
+							IceCubeAnalytics.Instance.LogObjectAssigned("gazefeet");
                         }
                     }
                 }
@@ -4304,6 +4317,7 @@ public class Main : MonoBehaviour
                             arrow.SetActive(false);
                             PlaySFX(SFX.SELECT);
                             gaze_projection.transform.rotation = rotationFromEuler(gaze_cam_euler);
+							IceCubeAnalytics.Instance.LogObjectSelected("gazefeet");
                         }
                     }
                 }
@@ -4324,6 +4338,7 @@ public class Main : MonoBehaviour
                   }
                 }
                 */
+				
                 //!spec_projection.activeSelf
                 if (voiceovers_played[cur_scene_i, (int)SPEC.VIZ] && !voiceover_was_playing)
                 {
@@ -4331,6 +4346,11 @@ public class Main : MonoBehaviour
                     spec_viz_reticle.SetActive(true);
                     spec_neu_reticle.SetActive(true);
                     spec_sel_reticle.SetActive(true);
+					
+					IceCubeAnalytics.Instance.LogObjectDisplayed(false, "spec_gam_reticle", spec_gam_reticle.transform.position, spec_gam_reticle.transform.rotation);
+					IceCubeAnalytics.Instance.LogObjectDisplayed(false, "spec_gam_reticle", spec_viz_reticle.transform.position, spec_viz_reticle.transform.rotation);
+					IceCubeAnalytics.Instance.LogObjectDisplayed(false, "spec_neu_reticle", spec_gam_reticle.transform.position, spec_neu_reticle.transform.rotation);
+					IceCubeAnalytics.Instance.LogObjectDisplayed(false, "spec_sel_reticle", spec_sel_reticle.transform.position, spec_sel_reticle.transform.rotation);
                 }
 
 
@@ -4347,6 +4367,7 @@ public class Main : MonoBehaviour
                             advance_passed_voyager_0 = true;
                             gaze_reticle.SetActive(false);
                             gaze_projection.transform.rotation = rotationFromEuler(gaze_cam_euler);
+							IceCubeAnalytics.Instance.LogObjectSelected("xray_vision");
                         }
                     }
                 }
@@ -4362,6 +4383,7 @@ public class Main : MonoBehaviour
                             advance_passed_voyager_1 = true;
                             gaze_reticle.SetActive(false);
                             gaze_projection.transform.rotation = rotationFromEuler(gaze_cam_euler);
+							IceCubeAnalytics.Instance.LogObjectSelected("neutrino_vision");
                         }
                     }
                 }
@@ -4390,18 +4412,29 @@ public class Main : MonoBehaviour
                     {
                         if (!HeadsetPaused && !voiceover_audiosource.isPlaying && !espAudio.isPlaying && !porAudio.isPlaying)
                         {
-                            if (!gaze_reticle.activeSelf) gaze_reticle.SetActive(true);
+                            if (!gaze_reticle.activeSelf) 
+							{
+								gaze_reticle.SetActive(true);
+							}
+							
                             gaze_projection.transform.rotation = rotationFromEuler(getCamEuler(blackhole[0].transform.position));
+							
                             blackhole_trigger.position = gaze_reticle.transform.position;
+							
                             if (blackhole_trigger.tick(cam_reticle.transform.position, Time.deltaTime))
                             {
                                 if (blackhole_trigger.just_triggered)
                                 {
+									IceCubeAnalytics.Instance.LogObjectSelected("blackhole");
                                     gaze_reticle.SetActive(false);
                                     blackhole_spec_triggered[cur_spec_i] = 1;
                                     blackhole_trigger.reset();
                                     bool all_done = true;
-                                    for (int i = 0; i < (int)SPEC.COUNT; i++) all_done = (all_done && blackhole_spec_triggered[i] == 1);
+                                    for (int i = 0; i < (int)SPEC.COUNT; i++) 
+									{
+										all_done = (all_done && blackhole_spec_triggered[i] == 1);
+									}
+									
                                     if (all_done)
                                     {
                                         gaze_projection.transform.rotation = rotationFromEuler(anti_gaze_cam_euler);
@@ -4431,6 +4464,7 @@ public class Main : MonoBehaviour
                         }
                         if (t < 1) play_end = false;
                     }
+					
                     if (voiceovers_played[cur_scene_i, (int)SPEC.COUNT]) play_end = false;
                     if (play_end)
                     {
@@ -4454,9 +4488,6 @@ public class Main : MonoBehaviour
                         subtitle_spec = (int)SPEC.COUNT;
                     }
                 }
-
-
-
                 else if (in_fail_motion == 0)
                 {
                     in_fail_motion = 0.0001f;
@@ -4478,7 +4509,7 @@ public class Main : MonoBehaviour
 
                 earth[0].transform.position = anti_gaze_pt.normalized * 600 + new Vector3(0.0f, 500.0f, 0.0f);
                 warp_trigger.just_triggered = true;
-
+				IceCubeAnalytics.Instance.LogObjectSelected("earth");
                 break;
 
             case (int)SCENE.CREDITS:
@@ -4516,21 +4547,23 @@ public class Main : MonoBehaviour
 			{"spec_id", spec }
 		});*/
 
-        //IceCubeAnalytics.Instance.
-
+       
 		switch (spec)
         {
             case (int)SPEC.GAM:
                 spec_sel_reticle.transform.position = spec_gam_reticle.transform.position;
                 //GameAnalytics.NewProgressionEvent (GAProgressionStatus.Start, "Universe", "Scene_" + cur_scene_i, "X-ray", 0);
+				IceCubeAnalytics.Instance.LogObjectAssigned("X-ray");
                 break;
             case (int)SPEC.VIZ:
                 spec_sel_reticle.transform.position = spec_viz_reticle.transform.position;
                 //GameAnalytics.NewProgressionEvent (GAProgressionStatus.Start, "Universe", "Scene_" + cur_scene_i, "viz", 0);
+				IceCubeAnalytics.Instance.LogObjectAssigned("VisibleLight");
                 break;
             case (int)SPEC.NEU:
                 spec_sel_reticle.transform.position = spec_neu_reticle.transform.position;
                 //GameAnalytics.NewProgressionEvent (GAProgressionStatus.Start, "Universe", "Scene_" + cur_scene_i, "neu", 0);
+				IceCubeAnalytics.Instance.LogObjectAssigned("NeutrinoVision");
                 break;
         }
         main_camera.GetComponent<Camera>().cullingMask = (1 << layers[cur_scene_i, cur_spec_i]) | (1 << default_layer);
@@ -4900,6 +4933,7 @@ public class Main : MonoBehaviour
 					}
 
 					subtitles_text.text = subtitle_strings[cur_scene_i, subtitle_spec, subtitle_i];
+					IceCubeAnalytics.Instance.LogCaption(subtitle_strings[cur_scene_i, subtitle_spec, subtitle_i]);
 				}
 			}
 		}
@@ -5126,10 +5160,12 @@ public class Main : MonoBehaviour
 				jitter_countdown = Random.Range(jitter_min_uptime, jitter_max_uptime);
 			}
 		}
+		
 		if (jitter_state == 1 && cur_scene_i == (int)SCENE.EXTREME)
 			jitter += Random.Range(-0.1f, 0.1f);
 		else
 			jitter = 0;
+		
 		Shader.SetGlobalFloat(jitter_id, jitter);
 
 		//voiceover finished katherine
@@ -5148,8 +5184,10 @@ public class Main : MonoBehaviour
 					}
 					if (play_end)
 					{
+						IceCubeAnalytics.Instance.LogAudioComplete(voiceover_audiosource.clip.name);
+					
 						Language(cur_scene_i, (int)SPEC.COUNT);
-						Debug.Log("vPlay04");
+						//Debug.Log("vPlay04");
 						voiceover_audiosource.Play();
 						voiceover_was_playing = true;
 						voiceovers_played[cur_scene_i, (int)SPEC.COUNT] = true;
@@ -5175,8 +5213,10 @@ public class Main : MonoBehaviour
 					}
 					if (play_end)
 					{
+						IceCubeAnalytics.Instance.LogAudioComplete(voiceover_audiosource.clip.name);
+					
 						Language(cur_scene_i, (int)SPEC.COUNT);
-						Debug.Log("vPlay05555555");
+						//Debug.Log("vPlay05555555");
 						voiceover_audiosource.Play();
 						voiceover_was_playing = true;
 						voiceovers_played[cur_scene_i, (int)SPEC.COUNT] = true;
@@ -5202,8 +5242,10 @@ public class Main : MonoBehaviour
 					}
 					if (play_end)
 					{
+						IceCubeAnalytics.Instance.LogAudioComplete(voiceover_audiosource.clip.name);
+					
 						Language(cur_scene_i, (int)SPEC.COUNT);
-						Debug.Log("vPlay06");
+						//Debug.Log("vPlay06");
 						voiceover_audiosource.Play();
 						voiceover_was_playing = true;
 						voiceovers_played[cur_scene_i, (int)SPEC.COUNT] = true;
@@ -5258,6 +5300,8 @@ public class Main : MonoBehaviour
 
 				if (dumb_delay_t >= dumb_delay_t_max && language_selected) // newly done with delay
 				{
+					IceCubeAnalytics.Instance.LogAudioStarted(voiceover_audiosource.clip.name);
+					
 					Language(cur_scene_i, cur_spec_i);
 					voiceover_audiosource.Play();
 					espAudio.Play();
