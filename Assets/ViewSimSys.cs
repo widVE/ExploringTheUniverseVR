@@ -147,7 +147,15 @@ public class ViewSimSys : MonoBehaviour
 
 
 
-    void storeSession(ViewSim.ListBuffer<Viewpoint> viewpoints)
+    private void OnDestroy()
+    {
+        Debug.Log("session count " + session.Count);
+        //lets store the viewpoints
+        if (captureViews)
+            storeSession(session);
+    }
+	
+    void storeSession(List<Viewpoint> viewpoints)
     {
         foreach (Viewpoint viewpoint in viewpoints)
         {
@@ -161,7 +169,7 @@ public class ViewSimSys : MonoBehaviour
             SaveRenderTextureBinary(viewpoint.depthTexture, "Images/");
             System.IO.File.WriteAllText("Images/" + viewpoint.name + ".json", viewpoint.SaveToString());
 #endif
-            session.Add(viewpoint);
+            //session.Add(viewpoint);
         }
 
     }
@@ -280,6 +288,12 @@ public class ViewSimSys : MonoBehaviour
 		{
 			di.Create();
 		}
+		
+		/*DirectoryInfo di2 = new DirectoryInfo(UnityEngine.Application.streamingAssetsPath+"/Images/");
+		if(!di2.Exists)
+		{
+			di2.Create();
+		}*/
 #else
 		DirectoryInfo di = new DirectoryInfo("/Images/");
 		if(!di.Exists)
@@ -538,7 +552,7 @@ public class ViewSimSys : MonoBehaviour
 #endif
 
 #if UNITY_ANDROID
-		StreamWriter writer = new StreamWriter(UnityEngine.Application.persistentDataPath+"/Images/mat.csv");
+		StreamWriter writer = new StreamWriter(UnityEngine.Application.persistentDataPath+"/mat.csv");
 #else
         StreamWriter writer = new StreamWriter("Images/mat.csv");
 #endif
@@ -559,12 +573,13 @@ public class ViewSimSys : MonoBehaviour
 		StorageReference folderRef = storageRef.Child("transforms");
 		StorageReference fileToUpload = folderRef.Child("mat.csv");
 		
-		Stream stream = new FileStream(UnityEngine.Application.persistentDataPath+"/Images/mat.csv", FileMode.Open);
+		Stream stream = new FileStream(UnityEngine.Application.persistentDataPath+"/mat.csv", FileMode.Open);
 		
 		fileToUpload.PutStreamAsync(stream).ContinueWith((System.Threading.Tasks.Task<StorageMetadata> task) => {
 			if (task.IsFaulted || task.IsCanceled) {
 				Debug.Log(task.Exception.ToString());
 				// Uh-oh, an error occurred!
+				stream.Close();
 			}
 			else {
 				// Metadata contains file metadata such as size, content-type, and download URL.
@@ -572,9 +587,9 @@ public class ViewSimSys : MonoBehaviour
 				string md5Hash = metadata.Md5Hash;
 				Debug.Log("Finished uploading...");
 				Debug.Log("md5 hash = " + md5Hash);
+				stream.Close();
 			}
 		});
-
     }
 
     IEnumerator ProcessGPURequests()
@@ -604,8 +619,12 @@ public class ViewSimSys : MonoBehaviour
                     {
 
 
+						int bestIndex = getBestViewpointIndex(viewpointsL1);
+                        Viewpoint v = viewpointsL1[bestIndex];
 
-                        int bestIndex = ExtractAndAdd(viewpointsL1, viewpointsL2);
+                        viewpointsL2.Add(new Viewpoint(v, "v" + viewpointsL2.Count));
+
+                        //int bestIndex = ExtractAndAdd(viewpointsL1, viewpointsL2);
 
                         //FOR TESTING
                       //  writeDebugData(viewpointsL1);
@@ -628,10 +647,17 @@ public class ViewSimSys : MonoBehaviour
                             Debug.Log("V2 " + sim);
                             if ((sim < viewThreshold) || (viewpointsL2.Count >= maxCompareFrames - 1))
                             {
-                                ExtractAndAdd(viewpointsL2, viewpointsL3);
+                                //ExtractAndAdd(viewpointsL2, viewpointsL3);
 
+                                bestIndex = getBestViewpointIndex(viewpointsL2);
+                                v = viewpointsL2[bestIndex];
+
+                                session.Add(new Viewpoint(v, "v" + session.Count));
+
+                                viewpointsL2.ClearToIndex(bestIndex);
+                                viewpointsL2.IncrementBackPtr();
                                 //now clear out L2
-                                viewpointsL2.Clear();
+                                /*viewpointsL2.Clear();
 
                                 if (viewpointsL3.Count >= maxCompareFrames)
                                 {
@@ -643,7 +669,7 @@ public class ViewSimSys : MonoBehaviour
                                     //     SaveRenderTexture(viewpoint.colorTexture, "Images/");
                                     // }
                                     captureViews = false;
-                                }
+                                }*/
                             }
                         }
                     }
@@ -869,7 +895,8 @@ public class ViewSimSys : MonoBehaviour
         simBuffer.GetData(simMatrix);
 
 #if UNITY_ANDROID
-		StreamWriter writer = new StreamWriter(UnityEngine.Application.persistentDataPath+"/Images/mat.csv");
+		File.Create(UnityEngine.Application.persistentDataPath+"/mat.csv").Dispose();
+		StreamWriter writer = new StreamWriter(UnityEngine.Application.persistentDataPath+"/mat.csv", false);
 #else
         StreamWriter writer = new StreamWriter("Images/mat.csv");
 #endif
@@ -885,15 +912,18 @@ public class ViewSimSys : MonoBehaviour
         }
 
         writer.Close();
+		//writer.Dispose();
 		
 		StorageReference storageRef = ViewSimSys._storage.GetReferenceFromUrl("gs://icecubevr-a0510.appspot.com");
 		StorageReference imageRef = storageRef.Child("transforms");
 		StorageReference testPng = imageRef.Child("mat.csv");
-		Stream stream = new FileStream(UnityEngine.Application.persistentDataPath+"/Images/mat.csv", FileMode.Open);
+		Stream stream = new FileStream(UnityEngine.Application.persistentDataPath+"/mat.csv", FileMode.Open);
 		testPng.PutStreamAsync(stream).ContinueWith((System.Threading.Tasks.Task<StorageMetadata> task) => {
 			if (task.IsFaulted || task.IsCanceled) {
 				Debug.Log(task.Exception.ToString());
 				// Uh-oh, an error occurred!
+				stream.Close();
+				//stream.Dispose();
 			}
 			else {
 				// Metadata contains file metadata such as size, content-type, and download URL.
@@ -901,8 +931,12 @@ public class ViewSimSys : MonoBehaviour
 				string md5Hash = metadata.Md5Hash;
 				Debug.Log("Finished uploading...");
 				Debug.Log("md5 hash = " + md5Hash);
+				stream.Close();
+				//stream.Dispose();
 			}
 		});
+		
+		
         // v = viewpoints[viewpoints.Count - 1];
         // CreateGameObjectFromViewpoint(v);
     }
