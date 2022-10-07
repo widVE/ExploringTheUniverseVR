@@ -65,8 +65,8 @@ public class ObjectTracker : MonoBehaviour
     };
 
 
-    public List<TT> captureTT = new List<TT>();
-    public List<TT> replayTT = new List<TT>();
+    List<TT> captureTT = new List<TT>();
+    List<TT> replayTT = new List<TT>();
 
 
     void CaptureCurrentTT(Transform transform)
@@ -113,7 +113,13 @@ public class ObjectTracker : MonoBehaviour
     {
         // Debug.Log("HERE " + captureTT.Count);
         if (capture)
+		{
+#if UNITY_ANDROID
+			StoreCaptureTT("capture.bin");
+#else
             StoreCaptureTT("capture.bin");
+#endif
+		}
     }
 
     void LateUpdate()

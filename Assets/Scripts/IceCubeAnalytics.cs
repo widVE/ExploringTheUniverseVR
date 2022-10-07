@@ -13,6 +13,8 @@ public class IceCubeAnalytics : Singleton<IceCubeAnalytics>
 	
 	OGDLog _ogdLog;
 	
+	FirebaseConsts _firebase;
+	 
     private void Start()
     {
         // Try to initialize Firebase and fix dependencies (will always be false in editor)
@@ -29,6 +31,7 @@ public class IceCubeAnalytics : Singleton<IceCubeAnalytics>
 		});*/
 		
 		_ogdLog = new OGDLog(_DB_NAME, UnityEngine.Application.version);
+		_ogdLog.UseFirebase(_firebase);
         _ogdLog.SetDebug(true);
     }
 
