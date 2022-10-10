@@ -114,7 +114,7 @@ public class IceCubeAnalytics : Singleton<IceCubeAnalytics>
     public void LogAudioStarted(string clip)
     {
         _ogdLog.BeginEvent("script_audio_started");
-        _ogdLog.EventParam("clip_identifier", clip);
+        //_ogdLog.EventParam("clip_identifier", clip);
         _ogdLog.EventParam("seconds_from_launch", UnityEngine.Time.time-seconds_from_start);
         _ogdLog.SubmitEvent();
     }
@@ -122,7 +122,7 @@ public class IceCubeAnalytics : Singleton<IceCubeAnalytics>
     public void LogAudioComplete(string clip)
     {
         _ogdLog.BeginEvent("script_audio_complete");
-        _ogdLog.EventParam("clip_identifier", clip);
+        //_ogdLog.EventParam("clip_identifier", clip);
         _ogdLog.EventParam("seconds_from_launch", UnityEngine.Time.time-seconds_from_start);
         _ogdLog.SubmitEvent();
     }

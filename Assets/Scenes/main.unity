@@ -31379,6 +31379,7 @@ MonoBehaviour:
     height: 0
   viewThreshold: 0.75
   showComparison: 0
+  _trackedObject: {fileID: 1381870178}
   session: []
   colorTexture: {fileID: 0}
   depthTexture: {fileID: 0}

@@ -5184,7 +5184,7 @@ public class Main : MonoBehaviour
 					}
 					if (play_end)
 					{
-						IceCubeAnalytics.Instance.LogAudioComplete(voiceover_audiosource.clip.name);
+						IceCubeAnalytics.Instance.LogAudioComplete("");
 					
 						Language(cur_scene_i, (int)SPEC.COUNT);
 						//Debug.Log("vPlay04");
@@ -5300,7 +5300,7 @@ public class Main : MonoBehaviour
 
 				if (dumb_delay_t >= dumb_delay_t_max && language_selected) // newly done with delay
 				{
-					IceCubeAnalytics.Instance.LogAudioStarted(voiceover_audiosource.clip.name);
+					IceCubeAnalytics.Instance.LogAudioStarted("");
 					
 					Language(cur_scene_i, cur_spec_i);
 					voiceover_audiosource.Play();

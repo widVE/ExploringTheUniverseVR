@@ -61,6 +61,9 @@ public class ViewSimSys : MonoBehaviour
     public float viewThreshold = .75f;
 
     public bool showComparison;
+	
+	[SerializeField]
+	ObjectTracker _trackedObject;
 
     [Serializable]
     public class Viewpoint
@@ -659,19 +662,19 @@ public class ViewSimSys : MonoBehaviour
                                 viewpointsL2.ClearToIndex(bestIndex);
                                 viewpointsL2.IncrementBackPtr();
                                 //now clear out L2
-                                /*viewpointsL2.Clear();
+                                viewpointsL2.Clear();
 
                                 if (viewpointsL3.Count >= maxCompareFrames)
                                 {
                                     //show our captured viewpoints
-                                    storeSession(viewpointsL3);
-                                    // foreach (Viewpoint viewpoint in viewpointsL3)
-                                    // {
-                                    //     CreateGameObjectFromViewpoint(viewpoint);
-                                    //     SaveRenderTexture(viewpoint.colorTexture, _writingPath);
-                                    // }
+                                    //storeSession(viewpointsL3);
+									foreach (Viewpoint viewpoint in viewpointsL3)
+									{
+										CreateGameObjectFromViewpoint(viewpoint);
+										SaveRenderTexture(viewpoint.colorTexture, _writingPath);
+									}
                                     captureViews = false;
-                                }*/
+                                }
                             }
                         }
                     }
@@ -710,7 +713,9 @@ public class ViewSimSys : MonoBehaviour
 
     public void CaptureView(Camera cam, Viewpoint v)
     {
+#if UNITY_EDITOR
 
+#else
         //initialize the viewpoint
         v.set(cam);
 
@@ -718,9 +723,7 @@ public class ViewSimSys : MonoBehaviour
         shader.SetInt("SourceWidth", cam.pixelWidth);
         shader.SetInt("SourceHeight", cam.pixelHeight);
 
-
-
-            shader.SetTexture(handleCapture, "SourceColor", RenderTexture.active);
+        shader.SetTexture(handleCapture, "SourceColor", RenderTexture.active);
        // shader.SetTextureFromGlobal(handleCapture, "SourceColor", "_CameraColorTexture");
         shader.SetTextureFromGlobal(handleCapture, "SourceDepth", "_CameraDepthTexture");
 
@@ -733,6 +736,7 @@ public class ViewSimSys : MonoBehaviour
         //run the shader
         Vector3Int execParam = getComputeParams(v.colorTexture);
         shader.Dispatch(handleCapture, execParam.x, execParam.y, execParam.z);
+#endif
     }
 
     public void Compare(Viewpoint va, Viewpoint vb, ComputeBuffer simBuffer, int index=-1)
