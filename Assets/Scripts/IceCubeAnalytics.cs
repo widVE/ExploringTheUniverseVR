@@ -32,7 +32,7 @@ public class IceCubeAnalytics : Singleton<IceCubeAnalytics>
 		
 		_ogdLog = new OGDLog(_DB_NAME, UnityEngine.Application.version);
 		_ogdLog.UseFirebase(_firebase);
-        _ogdLog.SetDebug(true);
+        //	_ogdLog.SetDebug(true);
     }
 
     #region Logging
@@ -49,6 +49,18 @@ public class IceCubeAnalytics : Singleton<IceCubeAnalytics>
         }	*/
 	}
 
+	public void LogFailedEnd()
+	{
+        _ogdLog.BeginEvent("failed");
+        _ogdLog.EventParam("seconds_from_launch", UnityEngine.Time.time-seconds_from_start);
+        _ogdLog.SubmitEvent();
+		/*if (FirebaseEnabled)
+        {
+            FirebaseAnalytics.LogEvent(FirebaseAnalytics.EventLevelStart, new Parameter(FirebaseAnalytics.ParameterLevelName, "antarctica"), new Parameter("start", UnityEngine.Time.time-seconds_from_start));
+                //new Parameter("app_version", logVersion));
+        }	*/
+	}
+	
     public void LogHeadsetOn()
     {
         _ogdLog.BeginEvent("headset_on");
@@ -129,7 +141,7 @@ public class IceCubeAnalytics : Singleton<IceCubeAnalytics>
 
     public void LogCaption(string caption)
     {
-        _ogdLog.BeginEvent("script_audio_started");
+        _ogdLog.BeginEvent("caption_displayed");
         _ogdLog.EventParam("caption", caption);
         _ogdLog.EventParam("seconds_from_launch", UnityEngine.Time.time-seconds_from_start);
         _ogdLog.SubmitEvent();

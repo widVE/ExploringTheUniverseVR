@@ -664,7 +664,7 @@ public class ViewSimSys : MonoBehaviour
                                 //now clear out L2
                                 viewpointsL2.Clear();
 
-                                if (viewpointsL3.Count >= maxCompareFrames)
+                                /*if (viewpointsL3.Count >= maxCompareFrames)
                                 {
                                     //show our captured viewpoints
                                     //storeSession(viewpointsL3);
@@ -674,7 +674,7 @@ public class ViewSimSys : MonoBehaviour
 										SaveRenderTexture(viewpoint.colorTexture, _writingPath);
 									}
                                     captureViews = false;
-                                }
+                                }*/
                             }
                         }
                     }
@@ -918,7 +918,7 @@ public class ViewSimSys : MonoBehaviour
         writer.Close();
 		//writer.Dispose();
 
-#if UNITY_ANDROID
+#if USE_FIREBASE_STORAGE
 		StorageReference storageRef = ViewSimSys._storage.GetReferenceFromUrl("gs://icecubevr-a0510.appspot.com");
 		StorageReference imageRef = storageRef.Child(_fileTimestamp);
 		StorageReference testPng = imageRef.Child("symMat_"+_frameCount.ToString("D6")+".csv");

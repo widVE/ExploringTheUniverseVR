@@ -4274,11 +4274,14 @@ public class Main : MonoBehaviour
 					
                     if (old_ta < beam_t) //newly here
                     {
-                        gazeray.SetActive(true);
-                        gazeball.SetActive(true);
-						IceCubeAnalytics.Instance.LogObjectDisplayed(false, "gazeray", gazeray.transform.position, gazeray.transform.rotation);
-						IceCubeAnalytics.Instance.LogObjectDisplayed(false, "gazeball", gazeball.transform.position, gazeball.transform.rotation);
-						IceCubeAnalytics.Instance.LogObjectAssigned("gazeup");
+						if(!gazeray.activeSelf)
+						{
+							gazeray.SetActive(true);
+							gazeball.SetActive(true);
+							IceCubeAnalytics.Instance.LogObjectDisplayed(false, "gazeray", gazeray.transform.position, gazeray.transform.rotation);
+							IceCubeAnalytics.Instance.LogObjectDisplayed(false, "gazeball", gazeball.transform.position, gazeball.transform.rotation);
+							IceCubeAnalytics.Instance.LogObjectAssigned("gazeup");
+						}
                     }
                 //command, gaze up 
                 if (subtitle_i == subtitle_pause_i_ice_0 && !advance_passed_ice_0)
@@ -4342,15 +4345,30 @@ public class Main : MonoBehaviour
                 //!spec_projection.activeSelf
                 if (voiceovers_played[cur_scene_i, (int)SPEC.VIZ] && !voiceover_was_playing)
                 {
-                    spec_gam_reticle.SetActive(true);
-                    spec_viz_reticle.SetActive(true);
-                    spec_neu_reticle.SetActive(true);
-                    spec_sel_reticle.SetActive(true);
+
+					if(!spec_gam_reticle.activeSelf)
+					{
+						spec_gam_reticle.SetActive(true);
+						IceCubeAnalytics.Instance.LogObjectDisplayed(false, "spec_gam_reticle", spec_gam_reticle.transform.position, spec_gam_reticle.transform.rotation);
+					}
 					
-					IceCubeAnalytics.Instance.LogObjectDisplayed(false, "spec_gam_reticle", spec_gam_reticle.transform.position, spec_gam_reticle.transform.rotation);
-					IceCubeAnalytics.Instance.LogObjectDisplayed(false, "spec_gam_reticle", spec_viz_reticle.transform.position, spec_viz_reticle.transform.rotation);
-					IceCubeAnalytics.Instance.LogObjectDisplayed(false, "spec_neu_reticle", spec_gam_reticle.transform.position, spec_neu_reticle.transform.rotation);
-					IceCubeAnalytics.Instance.LogObjectDisplayed(false, "spec_sel_reticle", spec_sel_reticle.transform.position, spec_sel_reticle.transform.rotation);
+					if(!spec_viz_reticle.activeSelf)
+					{
+						spec_viz_reticle.SetActive(true);
+						IceCubeAnalytics.Instance.LogObjectDisplayed(false, "spec_viz_reticle", spec_viz_reticle.transform.position, spec_viz_reticle.transform.rotation);
+					}
+					
+					if(!spec_neu_reticle.activeSelf)
+					{
+						spec_neu_reticle.SetActive(true);
+						IceCubeAnalytics.Instance.LogObjectDisplayed(false, "spec_neu_reticle", spec_neu_reticle.transform.position, spec_neu_reticle.transform.rotation);
+					}
+					
+					if(!spec_sel_reticle.activeSelf)
+					{
+						spec_sel_reticle.SetActive(true);
+						IceCubeAnalytics.Instance.LogObjectDisplayed(false, "spec_sel_reticle", spec_sel_reticle.transform.position, spec_sel_reticle.transform.rotation);
+					}
                 }
 
 
@@ -4492,6 +4510,7 @@ public class Main : MonoBehaviour
                 {
                     in_fail_motion = 0.0001f;
                     ar_timer_text.text = "XX:XX:XX";
+					IceCubeAnalytics.Instance.LogFailedEnd();
                 }
 
                 float bhr_speed = 2.0f;
@@ -4508,8 +4527,12 @@ public class Main : MonoBehaviour
             case (int)SCENE.EARTH:
 
                 earth[0].transform.position = anti_gaze_pt.normalized * 600 + new Vector3(0.0f, 500.0f, 0.0f);
+				if(!warp_trigger.just_triggered)
+				{
+					IceCubeAnalytics.Instance.LogObjectSelected("earth");
+				}
                 warp_trigger.just_triggered = true;
-				IceCubeAnalytics.Instance.LogObjectSelected("earth");
+				
                 break;
 
             case (int)SCENE.CREDITS:
@@ -4897,8 +4920,14 @@ public class Main : MonoBehaviour
 								espAudio.Pause();
 							}
 						}
-						advance_paused = true;
+						
 						subtitle_i--;
+						//if(!advance_paused)
+						//{
+						//	IceCubeAnalytics.Instance.LogCaption(subtitle_strings[cur_scene_i, subtitle_spec, subtitle_i]);
+						//}
+						
+						advance_paused = true;
 						subtitle_t = subtitle_cues_absolute[cur_scene_i, subtitle_spec, subtitle_i + 1] - 0.0001f;
 					}
 					else
@@ -4916,7 +4945,7 @@ public class Main : MonoBehaviour
 								porAudio.volume = voiceover_vols[cur_scene_i, cur_spec_i];
 								voiceover_audiosource.volume = 0.0f;
 								espAudio.volume = 0.0f;
-								Debug.Log(LocalizationManager.instance.portuguese);
+								//Debug.Log(LocalizationManager.instance.portuguese);
 							}
 							else
 							{
@@ -4928,12 +4957,17 @@ public class Main : MonoBehaviour
 							voiceover_audiosource.Play();
 							espAudio.Play();
 							porAudio.Play();
+							
+							
 						}
 						advance_paused = false;
 					}
 
 					subtitles_text.text = subtitle_strings[cur_scene_i, subtitle_spec, subtitle_i];
-					IceCubeAnalytics.Instance.LogCaption(subtitle_strings[cur_scene_i, subtitle_spec, subtitle_i]);
+					if(!advance_paused)
+					{
+						IceCubeAnalytics.Instance.LogCaption(subtitle_strings[cur_scene_i, subtitle_spec, subtitle_i]);
+					}
 				}
 			}
 		}
