@@ -674,7 +674,7 @@ public class Main : MonoBehaviour
     void HandleHMDMounted()
     {
         reStart();
-        SetSpec((int)SPEC.VIZ);
+        SetSpec((int)SPEC.VIZ, false);
         SetupScene();
         hmd_mounted = true;
         menuscreen.SetActive(true);
@@ -701,7 +701,7 @@ public class Main : MonoBehaviour
 			}
 		}
         reStart();
-        SetSpec((int)SPEC.VIZ);
+        SetSpec((int)SPEC.VIZ, false);
         SetupScene();
         hmd_mounted = false;
         menuscreen.SetActive(false);
@@ -3806,7 +3806,7 @@ public class Main : MonoBehaviour
 
         IceCubeAnalytics.Instance.LogSceneChanged(((SCENE)cur_scene_i).ToString());
 
-        SetSpec((int)SPEC.VIZ);
+        SetSpec((int)SPEC.VIZ, false);
 
         for (int i = 0; i < 3; i++)
             ar_maps[i].SetActive(false);
@@ -4561,7 +4561,7 @@ public class Main : MonoBehaviour
 
     }
 
-    void SetSpec(int spec)
+    void SetSpec(int spec, bool log=true)
     {
         //leaving actualy gameanalytics in (but commented out) so it's easy to find/replace them
         cur_spec_i = spec;
@@ -4576,16 +4576,23 @@ public class Main : MonoBehaviour
             case (int)SPEC.GAM:
                 spec_sel_reticle.transform.position = spec_gam_reticle.transform.position;
                 //GameAnalytics.NewProgressionEvent (GAProgressionStatus.Start, "Universe", "Scene_" + cur_scene_i, "X-ray", 0);
-				IceCubeAnalytics.Instance.LogObjectAssigned("X-ray");
+				if(log)
+				{
+					IceCubeAnalytics.Instance.LogObjectAssigned("X-ray");
+				}
                 break;
             case (int)SPEC.VIZ:
                 spec_sel_reticle.transform.position = spec_viz_reticle.transform.position;
                 //GameAnalytics.NewProgressionEvent (GAProgressionStatus.Start, "Universe", "Scene_" + cur_scene_i, "viz", 0);
-				IceCubeAnalytics.Instance.LogObjectAssigned("VisibleLight");
+				if(log)
+				{
+					IceCubeAnalytics.Instance.LogObjectAssigned("VisibleLight");
+				}
                 break;
             case (int)SPEC.NEU:
                 spec_sel_reticle.transform.position = spec_neu_reticle.transform.position;
                 //GameAnalytics.NewProgressionEvent (GAProgressionStatus.Start, "Universe", "Scene_" + cur_scene_i, "neu", 0);
+				
 				IceCubeAnalytics.Instance.LogObjectAssigned("NeutrinoVision");
                 break;
         }
@@ -4890,6 +4897,7 @@ public class Main : MonoBehaviour
 					  (cur_scene_i == (int)SCENE.VOYAGER && cur_spec_i == (int)SPEC.NEU && !advance_passed_voyager_1 && subtitle_i == subtitle_pause_i_voyager_1 + 1)
 					)
 					{
+						bool wasPausedThisFrame = false;
 						//freeze time
 						if (!advance_paused)
 						{
@@ -4918,6 +4926,8 @@ public class Main : MonoBehaviour
 								//Debug.Log("PAUSE");
 								porAudio.Pause();
 								espAudio.Pause();
+								wasPausedThisFrame = true;
+
 							}
 						}
 						
@@ -4927,6 +4937,11 @@ public class Main : MonoBehaviour
 						//	IceCubeAnalytics.Instance.LogCaption(subtitle_strings[cur_scene_i, subtitle_spec, subtitle_i]);
 						//}
 						
+						if(wasPausedThisFrame)
+						{
+							IceCubeAnalytics.Instance.LogAudioComplete(subtitle_strings[cur_scene_i, subtitle_spec, subtitle_i]);
+							//Debug.Log(subtitle_strings[cur_scene_i, subtitle_spec, subtitle_i] + " complete");
+						}
 						advance_paused = true;
 						subtitle_t = subtitle_cues_absolute[cur_scene_i, subtitle_spec, subtitle_i + 1] - 0.0001f;
 					}
@@ -4957,7 +4972,8 @@ public class Main : MonoBehaviour
 							voiceover_audiosource.Play();
 							espAudio.Play();
 							porAudio.Play();
-							
+							IceCubeAnalytics.Instance.LogAudioStarted(subtitle_strings[cur_scene_i, subtitle_spec, subtitle_i]);
+							//Debug.Log(subtitle_strings[cur_scene_i, subtitle_spec, subtitle_i] + " started");
 							
 						}
 						advance_paused = false;
@@ -5218,8 +5234,10 @@ public class Main : MonoBehaviour
 					}
 					if (play_end)
 					{
-						IceCubeAnalytics.Instance.LogAudioComplete("");
-					
+						//IceCubeAnalytics.Instance.LogAudioComplete("");
+						IceCubeAnalytics.Instance.LogAudioStarted(subtitle_strings[cur_scene_i, subtitle_spec, subtitle_i]);
+						//Debug.Log(subtitle_strings[cur_scene_i, subtitle_spec, subtitle_i] + " complete");
+						
 						Language(cur_scene_i, (int)SPEC.COUNT);
 						//Debug.Log("vPlay04");
 						voiceover_audiosource.Play();
@@ -5247,7 +5265,7 @@ public class Main : MonoBehaviour
 					}
 					if (play_end)
 					{
-						IceCubeAnalytics.Instance.LogAudioComplete(voiceover_audiosource.clip.name);
+						//IceCubeAnalytics.Instance.LogAudioComplete(voiceover_audiosource.clip.name);
 					
 						Language(cur_scene_i, (int)SPEC.COUNT);
 						//Debug.Log("vPlay05555555");
@@ -5276,7 +5294,7 @@ public class Main : MonoBehaviour
 					}
 					if (play_end)
 					{
-						IceCubeAnalytics.Instance.LogAudioComplete(voiceover_audiosource.clip.name);
+						//IceCubeAnalytics.Instance.LogAudioComplete(voiceover_audiosource.clip.name);
 					
 						Language(cur_scene_i, (int)SPEC.COUNT);
 						//Debug.Log("vPlay06");
@@ -5295,34 +5313,7 @@ public class Main : MonoBehaviour
 			float ball_t = (nwave_t_10 % 2f) / 2f;
 			gazeball.transform.position = Vector3.Lerp(gaze_pt, anti_gaze_pt, ball_t);
 			Vector3 ball_pos = gazeball.transform.position;
-			//ball_pos -= grid_bulbs[grid_w - 1, grid_h - 1, 0].transform.position;
-			//ball_pos /= 3f;
-			//ball_pos += grid_bulbs[grid_w - 1, grid_h - 1, 0].transform.position;
-			//for (int i = 0; i < grid_w; i++)
-			//{
-			//    for (int j = 0; j < grid_h; j++)
-			//    {
-			//        for (int k = 0; k < grid_d; k++)
-			//        {
-			//            float f = Vector3.Distance(ball_pos, grid_bulbs[i, j, k].transform.position);
-			//            f = (30f - f) / 30f;
-			//            grid_s[i, j, k] = Mathf.Clamp(f, 0.1f, 1f);
-			//        }
-			//    }
-			//}
-
-			//for (int i = 0; i < grid_w; i++)
-			//{
-			//    for (int j = 0; j < grid_h; j++)
-			//    {
-			//        for (int k = 0; k < grid_d; k++)
-			//        {
-			//            float s = grid_s[i, j, k] * default_grid_s;
-			//            grid_bulbs[i, j, k].transform.localScale = new Vector3(s, s, s);
-			//        }
-			//    }
-			//}
-
+	
 			MapVols();
 		}
 		else
@@ -5334,7 +5325,7 @@ public class Main : MonoBehaviour
 
 				if (dumb_delay_t >= dumb_delay_t_max && language_selected) // newly done with delay
 				{
-					IceCubeAnalytics.Instance.LogAudioStarted("");
+					//IceCubeAnalytics.Instance.LogAudioStarted("");
 					
 					Language(cur_scene_i, cur_spec_i);
 					voiceover_audiosource.Play();
@@ -5346,6 +5337,8 @@ public class Main : MonoBehaviour
 					subtitle_t = 0;
 					subtitles_text.text = string.Empty;
 					subtitle_spec = cur_spec_i;
+					IceCubeAnalytics.Instance.LogAudioStarted(subtitle_strings[cur_scene_i, subtitle_spec, subtitle_i+1]);
+					//Debug.Log(subtitle_strings[cur_scene_i, subtitle_spec, subtitle_i+1] + " started");
 				}
 			}
 
@@ -5363,33 +5356,6 @@ public class Main : MonoBehaviour
 			float ball_t = (nwave_t_10 % 2f) / 2f;
 			gazeball.transform.position = Vector3.Lerp(gaze_pt, anti_gaze_pt, ball_t);
 			Vector3 ball_pos = gazeball.transform.position;
-			//ball_pos -= grid_bulbs[grid_w - 1, grid_h - 1, 0].transform.position;
-			//ball_pos /= 3f;
-			//ball_pos += grid_bulbs[grid_w - 1, grid_h - 1, 0].transform.position;
-			//for (int i = 0; i < grid_w; i++)
-			//{
-			//    for (int j = 0; j < grid_h; j++)
-			//    {
-			//        for (int k = 0; k < grid_d; k++)
-			//        {
-			//            float f = Vector3.Distance(ball_pos, grid_bulbs[i, j, k].transform.position);
-			//            f = (30f - f) / 30f;
-			//            grid_s[i, j, k] = Mathf.Clamp(f, 0.1f, 1f);
-			//        }
-			//    }
-			//}
-
-			//for (int i = 0; i < grid_w; i++)
-			//{
-			//    for (int j = 0; j < grid_h; j++)
-			//    {
-			//        for (int k = 0; k < grid_d; k++)
-			//        {
-			//            float s = grid_s[i, j, k] * default_grid_s;
-			//            grid_bulbs[i, j, k].transform.localScale = new Vector3(s, s, s);
-			//        }
-			//    }
-			//}
 
 			MapVols();
 		}
