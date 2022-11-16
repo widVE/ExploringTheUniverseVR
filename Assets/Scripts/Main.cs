@@ -4105,19 +4105,30 @@ public class Main : MonoBehaviour
                 espAudio.Stop();
                 porAudio.Stop();
             }
-
+			
+			if(subtitle_strings[cur_scene_i, subtitle_spec, subtitle_i].Length > 0)
+			{
+				IceCubeAnalytics.Instance.LogAudioComplete(subtitle_strings[cur_scene_i, subtitle_spec, subtitle_i]);
+				Debug.Log(subtitle_strings[cur_scene_i, subtitle_spec, subtitle_i] + " complete");
+			}
+			
             Language(cur_scene_i, (int)SPEC.VIZ);
 
             voiceover_audiosource.Play();
             espAudio.Play();
             porAudio.Play();
-
+			
             voiceover_was_playing = true;
             voiceovers_played[cur_scene_i, (int)SPEC.VIZ] = true;
             subtitle_i = 0;
             subtitle_t = 0;
             subtitles_text.text = string.Empty;
             subtitle_spec = (int)SPEC.VIZ;
+			if(subtitle_strings[cur_scene_i, subtitle_spec, subtitle_i].Length > 0)
+			{
+				IceCubeAnalytics.Instance.LogAudioStarted(subtitle_strings[cur_scene_i, subtitle_spec, subtitle_i]);
+				Debug.Log(subtitle_strings[cur_scene_i, subtitle_spec, subtitle_i] + " started");
+			}
         }
         if (music_audiosource.isPlaying) music_audiosource.Stop();
         music_audiosource.clip = GetMusicClip(cur_scene_i, (int)SPEC.VIZ);
@@ -4280,7 +4291,7 @@ public class Main : MonoBehaviour
 							gazeball.SetActive(true);
 							IceCubeAnalytics.Instance.LogObjectDisplayed(false, "gazeray", gazeray.transform.position, gazeray.transform.rotation);
 							IceCubeAnalytics.Instance.LogObjectDisplayed(false, "gazeball", gazeball.transform.position, gazeball.transform.rotation);
-							IceCubeAnalytics.Instance.LogObjectAssigned("gazeup");
+							IceCubeAnalytics.Instance.LogObjectDisplayed(true, "gazeup", new Vector3(0f, 10f, 10f), rotationFromEuler(getEuler(new Vector3(0f, 10f, 10f).normalized)));
 						}
                     }
                 //command, gaze up 
@@ -4301,7 +4312,8 @@ public class Main : MonoBehaviour
                             PlaySFX(SFX.SELECT);
                             gaze_projection.transform.rotation = rotationFromEuler(gaze_cam_euler);
 							IceCubeAnalytics.Instance.LogObjectSelected("gazeup");
-							IceCubeAnalytics.Instance.LogObjectAssigned("gazefeet");
+							IceCubeAnalytics.Instance.LogObjectDisplayed(true, "gazefeet", new Vector3(0f, -10f, 10f), rotationFromEuler(getEuler(new Vector3(0f, -10f, 10f).normalized)));
+							//IceCubeAnalytics.Instance.LogObjectAssigned("gazefeet");
                         }
                     }
                 }
@@ -4376,7 +4388,12 @@ public class Main : MonoBehaviour
                 if (cur_spec_i == (int)SPEC.GAM && subtitle_i == subtitle_pause_i_voyager_0 && !advance_passed_voyager_0)
                 {
                     gaze_projection.transform.rotation = rotationFromEuler(getCamEuler(pluto[0].transform.position));
-                    gaze_reticle.SetActive(true);
+                    if(!gaze_reticle.activeSelf)
+					{
+						IceCubeAnalytics.Instance.LogObjectDisplayed(true, "pluto1", gaze_reticle.transform.position, gaze_projection.transform.rotation);
+					}
+					gaze_reticle.SetActive(true);
+					
                     advance_trigger.position = gaze_reticle.transform.position;
                     if (advance_trigger.tick(cam_reticle.transform.position, Time.deltaTime))
                     {
@@ -4385,14 +4402,18 @@ public class Main : MonoBehaviour
                             advance_passed_voyager_0 = true;
                             gaze_reticle.SetActive(false);
                             gaze_projection.transform.rotation = rotationFromEuler(gaze_cam_euler);
-							IceCubeAnalytics.Instance.LogObjectSelected("xray_vision");
+							IceCubeAnalytics.Instance.LogObjectSelected("pluto1");
                         }
                     }
                 }
                 if (cur_spec_i == (int)SPEC.NEU && subtitle_i == subtitle_pause_i_voyager_1 && !advance_passed_voyager_1)
                 {
                     gaze_projection.transform.rotation = rotationFromEuler(getCamEuler(pluto[0].transform.position));
-                    gaze_reticle.SetActive(true);
+					if(!gaze_reticle.activeSelf)
+					{
+						IceCubeAnalytics.Instance.LogObjectDisplayed(true, "pluto2", gaze_reticle.transform.position, gaze_projection.transform.rotation);
+					}
+					gaze_reticle.SetActive(true);
                     advance_trigger.position = gaze_reticle.transform.position;
                     if (advance_trigger.tick(cam_reticle.transform.position, Time.deltaTime))
                     {
@@ -4401,7 +4422,7 @@ public class Main : MonoBehaviour
                             advance_passed_voyager_1 = true;
                             gaze_reticle.SetActive(false);
                             gaze_projection.transform.rotation = rotationFromEuler(gaze_cam_euler);
-							IceCubeAnalytics.Instance.LogObjectSelected("neutrino_vision");
+							IceCubeAnalytics.Instance.LogObjectSelected("pluto2");
                         }
                     }
                 }
@@ -4430,12 +4451,13 @@ public class Main : MonoBehaviour
                     {
                         if (!HeadsetPaused && !voiceover_audiosource.isPlaying && !espAudio.isPlaying && !porAudio.isPlaying)
                         {
+							gaze_projection.transform.rotation = rotationFromEuler(getCamEuler(blackhole[0].transform.position));
+							
                             if (!gaze_reticle.activeSelf) 
 							{
 								gaze_reticle.SetActive(true);
+								IceCubeAnalytics.Instance.LogObjectDisplayed(true, "blackhole", gaze_reticle.transform.position, gaze_projection.transform.rotation);
 							}
-							
-                            gaze_projection.transform.rotation = rotationFromEuler(getCamEuler(blackhole[0].transform.position));
 							
                             blackhole_trigger.position = gaze_reticle.transform.position;
 							
@@ -4457,6 +4479,7 @@ public class Main : MonoBehaviour
                                     {
                                         gaze_projection.transform.rotation = rotationFromEuler(anti_gaze_cam_euler);
                                         gaze_reticle.SetActive(true);
+										IceCubeAnalytics.Instance.LogObjectDisplayed(true, "earth", gaze_projection.transform.position, gaze_projection.transform.rotation);
                                     }
                                 }
                             }
@@ -4554,6 +4577,7 @@ public class Main : MonoBehaviour
                 break;
 
         }
+		
         if (!gaze_reticle.activeSelf && voiceovers_played[cur_scene_i, (int)SPEC.COUNT] && cur_scene_i != (int)SCENE.CREDITS)
         {
             gaze_reticle.SetActive(true);
@@ -4940,7 +4964,7 @@ public class Main : MonoBehaviour
 						if(wasPausedThisFrame)
 						{
 							IceCubeAnalytics.Instance.LogAudioComplete(subtitle_strings[cur_scene_i, subtitle_spec, subtitle_i]);
-							//Debug.Log(subtitle_strings[cur_scene_i, subtitle_spec, subtitle_i] + " complete");
+							Debug.Log(subtitle_strings[cur_scene_i, subtitle_spec, subtitle_i] + " complete");
 						}
 						advance_paused = true;
 						subtitle_t = subtitle_cues_absolute[cur_scene_i, subtitle_spec, subtitle_i + 1] - 0.0001f;
@@ -4972,8 +4996,12 @@ public class Main : MonoBehaviour
 							voiceover_audiosource.Play();
 							espAudio.Play();
 							porAudio.Play();
-							IceCubeAnalytics.Instance.LogAudioStarted(subtitle_strings[cur_scene_i, subtitle_spec, subtitle_i]);
-							//Debug.Log(subtitle_strings[cur_scene_i, subtitle_spec, subtitle_i] + " started");
+							
+							if(subtitle_strings[cur_scene_i, subtitle_spec, subtitle_i].Length > 0)
+							{
+								IceCubeAnalytics.Instance.LogAudioStarted(subtitle_strings[cur_scene_i, subtitle_spec, subtitle_i]);
+								Debug.Log(subtitle_strings[cur_scene_i, subtitle_spec, subtitle_i] + " started");
+							}
 							
 						}
 						advance_paused = false;
@@ -4982,7 +5010,11 @@ public class Main : MonoBehaviour
 					subtitles_text.text = subtitle_strings[cur_scene_i, subtitle_spec, subtitle_i];
 					if(!advance_paused)
 					{
-						IceCubeAnalytics.Instance.LogCaption(subtitle_strings[cur_scene_i, subtitle_spec, subtitle_i]);
+						if(subtitle_strings[cur_scene_i, subtitle_spec, subtitle_i].Length > 0)
+						{
+							IceCubeAnalytics.Instance.LogCaption(subtitle_strings[cur_scene_i, subtitle_spec, subtitle_i]);
+							Debug.Log("Caption: " + subtitle_strings[cur_scene_i, subtitle_spec, subtitle_i]);
+						}
 					}
 				}
 			}
@@ -5101,7 +5133,18 @@ public class Main : MonoBehaviour
 				if (in_portal_motion == 0 && out_portal_motion == 0)
 				{
 					in_portal_motion = Time.deltaTime;
-
+					if(cur_scene_i == (int)SCENE.VOYAGER)
+					{
+						IceCubeAnalytics.Instance.LogObjectSelected("gaze_voyager");
+					}
+					else if(cur_scene_i == (int)SCENE.ICE)
+					{
+						IceCubeAnalytics.Instance.LogObjectSelected("gaze_ice");
+					}
+					else if(cur_scene_i == (int)SCENE.NOTHING)
+					{
+						IceCubeAnalytics.Instance.LogObjectSelected("gaze_nothing");
+					}
 					PreSetupNextScene();
 				}
 				in_fail_motion = 0;
@@ -5127,10 +5170,7 @@ public class Main : MonoBehaviour
 		//IF !ICE scene
 		if (cur_scene_i != (int)SCENE.ICE && cur_scene_i != (int)SCENE.EARTH)
 		{
-			if (
-		  !(cur_scene_i == (int)SCENE.VOYAGER && voiceover_was_playing) &&
-		  !advance_paused && spec_projection.activeSelf && spec_trigger.tick(cam_reticle.transform.position, Time.deltaTime)
-		  )
+			if (!(cur_scene_i == (int)SCENE.VOYAGER && voiceover_was_playing) && !advance_paused && spec_projection.activeSelf && spec_trigger.tick(cam_reticle.transform.position, Time.deltaTime))
 			{
 				if (spec_trigger.just_triggered)
 				{
@@ -5156,6 +5196,11 @@ public class Main : MonoBehaviour
 							voiceover_audiosource.Play();
 							espAudio.Play();
 							porAudio.Play();
+							if(subtitle_strings[cur_scene_i, subtitle_spec, subtitle_i].Length > 0)
+							{
+								IceCubeAnalytics.Instance.LogAudioStarted(subtitle_strings[cur_scene_i, subtitle_spec, subtitle_i]);
+								Debug.Log(subtitle_strings[cur_scene_i, subtitle_spec, subtitle_i] + " started");
+							}
 							voiceover_was_playing = true;
 							voiceovers_played[cur_scene_i, cur_spec_i] = true;
 							subtitle_i = 0;
@@ -5226,17 +5271,22 @@ public class Main : MonoBehaviour
 				if (!HeadsetPaused && !advance_paused && !voiceover_audiosource.isPlaying)
 				{
 					voiceover_was_playing = false;
+					
 					bool play_end = !voiceovers_played[cur_scene_i, (int)SPEC.COUNT];
+					
 					if (cur_scene_i == (int)SCENE.EXTREME) play_end = false;
 					for (int i = 0; play_end && i < (int)SPEC.COUNT; i++)
 					{
 						if (!voiceovers_played[cur_scene_i, i]) play_end = false;
 					}
+					
 					if (play_end)
 					{
-						//IceCubeAnalytics.Instance.LogAudioComplete("");
-						IceCubeAnalytics.Instance.LogAudioStarted(subtitle_strings[cur_scene_i, subtitle_spec, subtitle_i]);
-						//Debug.Log(subtitle_strings[cur_scene_i, subtitle_spec, subtitle_i] + " complete");
+						if(subtitle_strings[cur_scene_i, subtitle_spec, subtitle_i].Length > 0)
+						{
+							IceCubeAnalytics.Instance.LogAudioComplete(subtitle_strings[cur_scene_i, subtitle_spec, subtitle_i]);
+							Debug.Log(subtitle_strings[cur_scene_i, subtitle_spec, subtitle_i] + " complete");
+						}
 						
 						Language(cur_scene_i, (int)SPEC.COUNT);
 						//Debug.Log("vPlay04");
@@ -5263,10 +5313,14 @@ public class Main : MonoBehaviour
 					{
 						if (!voiceovers_played[cur_scene_i, i]) play_end = false;
 					}
+					
 					if (play_end)
 					{
-						//IceCubeAnalytics.Instance.LogAudioComplete(voiceover_audiosource.clip.name);
-					
+						if(subtitle_strings[cur_scene_i, subtitle_spec, subtitle_i].Length > 0)
+						{
+							IceCubeAnalytics.Instance.LogAudioComplete(subtitle_strings[cur_scene_i, subtitle_spec, subtitle_i]);
+							Debug.Log(subtitle_strings[cur_scene_i, subtitle_spec, subtitle_i] + " complete");
+						}
 						Language(cur_scene_i, (int)SPEC.COUNT);
 						//Debug.Log("vPlay05555555");
 						voiceover_audiosource.Play();
@@ -5294,8 +5348,11 @@ public class Main : MonoBehaviour
 					}
 					if (play_end)
 					{
-						//IceCubeAnalytics.Instance.LogAudioComplete(voiceover_audiosource.clip.name);
-					
+						if(subtitle_strings[cur_scene_i, subtitle_spec, subtitle_i].Length > 0)
+						{
+							IceCubeAnalytics.Instance.LogAudioComplete(subtitle_strings[cur_scene_i, subtitle_spec, subtitle_i]);
+							Debug.Log(subtitle_strings[cur_scene_i, subtitle_spec, subtitle_i] + " complete");
+						}
 						Language(cur_scene_i, (int)SPEC.COUNT);
 						//Debug.Log("vPlay06");
 						voiceover_audiosource.Play();
@@ -5337,8 +5394,11 @@ public class Main : MonoBehaviour
 					subtitle_t = 0;
 					subtitles_text.text = string.Empty;
 					subtitle_spec = cur_spec_i;
-					IceCubeAnalytics.Instance.LogAudioStarted(subtitle_strings[cur_scene_i, subtitle_spec, subtitle_i+1]);
-					//Debug.Log(subtitle_strings[cur_scene_i, subtitle_spec, subtitle_i+1] + " started");
+					if(subtitle_strings[cur_scene_i, subtitle_spec, subtitle_i+1].Length > 0)
+					{
+						IceCubeAnalytics.Instance.LogAudioStarted(subtitle_strings[cur_scene_i, subtitle_spec, subtitle_i+1]);
+						Debug.Log(subtitle_strings[cur_scene_i, subtitle_spec, subtitle_i+1] + " started");
+					}
 				}
 			}
 
