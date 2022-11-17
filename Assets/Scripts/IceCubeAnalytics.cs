@@ -70,11 +70,12 @@ public class IceCubeAnalytics : Singleton<IceCubeAnalytics>
         }	*/
 	}
 	
-    public void LogHeadsetOn()
+    public void LogHeadsetOn(string scene)
     {
 		if(_loggingEnabled)
 		{
 			_ogdLog.BeginEvent("headset_on");
+			_ogdLog.EventParam("scene", scene);
 			_ogdLog.SubmitEvent();
 		}
         /*if(FirebaseEnabled)
@@ -99,11 +100,12 @@ public class IceCubeAnalytics : Singleton<IceCubeAnalytics>
         }*/
     }
 
-    public void LogObjectAssigned(string obj)
+    public void LogObjectAssigned(string obj, string scene)
     {
 		if(_loggingEnabled)
 		{
 			_ogdLog.BeginEvent("object_assigned");
+			_ogdLog.EventParam("scene", scene);
 			_ogdLog.EventParam("object", obj);
 			_ogdLog.EventParam("seconds_from_launch", UnityEngine.Time.time-seconds_from_start);
 			_ogdLog.SubmitEvent();
@@ -114,11 +116,12 @@ public class IceCubeAnalytics : Singleton<IceCubeAnalytics>
         }*/
     }
 
-    public void LogObjectSelected(string obj)
+    public void LogObjectSelected(string obj, string scene)
     {
 		if(_loggingEnabled)
 		{
 			_ogdLog.BeginEvent("object_selected");
+			_ogdLog.EventParam("scene", scene);
 			_ogdLog.EventParam("gaze_point_name", obj);
 			_ogdLog.EventParam("seconds_from_launch", UnityEngine.Time.time-seconds_from_start);
 			_ogdLog.SubmitEvent();
@@ -146,45 +149,49 @@ public class IceCubeAnalytics : Singleton<IceCubeAnalytics>
         }*/	
     }
 
-    public void LogAudioStarted(string clip)
+    public void LogAudioStarted(string clip, string scene)
     {
 		if(_loggingEnabled)
 		{
 			_ogdLog.BeginEvent("script_audio_started");
-			//_ogdLog.EventParam("clip_identifier", clip);
+			_ogdLog.EventParam("scene", scene);
+			_ogdLog.EventParam("clip_identifier", clip);
 			_ogdLog.EventParam("seconds_from_launch", UnityEngine.Time.time-seconds_from_start);
 			_ogdLog.SubmitEvent();
 		}
     }
 
-    public void LogAudioComplete(string clip)
+    public void LogAudioComplete(string clip, string scene)
     {
 		if(_loggingEnabled)
 		{
 			_ogdLog.BeginEvent("script_audio_completed");
-			//_ogdLog.EventParam("clip_identifier", clip);
+			_ogdLog.EventParam("scene", scene);
+			_ogdLog.EventParam("clip_identifier", clip);
 			_ogdLog.EventParam("seconds_from_launch", UnityEngine.Time.time-seconds_from_start);
 			_ogdLog.SubmitEvent();
 		}
     }
 
-    public void LogCaption(string caption)
+    public void LogCaption(string caption, string scene)
     {
 		if(_loggingEnabled)
 		{
 			_ogdLog.BeginEvent("caption_displayed");
+			_ogdLog.EventParam("scene", scene);
 			_ogdLog.EventParam("caption", caption);
 			_ogdLog.EventParam("seconds_from_launch", UnityEngine.Time.time-seconds_from_start);
 			_ogdLog.SubmitEvent();
 		}
     }
 
-    public void LogObjectDisplayed(bool hasIndicator, string obj, Vector3 pos, Quaternion rot)
+    public void LogObjectDisplayed(bool hasIndicator, string obj, Vector3 pos, Quaternion rot, string scene)
     {
 		if(_loggingEnabled)
 		{
 			_ogdLog.BeginEvent("object_displayed");
 			_ogdLog.EventParam("has_the_indicator", hasIndicator);
+			_ogdLog.EventParam("scene", scene);
 			_ogdLog.EventParam("object", obj);
 			_ogdLog.EventParam("posX", pos.x);
 			_ogdLog.EventParam("posY", pos.y);
