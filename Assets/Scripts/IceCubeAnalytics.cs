@@ -5,7 +5,7 @@ using FieldDay;
 public class IceCubeAnalytics : Singleton<IceCubeAnalytics>
 {
     public static bool FirebaseEnabled { get; set; }
-    public static int logVersion = 0;
+    public static int logVersion = 1;
     
 	static string _DB_NAME = "ICECUBE";
 	
@@ -15,7 +15,7 @@ public class IceCubeAnalytics : Singleton<IceCubeAnalytics>
 	
 	FirebaseConsts _firebase;
 	
-	bool _loggingEnabled = false;
+	bool _loggingEnabled = true;
 	
     private void Start()
     {

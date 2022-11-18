@@ -2431,6 +2431,7 @@ public class Main : MonoBehaviour
         logged_spec_viz = false;
         logged_spec_gam = false;
         logged_spec_neu = false;
+		event_player_logged = false;
         lang_menu = false;
         starting = false;
         voiceover_audiosource.Stop();
