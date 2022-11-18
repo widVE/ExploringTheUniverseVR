@@ -156,6 +156,8 @@ public class Main : MonoBehaviour
     GameObject menuscreen;
     GameObject languageop;
 	bool languageAnalyticsSent = false;
+    bool logged_spec_gam = false;
+    bool logged_spec_neu = false;
     GameObject startbutton;
     GameObject start_text;
     //TextMesh st_textmesh;
@@ -424,6 +426,10 @@ public class Main : MonoBehaviour
     AudioClip[] sfxs;
 	bool[] sfxs_loaded;
     float[] sfx_vols;
+
+    int audio_started_spec;
+    int audio_started_subtitle;
+    int audio_started_scene;
 
     AudioSource PlaySFX(SFX s)
     {
@@ -2430,6 +2436,8 @@ public class Main : MonoBehaviour
         voiceover_was_playing = false;
         music_was_playing = false;
         language_selected = false;
+        logged_spec_gam = false;
+        logged_spec_neu = false;
         lang_menu = false;
         starting = false;
         voiceover_audiosource.Stop();
@@ -3289,6 +3297,8 @@ public class Main : MonoBehaviour
         ta = new float[(int)SCENE.COUNT, (int)SPEC.COUNT];
 
         blackhole_spec_triggered = new int[(int)SPEC.COUNT];
+        logged_spec_gam = false;
+        logged_spec_neu = false;
 
         advance_trigger = new gaze_trigger();
         spec_trigger = new gaze_trigger();
@@ -4009,7 +4019,10 @@ public class Main : MonoBehaviour
 			if(subtitle_strings[cur_scene_i, subtitle_spec, subtitle_i+1].Length > 0)
 			{
 				IceCubeAnalytics.Instance.LogAudioStarted(subtitle_strings[cur_scene_i, subtitle_spec, subtitle_i+1], ((SCENE)cur_scene_i).ToString());
-				Debug.Log(subtitle_strings[cur_scene_i, subtitle_spec, subtitle_i+1] + " started**");
+				Debug.Log(subtitle_strings[cur_scene_i, subtitle_spec, subtitle_i+1] + " started");
+                audio_started_spec = subtitle_spec;
+                audio_started_scene = cur_scene_i;
+                audio_started_subtitle = subtitle_i+1;
 			}
         }
         if (music_audiosource.isPlaying) music_audiosource.Stop();
@@ -4135,7 +4148,9 @@ public class Main : MonoBehaviour
 				else
 				{
 					grid_eventPlayer.keepPlaying = true;
-				}
+                    IceCubeAnalytics.Instance.LogObjectDisplayed(false, "neutrino_event", grid_eventPlayer.gameObject.transform.position, grid_eventPlayer.gameObject.transform.rotation, ((SCENE)cur_scene_i).ToString());
+                    Debug.Log("Object displayed: neutrino event");
+                }
 
                 //grid
                 if (cur_ta >= grid_t)
@@ -4239,49 +4254,21 @@ public class Main : MonoBehaviour
 
             case (int)SCENE.VOYAGER:
 
-                /*
-                float spec_t = 5f;
-
-                //use this for timed enable
-                if(cur_ta >= spec_t)
-                {
-                  if(old_ta < spec_t) //newly here
-                  {
-                    spec_projection.SetActive(true);
-                  }
-                }
-                */
-				
-                //!spec_projection.activeSelf
-                if (voiceovers_played[cur_scene_i, (int)SPEC.VIZ] && !voiceover_was_playing)
+                if (voiceovers_played[cur_scene_i, (int)cur_spec_i] && !voiceover_was_playing)
                 {
 
-					if(!spec_gam_reticle.activeSelf)
+					if(cur_spec_i == (int)SPEC.VIZ && !logged_spec_gam)
 					{
-						spec_gam_reticle.SetActive(true);
-						IceCubeAnalytics.Instance.LogObjectDisplayed(false, "spec_gam_reticle", spec_gam_reticle.transform.position, spec_gam_reticle.transform.rotation, ((SCENE)cur_scene_i).ToString());
-                        Debug.Log("Object displayed spec game reticle");
+                        logged_spec_gam = true;
+						IceCubeAnalytics.Instance.LogObjectAssigned("spec_gam_reticle", ((SCENE)cur_scene_i).ToString());
+                        Debug.Log("Object assigned spec gam reticle");
 					}
 					
-					if(!spec_viz_reticle.activeSelf)
+					if(cur_spec_i == (int)SPEC.GAM && !logged_spec_neu)
 					{
-						spec_viz_reticle.SetActive(true);
-						IceCubeAnalytics.Instance.LogObjectDisplayed(false, "spec_viz_reticle", spec_viz_reticle.transform.position, spec_viz_reticle.transform.rotation, ((SCENE)cur_scene_i).ToString());
-                        Debug.Log("Object displayed spec viz reticle");
-					}
-					
-					if(!spec_neu_reticle.activeSelf)
-					{
-						spec_neu_reticle.SetActive(true);
-						IceCubeAnalytics.Instance.LogObjectDisplayed(false, "spec_neu_reticle", spec_neu_reticle.transform.position, spec_neu_reticle.transform.rotation, ((SCENE)cur_scene_i).ToString());
+                        logged_spec_neu = true;
+						IceCubeAnalytics.Instance.LogObjectAssigned("spec_neu_reticle", ((SCENE)cur_scene_i).ToString());
                         Debug.Log("Object displayed spec neu reticle");
-					}
-					
-					if(!spec_sel_reticle.activeSelf)
-					{
-						spec_sel_reticle.SetActive(true);
-						IceCubeAnalytics.Instance.LogObjectDisplayed(false, "spec_sel_reticle", spec_sel_reticle.transform.position, spec_sel_reticle.transform.rotation, ((SCENE)cur_scene_i).ToString());
-                        Debug.Log("Object displayed spec sel reticle");
 					}
                 }
 
@@ -4423,6 +4410,11 @@ public class Main : MonoBehaviour
                             voiceover_audiosource.Stop();
                             espAudio.Stop();
                             porAudio.Stop();
+                            if(subtitle_strings[cur_scene_i, subtitle_spec, subtitle_i].Length > 0)
+                            {
+                                IceCubeAnalytics.Instance.LogAudioComplete(subtitle_strings[cur_scene_i, subtitle_spec, subtitle_i], ((SCENE)cur_scene_i).ToString());
+                                Debug.Log(subtitle_strings[cur_scene_i, subtitle_spec, subtitle_i] + " complete");
+                            }
                         }
 
                         Language(cur_scene_i, (int)SPEC.COUNT);
@@ -4436,6 +4428,14 @@ public class Main : MonoBehaviour
                         subtitle_t = 0;
                         subtitles_text.text = string.Empty;
                         subtitle_spec = (int)SPEC.COUNT;
+                        if(subtitle_strings[cur_scene_i, subtitle_spec, subtitle_i+1].Length > 0)
+                        {
+                            IceCubeAnalytics.Instance.LogAudioStarted(subtitle_strings[cur_scene_i, subtitle_spec, subtitle_i+1], ((SCENE)cur_scene_i).ToString());
+                            Debug.Log(subtitle_strings[cur_scene_i, subtitle_spec, subtitle_i+1] + " started");
+                            audio_started_spec = subtitle_spec;
+                            audio_started_scene = cur_scene_i;
+                            audio_started_subtitle = subtitle_i+1;
+                        }
                     }
                 }
                 else if (in_fail_motion == 0)
@@ -4838,6 +4838,7 @@ public class Main : MonoBehaviour
 
 			if (dumb_delay_t > dumb_delay_t_max)
 			{
+                bool wasPausedThisFrame = false;
 				float old_sub_t = subtitle_t;
 				subtitle_t += Time.deltaTime;
 				if (
@@ -4853,7 +4854,7 @@ public class Main : MonoBehaviour
 					  (cur_scene_i == (int)SCENE.VOYAGER && cur_spec_i == (int)SPEC.NEU && !advance_passed_voyager_1 && subtitle_i == subtitle_pause_i_voyager_1 + 1)
 					)
 					{
-						bool wasPausedThisFrame = false;
+						
 						//freeze time
 						if (!advance_paused)
 						{
@@ -4884,6 +4885,7 @@ public class Main : MonoBehaviour
 								espAudio.Pause();
 								wasPausedThisFrame = true;
 
+                                
 							}
 						}
 						
@@ -4893,12 +4895,9 @@ public class Main : MonoBehaviour
 						//	IceCubeAnalytics.Instance.LogCaption(subtitle_strings[cur_scene_i, subtitle_spec, subtitle_i]);
 						//}
 						
-						if(wasPausedThisFrame)
-						{
-							IceCubeAnalytics.Instance.LogAudioComplete(subtitle_strings[cur_scene_i, subtitle_spec, subtitle_i], ((SCENE)cur_scene_i).ToString() );
-							Debug.Log(subtitle_strings[cur_scene_i, subtitle_spec, subtitle_i] + " complete");
-						}
+
 						advance_paused = true;
+
 						subtitle_t = subtitle_cues_absolute[cur_scene_i, subtitle_spec, subtitle_i + 1] - 0.0001f;
 					}
 					else
@@ -4933,6 +4932,9 @@ public class Main : MonoBehaviour
 							{
 								IceCubeAnalytics.Instance.LogAudioStarted(subtitle_strings[cur_scene_i, subtitle_spec, subtitle_i], ((SCENE)cur_scene_i).ToString());
 								Debug.Log(subtitle_strings[cur_scene_i, subtitle_spec, subtitle_i] + " started");
+                                audio_started_spec = subtitle_spec;
+                                audio_started_scene = cur_scene_i;
+                                audio_started_subtitle = subtitle_i+1;
 							}
 							
 						}
@@ -5097,10 +5099,26 @@ public class Main : MonoBehaviour
 		float distance_viz = Vector3.Distance(spec_viz_reticle.transform.position, cam_reticle.transform.position);
 		float distance_gam = Vector3.Distance(spec_gam_reticle.transform.position, cam_reticle.transform.position);
 		float distance_neu = Vector3.Distance(spec_neu_reticle.transform.position, cam_reticle.transform.position);
-		if (distance_viz < distance_gam && distance_viz < distance_neu) spec_trigger.position = spec_viz_reticle.transform.position;
-		if (distance_gam < distance_viz && distance_gam < distance_neu) spec_trigger.position = spec_gam_reticle.transform.position;
-		if (distance_neu < distance_gam && distance_neu < distance_viz) spec_trigger.position = spec_neu_reticle.transform.position;
-		if (cur_scene_i == (int)SCENE.VOYAGER && !voiceovers_played[cur_scene_i, (int)SPEC.GAM]) spec_trigger.position = spec_gam_reticle.transform.position; //ensure you can only select gamma to start voyager selection
+
+		if (distance_viz < distance_gam && distance_viz < distance_neu) 
+        {
+            spec_trigger.position = spec_viz_reticle.transform.position;
+        }
+
+		if (distance_gam < distance_viz && distance_gam < distance_neu) 
+        {
+            spec_trigger.position = spec_gam_reticle.transform.position;
+        }
+
+		if (distance_neu < distance_gam && distance_neu < distance_viz) 
+        {
+            spec_trigger.position = spec_neu_reticle.transform.position;
+        }
+
+		if (cur_scene_i == (int)SCENE.VOYAGER && !voiceovers_played[cur_scene_i, (int)SPEC.GAM]) 
+        {
+            spec_trigger.position = spec_gam_reticle.transform.position; //ensure you can only select gamma to start voyager selection
+        }
 
 		//IF !ICE scene
 		if (cur_scene_i != (int)SCENE.ICE && cur_scene_i != (int)SCENE.EARTH)
@@ -5117,7 +5135,10 @@ public class Main : MonoBehaviour
 					//spec switched
 					if (old_spec != cur_spec_i)
 					{
-						PlaySFX(SFX.SELECT);
+                        //IceCubeAnalytics.Instance.LogObjectSelected("spec__reticle", spec_neu_reticle.transform.position, spec_neu_reticle.transform.rotation, ((SCENE)cur_scene_i).ToString());
+                        //Debug.Log("Object selected spec neu reticle");
+						
+                        PlaySFX(SFX.SELECT);
 						if (!voiceovers_played[cur_scene_i, cur_spec_i] && dumb_delay_t > dumb_delay_t_max)
 						{
 							if (voiceover_audiosource.isPlaying || espAudio.isPlaying || porAudio.isPlaying)
@@ -5126,22 +5147,44 @@ public class Main : MonoBehaviour
 								espAudio.Stop();
 								porAudio.Stop();
 							}
+
+                            if(old_spec == (int)SPEC.VIZ)
+                            {
+                                if(subtitle_strings[audio_started_scene, audio_started_spec, audio_started_subtitle].Length > 0)
+                                {
+                                    IceCubeAnalytics.Instance.LogAudioStarted(subtitle_strings[audio_started_scene, audio_started_spec, audio_started_subtitle], ((SCENE)cur_scene_i).ToString());
+                                    Debug.Log(subtitle_strings[audio_started_scene, audio_started_spec, audio_started_subtitle] + " completed");
+                                }
+                            }
+                            else if(old_spec == (int)SPEC.GAM)
+                            {
+                                if((audio_started_subtitle-1) > 0)
+                                {
+                                    IceCubeAnalytics.Instance.LogAudioStarted(subtitle_strings[audio_started_scene, audio_started_spec, audio_started_subtitle-1], ((SCENE)cur_scene_i).ToString());
+                                    Debug.Log(subtitle_strings[audio_started_scene, audio_started_spec, audio_started_subtitle-1] + " completed");
+                                }
+                            }
+
 							Language(cur_scene_i, cur_spec_i);
 							//Debug.Log("vPlay03"); 
 							voiceover_audiosource.Play();
 							espAudio.Play();
 							porAudio.Play();
-							if(subtitle_strings[cur_scene_i, subtitle_spec, subtitle_i].Length > 0)
-							{
-								IceCubeAnalytics.Instance.LogAudioStarted(subtitle_strings[cur_scene_i, subtitle_spec, subtitle_i], ((SCENE)cur_scene_i).ToString());
-								Debug.Log(subtitle_strings[cur_scene_i, subtitle_spec, subtitle_i] + " started");
-							}
+
 							voiceover_was_playing = true;
 							voiceovers_played[cur_scene_i, cur_spec_i] = true;
 							subtitle_i = 0;
 							subtitle_t = 0;
 							subtitles_text.text = string.Empty;
 							subtitle_spec = cur_spec_i;
+                            if(subtitle_strings[cur_scene_i, subtitle_spec, subtitle_i+1].Length > 0)
+							{
+								IceCubeAnalytics.Instance.LogAudioStarted(subtitle_strings[cur_scene_i, subtitle_spec, subtitle_i+1], ((SCENE)cur_scene_i).ToString());
+								Debug.Log(subtitle_strings[cur_scene_i, subtitle_spec, subtitle_i+1] + " started");
+                                audio_started_spec = subtitle_spec;
+                                audio_started_scene = cur_scene_i;
+                                audio_started_subtitle = subtitle_i;
+							}
 						}
 
 						float old_time = music_audiosource.time;
@@ -5217,10 +5260,10 @@ public class Main : MonoBehaviour
 					
 					if (play_end)
 					{
-						if(subtitle_strings[cur_scene_i, subtitle_spec, subtitle_i].Length > 0)
+						//if(subtitle_strings[cur_scene_i, subtitle_spec, subtitle_i].Length > 0)
 						{
-							IceCubeAnalytics.Instance.LogAudioComplete(subtitle_strings[cur_scene_i, subtitle_spec, subtitle_i], ((SCENE)cur_scene_i).ToString());
-							Debug.Log(subtitle_strings[cur_scene_i, subtitle_spec, subtitle_i] + " complete");
+							IceCubeAnalytics.Instance.LogAudioComplete(subtitle_strings[audio_started_scene, audio_started_spec, audio_started_subtitle], ((SCENE)cur_scene_i).ToString());
+							Debug.Log(subtitle_strings[audio_started_scene, audio_started_spec, audio_started_subtitle] + " complete");
 						}
 						
 						Language(cur_scene_i, (int)SPEC.COUNT);
@@ -5251,7 +5294,7 @@ public class Main : MonoBehaviour
 					
 					if (play_end)
 					{
-						if(subtitle_strings[cur_scene_i, subtitle_spec, subtitle_i].Length > 0)
+						//if(subtitle_strings[cur_scene_i, subtitle_spec, subtitle_i].Length > 0)
 						{
 							IceCubeAnalytics.Instance.LogAudioComplete(subtitle_strings[cur_scene_i, subtitle_spec, subtitle_i], ((SCENE)cur_scene_i).ToString());
 							Debug.Log(subtitle_strings[cur_scene_i, subtitle_spec, subtitle_i] + " complete");
@@ -5283,7 +5326,7 @@ public class Main : MonoBehaviour
 					}
 					if (play_end)
 					{
-						if(subtitle_strings[cur_scene_i, subtitle_spec, subtitle_i].Length > 0)
+						//if(subtitle_strings[cur_scene_i, subtitle_spec, subtitle_i].Length > 0)
 						{
 							IceCubeAnalytics.Instance.LogAudioComplete(subtitle_strings[cur_scene_i, subtitle_spec, subtitle_i], ((SCENE)cur_scene_i).ToString());
 							Debug.Log(subtitle_strings[cur_scene_i, subtitle_spec, subtitle_i] + " complete");
@@ -5331,6 +5374,9 @@ public class Main : MonoBehaviour
 					{
 						IceCubeAnalytics.Instance.LogAudioStarted(subtitle_strings[cur_scene_i, subtitle_spec, subtitle_i+1], ((SCENE)cur_scene_i).ToString());
 						Debug.Log(subtitle_strings[cur_scene_i, subtitle_spec, subtitle_i+1] + " started");
+                        audio_started_spec = subtitle_spec;
+                        audio_started_scene = cur_scene_i;
+                        audio_started_subtitle = subtitle_i+1;
 					}
 				}
 			}
