@@ -219,6 +219,8 @@ public class Main : MonoBehaviour
     Vector3 super_lazy_look_ahead;
     Vector3 player_head;
 
+    long gaze_log_count = 0;
+
     public int starting_scene = 0;
 
     public Material alpha_material;
@@ -4708,10 +4710,16 @@ public class Main : MonoBehaviour
 		/*Vector3 toGazeReticle = Vector3.Normalize(cylinder.transform.position - gaze_reticle.transform.position);
         Vector3 vLook = main_camera.transform.forward;
         Vector3 vUp = Vector3.Cross(vLook, toGazeReticle);
-
+        
         Quaternion q = cylinder.transform.rotation;
         q.SetLookRotation(-toGazeReticle);
         cylinder.transform.rotation = q;*/
+        gaze_log_count++;
+        if(gaze_log_count % 30 == 0)
+        {
+            IceCubeAnalytics.Instance.LogGaze(main_camera.transform.rotation, ((SCENE)cur_scene_i).ToString());
+            //Debug.Log("Log gaze: " + q.ToString("F2"));
+        }
 
 		languageop.SetActive(false);
 

@@ -54,6 +54,26 @@ public class IceCubeAnalytics : Singleton<IceCubeAnalytics>
         }	*/
 	}
 
+	public void LogGaze(Quaternion g, string scene)
+	{
+		if(_loggingEnabled)
+		{
+			_ogdLog.BeginEvent("viewport_data");
+			_ogdLog.EventParam("x", g.x);
+			_ogdLog.EventParam("y", g.y);
+			_ogdLog.EventParam("z", g.z);
+			_ogdLog.EventParam("w", g.w);
+			_ogdLog.EventParam("scene_name", scene);
+			_ogdLog.EventParam("seconds_from_launch", UnityEngine.Time.time-seconds_from_start);
+			_ogdLog.SubmitEvent();
+		}
+		/*if (FirebaseEnabled)
+        {
+            FirebaseAnalytics.LogEvent(FirebaseAnalytics.EventLevelStart, new Parameter(FirebaseAnalytics.ParameterLevelName, "antarctica"), new Parameter("start", UnityEngine.Time.time-seconds_from_start));
+                //new Parameter("app_version", logVersion));
+        }	*/
+	}
+
 	public void LogFailedEnd(string scene="EXTREME")
 	{
 		if(_loggingEnabled)
