@@ -5,7 +5,7 @@ using FieldDay;
 public class IceCubeAnalytics : Singleton<IceCubeAnalytics>
 {
     public static bool FirebaseEnabled { get; set; }
-    public static int logVersion = 1;
+    public static int logVersion = 2;
     
 	static string _DB_NAME = "ICECUBE";
 	
@@ -168,6 +168,41 @@ public class IceCubeAnalytics : Singleton<IceCubeAnalytics>
                 //new Parameter("app_version", logVersion));
         }*/	
     }
+
+	public void LogSceneBegin(string scene)
+    {
+		if(_loggingEnabled)
+		{
+			_ogdLog.BeginEvent("scene_begin");
+			_ogdLog.EventParam("scene_name", scene);
+			_ogdLog.EventParam("seconds_from_launch", UnityEngine.Time.time-seconds_from_start);
+			_ogdLog.SubmitEvent();
+		}
+
+        /*if (FirebaseEnabled)
+        {
+            FirebaseAnalytics.LogEvent(FirebaseAnalytics.EventLevelStart, new Parameter(FirebaseAnalytics.ParameterLevelName, scene), new Parameter("seconds_from_start", UnityEngine.Time.time-seconds_from_start));
+                //new Parameter("app_version", logVersion));
+        }*/	
+    }
+	
+	public void LogSceneEnd(string scene)
+    {
+		if(_loggingEnabled)
+		{
+			_ogdLog.BeginEvent("scene_end");
+			_ogdLog.EventParam("scene_name", scene);
+			_ogdLog.EventParam("seconds_from_launch", UnityEngine.Time.time-seconds_from_start);
+			_ogdLog.SubmitEvent();
+		}
+
+        /*if (FirebaseEnabled)
+        {
+            FirebaseAnalytics.LogEvent(FirebaseAnalytics.EventLevelStart, new Parameter(FirebaseAnalytics.ParameterLevelName, scene), new Parameter("seconds_from_start", UnityEngine.Time.time-seconds_from_start));
+                //new Parameter("app_version", logVersion));
+        }*/	
+    }
+
 
     public void LogAudioStarted(string clip, string scene)
     {

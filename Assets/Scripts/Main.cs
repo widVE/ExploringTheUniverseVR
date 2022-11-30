@@ -3665,7 +3665,7 @@ public class Main : MonoBehaviour
 
     void SetupScene()
     {
-        IceCubeAnalytics.Instance.LogSceneChanged(((SCENE)cur_scene_i).ToString());
+        IceCubeAnalytics.Instance.LogSceneBegin(((SCENE)cur_scene_i).ToString());
         //Debug.Log("Scene changed: " + ((SCENE)cur_scene_i).ToString());
 
         SetSpec((int)SPEC.VIZ, false);
@@ -4806,6 +4806,7 @@ public class Main : MonoBehaviour
 				reStart();
 				next_scene_i = (int)SCENE.ICE;
 			}
+            IceCubeAnalytics.Instance.LogSceneEnd(((SCENE)cur_scene_i).ToString());
 			cur_scene_i = next_scene_i;
 			next_scene_i = (next_scene_i + 1) % ((int)SCENE.COUNT);
 			SetupScene();
