@@ -54,15 +54,18 @@ public class IceCubeAnalytics : Singleton<IceCubeAnalytics>
         }	*/
 	}
 
-	public void LogGaze(Quaternion g, string scene)
+	public void LogGaze(Vector3 p, Quaternion g, string scene)
 	{
 		if(_loggingEnabled)
 		{
 			_ogdLog.BeginEvent("viewport_data");
-			_ogdLog.EventParam("x", g.x);
-			_ogdLog.EventParam("y", g.y);
-			_ogdLog.EventParam("z", g.z);
-			_ogdLog.EventParam("w", g.w);
+			_ogdLog.EventParam("x", p.x);
+			_ogdLog.EventParam("y", p.y);
+			_ogdLog.EventParam("z", p.z);	
+			_ogdLog.EventParam("qx", g.x);
+			_ogdLog.EventParam("qy", g.y);
+			_ogdLog.EventParam("qz", g.z);
+			_ogdLog.EventParam("qw", g.w);
 			_ogdLog.EventParam("scene_name", scene);
 			_ogdLog.EventParam("seconds_from_launch", UnityEngine.Time.time-seconds_from_start);
 			_ogdLog.SubmitEvent();
@@ -95,6 +98,21 @@ public class IceCubeAnalytics : Singleton<IceCubeAnalytics>
 		if(_loggingEnabled)
 		{
 			_ogdLog.BeginEvent("headset_on");
+			_ogdLog.EventParam("scene", scene);
+			_ogdLog.SubmitEvent();
+		}
+        /*if(FirebaseEnabled)
+        {
+            seconds_from_start = UnityEngine.Time.time;
+            FirebaseAnalytics.LogEvent(FirebaseAnalytics.EventScreenView, FirebaseAnalytics.ParameterValue, "headset_on");
+        }*/
+    }
+
+    public void LogHeadsetOff(string scene)
+    {
+		if(_loggingEnabled)
+		{
+			_ogdLog.BeginEvent("headset_off");
 			_ogdLog.EventParam("scene", scene);
 			_ogdLog.SubmitEvent();
 		}

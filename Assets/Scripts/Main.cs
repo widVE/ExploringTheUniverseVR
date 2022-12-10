@@ -713,6 +713,8 @@ public class Main : MonoBehaviour
         hmd_mounted = false;
         menuscreen.SetActive(false);
         arrow.SetActive(false);
+
+        IceCubeAnalytics.Instance.LogHeadsetOff(((SCENE)cur_scene_i).ToString());
 	}
 
     void UpdateCaptions()
@@ -4330,11 +4332,11 @@ public class Main : MonoBehaviour
                         if(cur_spec_i == (int)SPEC.VIZ && !logged_spec_viz)
                         {
                             logged_spec_viz = true;
-                            IceCubeAnalytics.Instance.LogObjectAssigned("visible_light", ((SCENE)cur_scene_i).ToString());
+                            IceCubeAnalytics.Instance.LogObjectAssigned("visible_light_blackhole", ((SCENE)cur_scene_i).ToString());
                             //Debug.Log("Object assigned visible_light");
-                            IceCubeAnalytics.Instance.LogObjectAssigned("xray_vision", ((SCENE)cur_scene_i).ToString());
+                            IceCubeAnalytics.Instance.LogObjectAssigned("xray_vision_blackhole", ((SCENE)cur_scene_i).ToString());
                             //Debug.Log("Object assigned xray_vision");
-                            IceCubeAnalytics.Instance.LogObjectAssigned("neutrino_vision", ((SCENE)cur_scene_i).ToString());
+                            IceCubeAnalytics.Instance.LogObjectAssigned("neutrino_vision_blackhole", ((SCENE)cur_scene_i).ToString());
                             //Debug.Log("Object assigned neutrino_vision");
                         }
                     }
@@ -4717,7 +4719,7 @@ public class Main : MonoBehaviour
         gaze_log_count++;
         if(gaze_log_count % 30 == 0)
         {
-            IceCubeAnalytics.Instance.LogGaze(main_camera.transform.rotation, ((SCENE)cur_scene_i).ToString());
+            IceCubeAnalytics.Instance.LogGaze(main_camera.transform.position, main_camera.transform.rotation, ((SCENE)cur_scene_i).ToString());
             //Debug.Log("Log gaze: " + q.ToString("F2"));
         }
 
