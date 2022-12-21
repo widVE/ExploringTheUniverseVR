@@ -98,7 +98,7 @@ public class IceCubeAnalytics : Singleton<IceCubeAnalytics>
 		if(_loggingEnabled)
 		{
 			_ogdLog.BeginEvent("headset_on");
-			_ogdLog.EventParam("scene", scene);
+			_ogdLog.EventParam("scene_name", scene);
 			_ogdLog.SubmitEvent();
 		}
         /*if(FirebaseEnabled)
@@ -113,7 +113,7 @@ public class IceCubeAnalytics : Singleton<IceCubeAnalytics>
 		if(_loggingEnabled)
 		{
 			_ogdLog.BeginEvent("headset_off");
-			_ogdLog.EventParam("scene", scene);
+			_ogdLog.EventParam("scene_name", scene);
 			_ogdLog.SubmitEvent();
 		}
         /*if(FirebaseEnabled)
@@ -143,7 +143,7 @@ public class IceCubeAnalytics : Singleton<IceCubeAnalytics>
 		if(_loggingEnabled)
 		{
 			_ogdLog.BeginEvent("object_assigned");
-			_ogdLog.EventParam("scene", scene);
+			_ogdLog.EventParam("scene_name", scene);
 			_ogdLog.EventParam("object", obj);
 			_ogdLog.EventParam("seconds_from_launch", UnityEngine.Time.time-seconds_from_start);
 			_ogdLog.SubmitEvent();
@@ -159,8 +159,8 @@ public class IceCubeAnalytics : Singleton<IceCubeAnalytics>
 		if(_loggingEnabled)
 		{
 			_ogdLog.BeginEvent("object_selected");
-			_ogdLog.EventParam("scene", scene);
-			_ogdLog.EventParam("gaze_point_name", obj);
+			_ogdLog.EventParam("scene_name", scene);
+			_ogdLog.EventParam("object", obj);
 			_ogdLog.EventParam("seconds_from_launch", UnityEngine.Time.time-seconds_from_start);
 			_ogdLog.SubmitEvent();
 		}
@@ -227,7 +227,7 @@ public class IceCubeAnalytics : Singleton<IceCubeAnalytics>
 		if(_loggingEnabled)
 		{
 			_ogdLog.BeginEvent("script_audio_started");
-			_ogdLog.EventParam("scene", scene);
+			_ogdLog.EventParam("scene_name", scene);
 			_ogdLog.EventParam("clip_identifier", clip);
 			_ogdLog.EventParam("seconds_from_launch", UnityEngine.Time.time-seconds_from_start);
 			_ogdLog.SubmitEvent();
@@ -239,7 +239,7 @@ public class IceCubeAnalytics : Singleton<IceCubeAnalytics>
 		if(_loggingEnabled)
 		{
 			_ogdLog.BeginEvent("script_audio_completed");
-			_ogdLog.EventParam("scene", scene);
+			_ogdLog.EventParam("scene_name", scene);
 			_ogdLog.EventParam("clip_identifier", clip);
 			_ogdLog.EventParam("seconds_from_launch", UnityEngine.Time.time-seconds_from_start);
 			_ogdLog.SubmitEvent();
@@ -251,7 +251,7 @@ public class IceCubeAnalytics : Singleton<IceCubeAnalytics>
 		if(_loggingEnabled)
 		{
 			_ogdLog.BeginEvent("caption_displayed");
-			_ogdLog.EventParam("scene", scene);
+			_ogdLog.EventParam("scene_name", scene);
 			_ogdLog.EventParam("caption", caption);
 			_ogdLog.EventParam("seconds_from_launch", UnityEngine.Time.time-seconds_from_start);
 			_ogdLog.SubmitEvent();
@@ -264,7 +264,7 @@ public class IceCubeAnalytics : Singleton<IceCubeAnalytics>
 		{
 			_ogdLog.BeginEvent("object_displayed");
 			_ogdLog.EventParam("has_the_indicator", hasIndicator);
-			_ogdLog.EventParam("scene", scene);
+			_ogdLog.EventParam("scene_name", scene);
 			_ogdLog.EventParam("object", obj);
 			_ogdLog.EventParam("posX", pos.x);
 			_ogdLog.EventParam("posY", pos.y);
