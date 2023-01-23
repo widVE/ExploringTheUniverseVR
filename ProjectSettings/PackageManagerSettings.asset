@@ -32,6 +32,9 @@ MonoBehaviour:
     - com.beauprime.beaudata
     - com.beauprime.beauroutine
     - com.beauprime.beauutil
+    - com.fieldday.opengamedata
+    - com.fieldday.opengamedata-unity
+    - com.openupm
     m_IsDefault: 0
     m_Capabilities: 0
   m_UserSelectedRegistryName: package.openupm.com
