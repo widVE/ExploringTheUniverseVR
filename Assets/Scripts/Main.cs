@@ -434,6 +434,9 @@ public class Main : MonoBehaviour
     int audio_started_spec;
     int audio_started_subtitle;
     int audio_started_scene;
+	
+	const float GAZE_LOG_TIMER_SEND = 1.0f;
+	float _gazeLogTimer = 0f;
 
     AudioSource PlaySFX(SFX s)
     {
@@ -689,7 +692,10 @@ public class Main : MonoBehaviour
         hmd_mounted = true;
         menuscreen.SetActive(true);
         //may need to restart analytics...
-
+		
+		gaze_log_count = 0;
+		_gazeLogTimer = UnityEngine.Time.time;
+		
         IceCubeAnalytics.Instance.LogHeadsetOn(((SCENE)cur_scene_i).ToString());
     }
 
@@ -4186,7 +4192,7 @@ public class Main : MonoBehaviour
                     
                     if(!gaze_reticle.activeSelf)
                     {
-                        IceCubeAnalytics.Instance.LogObjectAssigned("gazeup", ((SCENE)cur_scene_i).ToString());
+                        IceCubeAnalytics.Instance.LogObjectAssigned("gazeup", ((SCENE)cur_scene_i).ToString(),new Vector3(0f, 10f, 10f));
                         IceCubeAnalytics.Instance.LogObjectDisplayed(true, "gazeup", gaze_reticle.transform.position, gaze_projection.transform.rotation, ((SCENE)cur_scene_i).ToString());
                         //Debug.Log("Object displayed gazeup");
                         gaze_reticle.SetActive(true);
@@ -4203,7 +4209,7 @@ public class Main : MonoBehaviour
                             gaze_reticle.SetActive(false);
                             PlaySFX(SFX.SELECT);
                             gaze_projection.transform.rotation = rotationFromEuler(gaze_cam_euler);
-							IceCubeAnalytics.Instance.LogObjectSelected("gazeup", ((SCENE)cur_scene_i).ToString());
+							IceCubeAnalytics.Instance.LogObjectSelected("gazeup", ((SCENE)cur_scene_i).ToString(), cam_reticle.transform.position);
                             //Debug.Log("Gaze up selected");
 							//IceCubeAnalytics.Instance.LogObjectAssigned("gazefeet");
                         }
@@ -4215,7 +4221,7 @@ public class Main : MonoBehaviour
                     gaze_projection.transform.rotation = rotationFromEuler(getEuler(new Vector3(0f, -10f, 10f).normalized));
                     if(!gaze_reticle.activeSelf)
                     {
-                        IceCubeAnalytics.Instance.LogObjectAssigned("gazefeet", ((SCENE)cur_scene_i).ToString());
+                        IceCubeAnalytics.Instance.LogObjectAssigned("gazefeet", ((SCENE)cur_scene_i).ToString(),new Vector3(0f, -10f, 10f));
                         IceCubeAnalytics.Instance.LogObjectDisplayed(true, "gazefeet", gaze_reticle.transform.position, gaze_projection.transform.rotation, ((SCENE)cur_scene_i).ToString());
                         //Debug.Log("Gaze feet displayed");
                         gaze_reticle.SetActive(true);
@@ -4231,7 +4237,7 @@ public class Main : MonoBehaviour
                             arrow.SetActive(false);
                             PlaySFX(SFX.SELECT);
                             gaze_projection.transform.rotation = rotationFromEuler(gaze_cam_euler);
-							IceCubeAnalytics.Instance.LogObjectSelected("gazefeet", ((SCENE)cur_scene_i).ToString());
+							IceCubeAnalytics.Instance.LogObjectSelected("gazefeet", ((SCENE)cur_scene_i).ToString(), cam_reticle.transform.position);
                             //Debug.Log("Gaze feet selected");
                         }
                     }
@@ -4246,14 +4252,14 @@ public class Main : MonoBehaviour
                     if(cur_spec_i == (int)SPEC.VIZ && !logged_spec_gam)
                     {
                         logged_spec_gam = true;
-                        IceCubeAnalytics.Instance.LogObjectAssigned("xray_vision", ((SCENE)cur_scene_i).ToString());
+                        IceCubeAnalytics.Instance.LogObjectAssigned("xray_vision", ((SCENE)cur_scene_i).ToString(), spec_gam_reticle.transform.position);
                         //Debug.Log("Object assigned xray_vision");
                     }
                     
                     if(cur_spec_i == (int)SPEC.GAM && !logged_spec_neu)
                     {
                         logged_spec_neu = true;
-                        IceCubeAnalytics.Instance.LogObjectAssigned("neutrino_vision", ((SCENE)cur_scene_i).ToString());
+                        IceCubeAnalytics.Instance.LogObjectAssigned("neutrino_vision", ((SCENE)cur_scene_i).ToString(), spec_neu_reticle.transform.position);
                         //Debug.Log("Object assigned neutrino_vision");
                     }
                 }
@@ -4264,7 +4270,7 @@ public class Main : MonoBehaviour
                     gaze_projection.transform.rotation = rotationFromEuler(getCamEuler(pluto[0].transform.position));
                     if(!gaze_reticle.activeSelf)
 					{
-                        IceCubeAnalytics.Instance.LogObjectAssigned("pluto1", ((SCENE)cur_scene_i).ToString());
+                        IceCubeAnalytics.Instance.LogObjectAssigned("pluto1", ((SCENE)cur_scene_i).ToString(), pluto[0].transform.position);
 						IceCubeAnalytics.Instance.LogObjectDisplayed(true, "pluto1", gaze_reticle.transform.position, gaze_projection.transform.rotation, ((SCENE)cur_scene_i).ToString());
                         //Debug.Log("Pluto 1 displayed");
 					}
@@ -4278,7 +4284,7 @@ public class Main : MonoBehaviour
                             advance_passed_voyager_0 = true;
                             gaze_reticle.SetActive(false);
                             gaze_projection.transform.rotation = rotationFromEuler(gaze_cam_euler);
-							IceCubeAnalytics.Instance.LogObjectSelected("pluto1", ((SCENE)cur_scene_i).ToString());
+							IceCubeAnalytics.Instance.LogObjectSelected("pluto1", ((SCENE)cur_scene_i).ToString(), cam_reticle.transform.position);
                              Debug.Log("Pluto 1 selected");
                         }
                     }
@@ -4288,7 +4294,7 @@ public class Main : MonoBehaviour
                     gaze_projection.transform.rotation = rotationFromEuler(getCamEuler(pluto[0].transform.position));
 					if(!gaze_reticle.activeSelf)
 					{
-                        IceCubeAnalytics.Instance.LogObjectAssigned("pluto2", ((SCENE)cur_scene_i).ToString());
+                        IceCubeAnalytics.Instance.LogObjectAssigned("pluto2", ((SCENE)cur_scene_i).ToString(), pluto[0].transform.position);
 						IceCubeAnalytics.Instance.LogObjectDisplayed(true, "pluto2", gaze_reticle.transform.position, gaze_projection.transform.rotation, ((SCENE)cur_scene_i).ToString());
                         //Debug.Log("Pluto 2 displayed");
 					}
@@ -4301,7 +4307,7 @@ public class Main : MonoBehaviour
                             advance_passed_voyager_1 = true;
                             gaze_reticle.SetActive(false);
                             gaze_projection.transform.rotation = rotationFromEuler(gaze_cam_euler);
-							IceCubeAnalytics.Instance.LogObjectSelected("pluto2", ((SCENE)cur_scene_i).ToString());
+							IceCubeAnalytics.Instance.LogObjectSelected("pluto2", ((SCENE)cur_scene_i).ToString(), cam_reticle.transform.position);
                             //Debug.Log("Pluto 2 selected");
                         }
                     }
@@ -4332,11 +4338,11 @@ public class Main : MonoBehaviour
                         if(cur_spec_i == (int)SPEC.VIZ && !logged_spec_viz)
                         {
                             logged_spec_viz = true;
-                            IceCubeAnalytics.Instance.LogObjectAssigned("visible_light_blackhole", ((SCENE)cur_scene_i).ToString());
+                            IceCubeAnalytics.Instance.LogObjectAssigned("visible_light_blackhole", ((SCENE)cur_scene_i).ToString(), spec_viz_reticle.transform.position);
                             //Debug.Log("Object assigned visible_light");
-                            IceCubeAnalytics.Instance.LogObjectAssigned("xray_vision_blackhole", ((SCENE)cur_scene_i).ToString());
+                            IceCubeAnalytics.Instance.LogObjectAssigned("xray_vision_blackhole", ((SCENE)cur_scene_i).ToString(), spec_gam_reticle.transform.position);
                             //Debug.Log("Object assigned xray_vision");
-                            IceCubeAnalytics.Instance.LogObjectAssigned("neutrino_vision_blackhole", ((SCENE)cur_scene_i).ToString());
+                            IceCubeAnalytics.Instance.LogObjectAssigned("neutrino_vision_blackhole", ((SCENE)cur_scene_i).ToString(), spec_neu_reticle.transform.position);
                             //Debug.Log("Object assigned neutrino_vision");
                         }
                     }
@@ -4350,7 +4356,7 @@ public class Main : MonoBehaviour
                             if (!gaze_reticle.activeSelf) 
 							{
 								gaze_reticle.SetActive(true);
-                                IceCubeAnalytics.Instance.LogObjectAssigned("blackhole", ((SCENE)cur_scene_i).ToString());
+                                IceCubeAnalytics.Instance.LogObjectAssigned("blackhole", ((SCENE)cur_scene_i).ToString(), blackhole[0].transform.position);
 								IceCubeAnalytics.Instance.LogObjectDisplayed(true, "blackhole", gaze_reticle.transform.position, gaze_projection.transform.rotation, ((SCENE)cur_scene_i).ToString());
                                 //Debug.Log("Blackhole displayed");
 							}
@@ -4361,7 +4367,7 @@ public class Main : MonoBehaviour
                             {
                                 if (blackhole_trigger.just_triggered)
                                 {
-									IceCubeAnalytics.Instance.LogObjectSelected("blackhole", ((SCENE)cur_scene_i).ToString());
+									IceCubeAnalytics.Instance.LogObjectSelected("blackhole", ((SCENE)cur_scene_i).ToString(), cam_reticle.transform.position);
                                     //Debug.Log("Black hole selected");
                                     gaze_reticle.SetActive(false);
                                     blackhole_spec_triggered[cur_spec_i] = 1;
@@ -4376,7 +4382,7 @@ public class Main : MonoBehaviour
                                     {
                                         gaze_projection.transform.rotation = rotationFromEuler(anti_gaze_cam_euler);
                                         gaze_reticle.SetActive(true);
-                                        IceCubeAnalytics.Instance.LogObjectAssigned("earth", ((SCENE)cur_scene_i).ToString());
+                                        IceCubeAnalytics.Instance.LogObjectAssigned("earth", ((SCENE)cur_scene_i).ToString(), gaze_projection.transform.position);
 										IceCubeAnalytics.Instance.LogObjectDisplayed(true, "earth", gaze_projection.transform.position, gaze_projection.transform.rotation, ((SCENE)cur_scene_i).ToString());
                                         //Debug.Log("Earth displayed");
                                     }
@@ -4471,7 +4477,7 @@ public class Main : MonoBehaviour
                 earth[0].transform.position = anti_gaze_pt.normalized * 600 + new Vector3(0.0f, 500.0f, 0.0f);
 				if(!warp_trigger.just_triggered)
 				{
-					IceCubeAnalytics.Instance.LogObjectSelected("earth", ((SCENE)cur_scene_i).ToString());
+					IceCubeAnalytics.Instance.LogObjectSelected("earth", ((SCENE)cur_scene_i).ToString(), warp_trigger.position);
                     //Debug.Log("Earth selected");
 				}
                 warp_trigger.just_triggered = true;
@@ -4505,19 +4511,19 @@ public class Main : MonoBehaviour
                 gaze_reticle.SetActive(true);
                 if(cur_scene_i == (int)SCENE.ICE)
                 {
-                    IceCubeAnalytics.Instance.LogObjectAssigned("gaze_ice", ((SCENE)cur_scene_i).ToString());
+                    IceCubeAnalytics.Instance.LogObjectAssigned("gaze_ice", ((SCENE)cur_scene_i).ToString(), gaze_reticle.transform.position);
                     IceCubeAnalytics.Instance.LogObjectDisplayed(true, "gaze_ice", gaze_reticle.transform.position, gaze_reticle.transform.rotation, ((SCENE)cur_scene_i).ToString());
                     //Debug.Log("Gaze ice displayed");
                 }
                 else if(cur_scene_i == (int)SCENE.VOYAGER)
                 {
-                    IceCubeAnalytics.Instance.LogObjectAssigned("gaze_voyager", ((SCENE)cur_scene_i).ToString());
+                    IceCubeAnalytics.Instance.LogObjectAssigned("gaze_voyager", ((SCENE)cur_scene_i).ToString(), gaze_reticle.transform.position);
                     IceCubeAnalytics.Instance.LogObjectDisplayed(true, "gaze_voyager", gaze_reticle.transform.position, gaze_reticle.transform.rotation, ((SCENE)cur_scene_i).ToString());
                     //Debug.Log("Gaze voyager displayed");
                 }
                 else if(cur_scene_i == (int)SCENE.NOTHING)
                 {
-                    IceCubeAnalytics.Instance.LogObjectAssigned("gaze_nothing", ((SCENE)cur_scene_i).ToString());
+                    IceCubeAnalytics.Instance.LogObjectAssigned("gaze_nothing", ((SCENE)cur_scene_i).ToString(), gaze_reticle.transform.position);
                     IceCubeAnalytics.Instance.LogObjectDisplayed(true, "gaze_nothing", gaze_reticle.transform.position, gaze_reticle.transform.rotation, ((SCENE)cur_scene_i).ToString());
                     //Debug.Log("Gaze nothing displayed");
                 }
@@ -4543,7 +4549,7 @@ public class Main : MonoBehaviour
                 //GameAnalytics.NewProgressionEvent (GAProgressionStatus.Start, "Universe", "Scene_" + cur_scene_i, "X-ray", 0);
 				if(log)
 				{
-					IceCubeAnalytics.Instance.LogObjectSelected("xray_vision", ((SCENE)cur_scene_i).ToString());
+					IceCubeAnalytics.Instance.LogObjectSelected("xray_vision", ((SCENE)cur_scene_i).ToString(), cam_reticle.transform.position);
                     //Debug.Log("Object selected: xray_vision");
 				}
                 break;
@@ -4552,7 +4558,7 @@ public class Main : MonoBehaviour
                 //GameAnalytics.NewProgressionEvent (GAProgressionStatus.Start, "Universe", "Scene_" + cur_scene_i, "viz", 0);
 				if(log)
 				{
-					IceCubeAnalytics.Instance.LogObjectSelected("visible_light", ((SCENE)cur_scene_i).ToString());
+					IceCubeAnalytics.Instance.LogObjectSelected("visible_light", ((SCENE)cur_scene_i).ToString(), cam_reticle.transform.position);
                     //Debug.Log("Object selected: visible_light");
 				}
                 break;
@@ -4560,7 +4566,7 @@ public class Main : MonoBehaviour
                 spec_sel_reticle.transform.position = spec_neu_reticle.transform.position;
                 //GameAnalytics.NewProgressionEvent (GAProgressionStatus.Start, "Universe", "Scene_" + cur_scene_i, "neu", 0);
 				
-				IceCubeAnalytics.Instance.LogObjectSelected("neutrino_vision", ((SCENE)cur_scene_i).ToString());
+				IceCubeAnalytics.Instance.LogObjectSelected("neutrino_vision", ((SCENE)cur_scene_i).ToString(), cam_reticle.transform.position);
                 //Debug.Log("Object selected: neutrino_vision");
                 break;
         }
@@ -4716,12 +4722,27 @@ public class Main : MonoBehaviour
         Quaternion q = cylinder.transform.rotation;
         q.SetLookRotation(-toGazeReticle);
         cylinder.transform.rotation = q;*/
-        gaze_log_count++;
-        if(gaze_log_count % 30 == 0)
-        {
-            IceCubeAnalytics.Instance.LogGaze(main_camera.transform.position, main_camera.transform.rotation, ((SCENE)cur_scene_i).ToString());
-            //Debug.Log("Log gaze: " + q.ToString("F2"));
-        }
+		float t2 = UnityEngine.Time.time;
+		
+		if(t2 - _gazeLogTimer > GAZE_LOG_TIMER_SEND)
+		{
+			_gazeLogTimer = t2;
+			IceCubeAnalytics.Instance.LogGaze(main_camera.transform.position, main_camera.transform.rotation, ((SCENE)cur_scene_i).ToString(), true);
+			gaze_log_count++;
+		}
+		else
+		{
+			if(gaze_log_count % 2 == 0)
+			{
+				bool sentData = IceCubeAnalytics.Instance.LogGaze(main_camera.transform.position, main_camera.transform.rotation, ((SCENE)cur_scene_i).ToString());
+				if(sentData)
+				{
+					_gazeLogTimer = t2;
+				}
+				//Debug.Log("Log gaze: " + q.ToString("F2"));
+			}
+			gaze_log_count++;
+		}
 
 		languageop.SetActive(false);
 
@@ -5089,17 +5110,17 @@ public class Main : MonoBehaviour
 					in_portal_motion = Time.deltaTime;
 					if(cur_scene_i == (int)SCENE.VOYAGER)
 					{
-						IceCubeAnalytics.Instance.LogObjectSelected("gaze_voyager", ((SCENE)cur_scene_i).ToString());
+						IceCubeAnalytics.Instance.LogObjectSelected("gaze_voyager", ((SCENE)cur_scene_i).ToString(), cam_reticle.transform.position);
                         //Debug.Log("Gaze voyager selected");
 					}
 					else if(cur_scene_i == (int)SCENE.ICE)
 					{
-						IceCubeAnalytics.Instance.LogObjectSelected("gaze_ice", ((SCENE)cur_scene_i).ToString());
+						IceCubeAnalytics.Instance.LogObjectSelected("gaze_ice", ((SCENE)cur_scene_i).ToString(), cam_reticle.transform.position);
                         //Debug.Log("Gaze ice selected");
 					}
 					else if(cur_scene_i == (int)SCENE.NOTHING)
 					{
-						IceCubeAnalytics.Instance.LogObjectSelected("gaze_nothing", ((SCENE)cur_scene_i).ToString());
+						IceCubeAnalytics.Instance.LogObjectSelected("gaze_nothing", ((SCENE)cur_scene_i).ToString(), cam_reticle.transform.position);
                         //Debug.Log("Gaze nothing selected");
 					}
 					PreSetupNextScene();
