@@ -169,6 +169,9 @@ public class Main : MonoBehaviour
 	TMPro.TextMeshPro language_tmp;
 	GameObject language;
 
+	[SerializeField]
+	GameObject _version;
+	
     int MAX_LABELS = 5;
     GameObject[] ar_label_lefts;
     GameObject[] ar_label_left_kids;
@@ -2692,6 +2695,11 @@ public class Main : MonoBehaviour
 				voiceover_vols[i, j] = 1.0f;
             }
         }
+		
+		if(_version != null)
+		{
+			_version.GetComponent<TMPro.TextMeshPro>().text = "Version: " + UnityEngine.Application.version.ToString() + "-" + IceCubeAnalytics.logVersion.ToString();
+		}
 
         //manually fill out subtitles
         {
