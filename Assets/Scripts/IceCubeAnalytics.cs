@@ -81,7 +81,7 @@ public class IceCubeAnalytics : Singleton<IceCubeAnalytics>
         _ogdLog.GameStateParam("rotW", quat.w);
     }
 	
-	public void LogStartGame()
+	public void LogStartGame(string scene)
 	{
 		if(_loggingEnabled)
 		{
@@ -90,6 +90,8 @@ public class IceCubeAnalytics : Singleton<IceCubeAnalytics>
 			
 			_ogdLog.BeginGameState();
 			_ogdLog.GameStateParam("seconds_from_launch", UnityEngine.Time.time-seconds_from_start);
+			_ogdLog.GameStateParam("scene_name", scene);
+			LogGazeGameState();
 			_ogdLog.SubmitGameState();
 			
 		}
@@ -136,6 +138,7 @@ public class IceCubeAnalytics : Singleton<IceCubeAnalytics>
 				_ogdLog.BeginGameState();
 				_ogdLog.GameStateParam("seconds_from_launch", UnityEngine.Time.time-seconds_from_start);
 				_ogdLog.GameStateParam("scene_name", scene);
+				LogGazeGameState();
 				_ogdLog.SubmitGameState();
 				
 				_viewportDataCount = 0;
@@ -181,6 +184,7 @@ public class IceCubeAnalytics : Singleton<IceCubeAnalytics>
 			_ogdLog.BeginGameState();
 			_ogdLog.GameStateParam("seconds_from_launch", UnityEngine.Time.time-seconds_from_start);
 			_ogdLog.GameStateParam("scene_name", scene);
+			LogGazeGameState();
 			_ogdLog.SubmitGameState();
 		}
         /*if(FirebaseEnabled)
@@ -200,6 +204,7 @@ public class IceCubeAnalytics : Singleton<IceCubeAnalytics>
 			_ogdLog.BeginGameState();
 			_ogdLog.GameStateParam("seconds_from_launch", UnityEngine.Time.time-seconds_from_start);
 			_ogdLog.GameStateParam("scene_name", scene);
+			LogGazeGameState();
 			_ogdLog.SubmitGameState();
 		}
         /*if(FirebaseEnabled)
@@ -209,7 +214,7 @@ public class IceCubeAnalytics : Singleton<IceCubeAnalytics>
         }*/
     }
 
-    public void LogLanguageSelected(string language)
+    public void LogLanguageSelected(string language, string scene)
     {
 		if(_loggingEnabled)
 		{
@@ -219,6 +224,7 @@ public class IceCubeAnalytics : Singleton<IceCubeAnalytics>
 			
 			_ogdLog.BeginGameState();
 			_ogdLog.GameStateParam("seconds_from_launch", UnityEngine.Time.time-seconds_from_start);
+			_ogdLog.GameStateParam("scene_name", scene);
 			LogGazeGameState();
 			_ogdLog.SubmitGameState();
 		}

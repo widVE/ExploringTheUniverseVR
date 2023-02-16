@@ -2535,7 +2535,7 @@ public class Main : MonoBehaviour
         start_trigger.reset();
         menulanguage.reset();
 
-		IceCubeAnalytics.Instance.LogStartGame();
+		IceCubeAnalytics.Instance.LogStartGame(((SCENE)cur_scene_i).ToString());
         //Debug.Log("Log start game");
     }
 
@@ -4606,7 +4606,7 @@ public class Main : MonoBehaviour
         language_selected = true; // condition to run the game
 		if (!languageAnalyticsSent)
 		{
-            IceCubeAnalytics.Instance.LogLanguageSelected(LocalizationManager.instance.SelectedLanguage);
+            IceCubeAnalytics.Instance.LogLanguageSelected(LocalizationManager.instance.SelectedLanguage, ((SCENE)cur_scene_i).ToString());
 			/*AnalyticsEvent.Custom("language_at_start", new Dictionary<string, object>
 			{
 				{ "language", LocalizationManager.instance.SelectedLanguage}
