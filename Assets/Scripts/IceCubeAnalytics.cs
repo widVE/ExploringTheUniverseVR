@@ -5,15 +5,15 @@ using FieldDay;
 public class IceCubeAnalytics : Singleton<IceCubeAnalytics>
 {
     public static bool FirebaseEnabled { get; set; }
-    public static int logVersion = 2;
+    public static int logVersion = 3;
     
 	static string _DB_NAME = "ICECUBE";
 	
-    float seconds_from_start = 0f;
+    float seconds_at_start = 0f;
 	
 	OGDLog _ogdLog;
 	
-	FirebaseConsts _firebase;
+	//FirebaseConsts _firebase;
 	
 	bool _loggingEnabled = true;
 	
@@ -49,10 +49,12 @@ public class IceCubeAnalytics : Singleton<IceCubeAnalytics>
 		c.AppVersion = UnityEngine.Application.version;
 		c.ClientLogVersion = logVersion;
 		_ogdLog = new OGDLog(c);
-		_ogdLog.UseFirebase(_firebase);
+		//_ogdLog.UseFirebase(_firebase);
         //	_ogdLog.SetDebug(true);
 		
 		_mainCamera = Camera.main;
+		
+		seconds_at_start = UnityEngine.Time.time;
     }
 	
 	void OnDestroy()
@@ -65,7 +67,17 @@ public class IceCubeAnalytics : Singleton<IceCubeAnalytics>
 	}
 	
     #region Logging
-
+	
+	void SetGameState(string scene)
+	{
+		_ogdLog.BeginGameState();
+		_ogdLog.GameStateParam("seconds_from_launch", UnityEngine.Time.time-seconds_at_start);
+		_ogdLog.GameStateParam("scene_name", scene);
+		LogGazeGameState();
+		_ogdLog.SubmitGameState();
+	}
+	
+	
     private void LogGazeGameState()
     {
 		if(_mainCamera == null)
@@ -84,17 +96,13 @@ public class IceCubeAnalytics : Singleton<IceCubeAnalytics>
 	public void LogStartGame(string scene)
 	{
 		if(_loggingEnabled)
-		{
+		{	
+			SetGameState(scene);
+			
 			_ogdLog.BeginEvent("start");
 			_ogdLog.SubmitEvent();
-			
-			_ogdLog.BeginGameState();
-			_ogdLog.GameStateParam("seconds_from_launch", UnityEngine.Time.time-seconds_from_start);
-			_ogdLog.GameStateParam("scene_name", scene);
-			LogGazeGameState();
-			_ogdLog.SubmitGameState();
-			
 		}
+		
 		/*if (FirebaseEnabled)
         {
             FirebaseAnalytics.LogEvent(FirebaseAnalytics.EventLevelStart, new Parameter(FirebaseAnalytics.ParameterLevelName, "antarctica"), new Parameter("start", UnityEngine.Time.time-seconds_from_start));
@@ -130,16 +138,12 @@ public class IceCubeAnalytics : Singleton<IceCubeAnalytics>
                     gazeData += JsonUtility.ToJson(_viewportData[i]);
                 }
 				
+				SetGameState(scene);
+		
 				//Debug.Log(gazeData);
 				_ogdLog.BeginEvent("viewport_data");
 				_ogdLog.EventParam("gaze_data_package", gazeData);
 				_ogdLog.SubmitEvent();
-				
-				_ogdLog.BeginGameState();
-				_ogdLog.GameStateParam("seconds_from_launch", UnityEngine.Time.time-seconds_from_start);
-				_ogdLog.GameStateParam("scene_name", scene);
-				LogGazeGameState();
-				_ogdLog.SubmitGameState();
 				
 				_viewportDataCount = 0;
 				return true;
@@ -158,14 +162,10 @@ public class IceCubeAnalytics : Singleton<IceCubeAnalytics>
 	{
 		if(_loggingEnabled)
 		{
+			SetGameState(scene);
+			
 			_ogdLog.BeginEvent("scene_failed");
 			_ogdLog.SubmitEvent();
-			
-			_ogdLog.BeginGameState();
-			_ogdLog.GameStateParam("seconds_from_launch", UnityEngine.Time.time-seconds_from_start);
-			_ogdLog.GameStateParam("scene_name", scene);
-			LogGazeGameState();
-			_ogdLog.SubmitGameState();
 		}
 		/*if (FirebaseEnabled)
         {
@@ -178,14 +178,11 @@ public class IceCubeAnalytics : Singleton<IceCubeAnalytics>
     {
 		if(_loggingEnabled)
 		{
+			
+			SetGameState(scene);
+			
 			_ogdLog.BeginEvent("headset_on");
 			_ogdLog.SubmitEvent();
-			
-			_ogdLog.BeginGameState();
-			_ogdLog.GameStateParam("seconds_from_launch", UnityEngine.Time.time-seconds_from_start);
-			_ogdLog.GameStateParam("scene_name", scene);
-			LogGazeGameState();
-			_ogdLog.SubmitGameState();
 		}
         /*if(FirebaseEnabled)
         {
@@ -198,15 +195,12 @@ public class IceCubeAnalytics : Singleton<IceCubeAnalytics>
     {
 		if(_loggingEnabled)
 		{
+			SetGameState(scene);
+			
 			_ogdLog.BeginEvent("headset_off");
 			_ogdLog.SubmitEvent();
-			
-			_ogdLog.BeginGameState();
-			_ogdLog.GameStateParam("seconds_from_launch", UnityEngine.Time.time-seconds_from_start);
-			_ogdLog.GameStateParam("scene_name", scene);
-			LogGazeGameState();
-			_ogdLog.SubmitGameState();
 		}
+		
         /*if(FirebaseEnabled)
         {
             seconds_from_start = UnityEngine.Time.time;
@@ -218,15 +212,11 @@ public class IceCubeAnalytics : Singleton<IceCubeAnalytics>
     {
 		if(_loggingEnabled)
 		{
+			SetGameState(scene);
+			
 			_ogdLog.BeginEvent("language_selected");
 			_ogdLog.EventParam("language", language);
 			_ogdLog.SubmitEvent();
-			
-			_ogdLog.BeginGameState();
-			_ogdLog.GameStateParam("seconds_from_launch", UnityEngine.Time.time-seconds_from_start);
-			_ogdLog.GameStateParam("scene_name", scene);
-			LogGazeGameState();
-			_ogdLog.SubmitGameState();
 		}
         /*if(FirebaseEnabled)
         {
@@ -238,18 +228,14 @@ public class IceCubeAnalytics : Singleton<IceCubeAnalytics>
     {
 		if(_loggingEnabled)
 		{
+			SetGameState(scene);
+			
 			_ogdLog.BeginEvent("object_assigned");
 			_ogdLog.EventParam("object", obj);
 			_ogdLog.EventParam("xPos", pos.x);
 			_ogdLog.EventParam("yPos", pos.y);
 			_ogdLog.EventParam("zPos", pos.z);
 			_ogdLog.SubmitEvent();
-			
-			_ogdLog.BeginGameState();
-			_ogdLog.GameStateParam("seconds_from_launch", UnityEngine.Time.time-seconds_from_start);
-			_ogdLog.GameStateParam("scene_name", scene);
-			LogGazeGameState();
-			_ogdLog.SubmitGameState();
         }
         /*if(FirebaseEnabled)
         {
@@ -261,18 +247,14 @@ public class IceCubeAnalytics : Singleton<IceCubeAnalytics>
     {
 		if(_loggingEnabled)
 		{
+			SetGameState(scene);
+			
 			_ogdLog.BeginEvent("object_selected");
 			_ogdLog.EventParam("object", obj);
 			_ogdLog.EventParam("xPos", pos.x);
 			_ogdLog.EventParam("yPos", pos.y);
 			_ogdLog.EventParam("zPos", pos.z);
 			_ogdLog.SubmitEvent();
-			
-			_ogdLog.BeginGameState();
-			_ogdLog.GameStateParam("seconds_from_launch", UnityEngine.Time.time-seconds_from_start);
-			_ogdLog.GameStateParam("scene_name", scene);
-			LogGazeGameState();
-			_ogdLog.SubmitGameState();
 		}
        /* if(FirebaseEnabled)
         {
@@ -284,14 +266,10 @@ public class IceCubeAnalytics : Singleton<IceCubeAnalytics>
     {
 		if(_loggingEnabled)
 		{
+			SetGameState(scene);
+			
 			_ogdLog.BeginEvent("scene_changed");
 			_ogdLog.SubmitEvent();
-			
-			_ogdLog.BeginGameState();
-			_ogdLog.GameStateParam("seconds_from_launch", UnityEngine.Time.time-seconds_from_start);
-			_ogdLog.GameStateParam("scene_name", scene);
-			LogGazeGameState();
-			_ogdLog.SubmitGameState();
 		}
 
         /*if (FirebaseEnabled)
@@ -305,14 +283,10 @@ public class IceCubeAnalytics : Singleton<IceCubeAnalytics>
     {
 		if(_loggingEnabled)
 		{
+			SetGameState(scene);
+			
 			_ogdLog.BeginEvent("scene_begin");
 			_ogdLog.SubmitEvent();
-			
-			_ogdLog.BeginGameState();
-			_ogdLog.GameStateParam("seconds_from_launch", UnityEngine.Time.time-seconds_from_start);
-			_ogdLog.GameStateParam("scene_name", scene);
-			LogGazeGameState();
-			_ogdLog.SubmitGameState();
 		}
 
         /*if (FirebaseEnabled)
@@ -326,14 +300,10 @@ public class IceCubeAnalytics : Singleton<IceCubeAnalytics>
     {
 		if(_loggingEnabled)
 		{
+			SetGameState(scene);
+			
 			_ogdLog.BeginEvent("scene_end");
 			_ogdLog.SubmitEvent();
-			
-			_ogdLog.BeginGameState();
-			_ogdLog.GameStateParam("seconds_from_launch", UnityEngine.Time.time-seconds_from_start);
-			_ogdLog.GameStateParam("scene_name", scene);
-			LogGazeGameState();
-			_ogdLog.SubmitGameState();
 		}
 
         /*if (FirebaseEnabled)
@@ -348,15 +318,11 @@ public class IceCubeAnalytics : Singleton<IceCubeAnalytics>
     {
 		if(_loggingEnabled)
 		{
+			SetGameState(scene);
+			
 			_ogdLog.BeginEvent("script_audio_started");
 			_ogdLog.EventParam("clip_identifier", clip);
 			_ogdLog.SubmitEvent();
-			
-			_ogdLog.BeginGameState();
-			_ogdLog.GameStateParam("seconds_from_launch", UnityEngine.Time.time-seconds_from_start);
-			_ogdLog.GameStateParam("scene_name", scene);
-			LogGazeGameState();
-			_ogdLog.SubmitGameState();
 		}
     }
 
@@ -364,15 +330,11 @@ public class IceCubeAnalytics : Singleton<IceCubeAnalytics>
     {
 		if(_loggingEnabled)
 		{
+			SetGameState(scene);
+			
 			_ogdLog.BeginEvent("script_audio_completed");
 			_ogdLog.EventParam("clip_identifier", clip);
 			_ogdLog.SubmitEvent();
-			
-			_ogdLog.BeginGameState();
-			_ogdLog.GameStateParam("seconds_from_launch", UnityEngine.Time.time-seconds_from_start);
-			_ogdLog.GameStateParam("scene_name", scene);
-			LogGazeGameState();
-			_ogdLog.SubmitGameState();
 		}
     }
 
@@ -380,15 +342,11 @@ public class IceCubeAnalytics : Singleton<IceCubeAnalytics>
     {
 		if(_loggingEnabled)
 		{
+			SetGameState(scene);
+			
 			_ogdLog.BeginEvent("caption_displayed");
 			_ogdLog.EventParam("caption", caption);
 			_ogdLog.SubmitEvent();
-			
-			_ogdLog.BeginGameState();
-			_ogdLog.GameStateParam("seconds_from_launch", UnityEngine.Time.time-seconds_from_start);
-			_ogdLog.GameStateParam("scene_name", scene);
-			LogGazeGameState();
-			_ogdLog.SubmitGameState();
 		}
     }
 
@@ -396,6 +354,8 @@ public class IceCubeAnalytics : Singleton<IceCubeAnalytics>
     {
 		if(_loggingEnabled)
 		{
+			SetGameState(scene);
+			
 			_ogdLog.BeginEvent("object_displayed");
 			_ogdLog.EventParam("has_the_indicator", hasIndicator);
 			_ogdLog.EventParam("object", obj);
@@ -407,12 +367,6 @@ public class IceCubeAnalytics : Singleton<IceCubeAnalytics>
 			_ogdLog.EventParam("rotZ", rot.z);
 			_ogdLog.EventParam("rotW", rot.w);
 			_ogdLog.SubmitEvent();
-			
-			_ogdLog.BeginGameState();
-			_ogdLog.GameStateParam("seconds_from_launch", UnityEngine.Time.time-seconds_from_start);
-			_ogdLog.GameStateParam("scene_name", scene);
-			LogGazeGameState();
-			_ogdLog.SubmitGameState();
 		}
     }
     #endregion // Logging

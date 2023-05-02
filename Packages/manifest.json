@@ -2,7 +2,7 @@
   "dependencies": {
     "com.beauprime.beaudata": "0.3.1",
     "com.beauprime.beauroutine": "0.11.1",
-    "com.beauprime.beauutil": "0.8.2",
+    "com.beauprime.beauutil": "0.8.5",
     "com.fieldday.opengamedata-unity": "0.1.7",
     "com.unity.2d.sprite": "1.0.0",
     "com.unity.2d.tilemap": "1.0.0",
