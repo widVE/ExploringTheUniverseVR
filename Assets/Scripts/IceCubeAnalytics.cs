@@ -2,10 +2,33 @@ using Firebase;
 using Firebase.Analytics;
 using UnityEngine;
 using FieldDay;
+using System.Globalization;
+using System.Text;
+using BeauUtil;
+using FieldDay;
+using System;
+using System.Security.Cryptography;
+using System.Runtime.InteropServices;
+using System.Collections;
+
+[StructLayout(LayoutKind.Sequential)]
+public struct LogGazeData
+{
+    public unsafe fixed float rot[4];
+
+    public void Write(Quaternion rot) {
+        unsafe {
+            fixed (float* pRot = this.rot) {
+                *(Quaternion*) pRot = rot;
+            }
+        }
+    }
+}
+
 public class IceCubeAnalytics : Singleton<IceCubeAnalytics>
 {
     public static bool FirebaseEnabled { get; set; }
-    public static int logVersion = 3;
+    public static int logVersion = 4;
     
 	static string _DB_NAME = "ICECUBE";
 	
@@ -16,17 +39,14 @@ public class IceCubeAnalytics : Singleton<IceCubeAnalytics>
 	//FirebaseConsts _firebase;
 	
 	bool _loggingEnabled = true;
-	
-	[System.Serializable]
-	public class LogGazeData
-	{
-		public string rot;
-	}
 	  
 	int _viewportDataCount = 0;
     const int MAX_VIEWPORT_DATA = 36;
     LogGazeData[] _viewportData = new LogGazeData[MAX_VIEWPORT_DATA];
 	
+	StringBuilder m_GazeBuilder = new StringBuilder(2048);
+	StringBuilder m_RotBuilder = new StringBuilder(128);
+
 	Camera _mainCamera = null;
 	
     void Start()
@@ -51,6 +71,8 @@ public class IceCubeAnalytics : Singleton<IceCubeAnalytics>
 		_ogdLog = new OGDLog(c);
 		//_ogdLog.UseFirebase(_firebase);
         //	_ogdLog.SetDebug(true);
+		CultureInfo.CurrentCulture = CultureInfo.InvariantCulture;
+        CultureInfo.CurrentUICulture = CultureInfo.InvariantCulture;
 		
 		_mainCamera = Camera.main;
 		
@@ -87,11 +109,22 @@ public class IceCubeAnalytics : Singleton<IceCubeAnalytics>
 		
         Quaternion quat = _mainCamera.transform.rotation;
 
-        _ogdLog.GameStateParam("rotX", quat.x);
-        _ogdLog.GameStateParam("rotY", quat.y);
-        _ogdLog.GameStateParam("rotZ", quat.z);
-        _ogdLog.GameStateParam("rotW", quat.w);
+		m_RotBuilder.Clear().Append("\\\"rot\\\":[").AppendNoAlloc(quat.x, 3).Append(',').AppendNoAlloc(quat.y, 3).Append(',').AppendNoAlloc(quat.z, 3).Append(',').AppendNoAlloc(quat.w, 3).Append("]");
+        //Debug.Log(m_RotBuilder.ToString());
+		_ogdLog.GameStateParam("rot", m_RotBuilder.ToString());
+        //_ogdLog.GameStateParam("rotY", quat.y);
+        //_ogdLog.GameStateParam("rotZ", quat.z);
+        //_ogdLog.GameStateParam("rotW", quat.w);
     }
+	
+	public void LogSessionStart()
+	{
+		if(_loggingEnabled)
+		{
+			_ogdLog.BeginEvent("session_start");
+			_ogdLog.SubmitEvent();
+		}	
+	}
 	
 	public void LogStartGame(string scene)
 	{
@@ -99,7 +132,7 @@ public class IceCubeAnalytics : Singleton<IceCubeAnalytics>
 		{	
 			SetGameState(scene);
 			
-			_ogdLog.BeginEvent("start");
+			_ogdLog.BeginEvent("game_start");
 			_ogdLog.SubmitEvent();
 		}
 		
@@ -109,6 +142,22 @@ public class IceCubeAnalytics : Singleton<IceCubeAnalytics>
                 //new Parameter("app_version", logVersion));
         }	*/
 	}
+	
+    static private unsafe void WriteGazeData(StringBuilder sb, string paramName, LogGazeData[] data, int count) {
+        sb.Clear().Append("{\"").Append(paramName).Append("\":\"[");
+        if (count > 0) {
+            for (int i = 0; i < count; i++) {
+                AppendGazeFrame(sb, data[i]);
+                sb.Append(',');
+            }
+        }
+        sb.Length--; // eliminate last comma
+        sb.Append("]\"}");
+    }
+
+    static private unsafe void AppendGazeFrame(StringBuilder sb, LogGazeData data) {
+        sb.Append("{\\\"rot\\\":[").AppendNoAlloc(data.rot[0], 3).Append(',').AppendNoAlloc(data.rot[1], 3).Append(',').AppendNoAlloc(data.rot[2], 3).Append(',').AppendNoAlloc(data.rot[3], 3).Append("]}");
+    }
 
 	public bool LogGaze(Vector3 p, Quaternion q, string scene, bool sendToServer=false)
 	{
@@ -116,12 +165,13 @@ public class IceCubeAnalytics : Singleton<IceCubeAnalytics>
 		{
 			if(_viewportDataCount < MAX_VIEWPORT_DATA)
 			{
-				if(_viewportData[_viewportDataCount] == null)
+				/*if(_viewportData[_viewportDataCount] == null)
 				{
 					_viewportData[_viewportDataCount] = new LogGazeData();
-				}
+				}*/
 
-				_viewportData[_viewportDataCount].rot = (q.x.ToString("F3")+","+q.y.ToString("F3")+","+q.z.ToString("F3")+","+q.w.ToString("F3"));
+				_viewportData[_viewportDataCount].Write(q);
+				//_viewportData[_viewportDataCount].rot = (q.x.ToString("F3")+","+q.y.ToString("F3")+","+q.z.ToString("F3")+","+q.w.ToString("F3"));
 				//_viewportData[_viewportDataCount].frame = gazeLogFrameCount;
 				_viewportDataCount++;
 			}
@@ -132,18 +182,22 @@ public class IceCubeAnalytics : Singleton<IceCubeAnalytics>
 
             if(sendToServer)
             {
-				string gazeData = "";
+				/*string gazeData = "";
                 for(int i = 0; i < _viewportDataCount; ++i)
                 {
                     gazeData += JsonUtility.ToJson(_viewportData[i]);
-                }
+                }*/
+				
+				WriteGazeData(m_GazeBuilder, "gaze_data_package", _viewportData, _viewportDataCount);
 				
 				SetGameState(scene);
 		
+				_ogdLog.Log("viewport_data", m_GazeBuilder);
+				
 				//Debug.Log(gazeData);
-				_ogdLog.BeginEvent("viewport_data");
+				/*_ogdLog.BeginEvent("viewport_data");
 				_ogdLog.EventParam("gaze_data_package", gazeData);
-				_ogdLog.SubmitEvent();
+				_ogdLog.SubmitEvent();*/
 				
 				_viewportDataCount = 0;
 				return true;

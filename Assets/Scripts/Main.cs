@@ -3627,7 +3627,12 @@ public class Main : MonoBehaviour
 
         grid.SetActive(false);
 		grid_eventPlayer.keepPlaying = false;
-
+		
+		//_ogdLog.ResetSessionId();
+		//_ogdLog.BeginEvent("session_start");
+		//_ogdLog.SubmitEvent();
+		IceCubeAnalytics.Instance.LogSessionStart();
+		
 		reStart();
         MapVols();
         SetupScene();
