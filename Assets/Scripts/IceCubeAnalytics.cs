@@ -28,7 +28,7 @@ public struct LogGazeData
 public class IceCubeAnalytics : Singleton<IceCubeAnalytics>
 {
     public static bool FirebaseEnabled { get; set; }
-    public static int logVersion = 4;
+    public static int logVersion = 5;
     
 	static string _DB_NAME = "ICECUBE";
 	
@@ -109,7 +109,7 @@ public class IceCubeAnalytics : Singleton<IceCubeAnalytics>
 		
         Quaternion quat = _mainCamera.transform.rotation;
 
-		m_RotBuilder.Clear().Append("\\\"rot\\\":[").AppendNoAlloc(quat.x, 3).Append(',').AppendNoAlloc(quat.y, 3).Append(',').AppendNoAlloc(quat.z, 3).Append(',').AppendNoAlloc(quat.w, 3).Append("]");
+		m_RotBuilder.Clear().Append("[").AppendNoAlloc(quat.x, 3).Append(',').AppendNoAlloc(quat.y, 3).Append(',').AppendNoAlloc(quat.z, 3).Append(',').AppendNoAlloc(quat.w, 3).Append("]");
         //Debug.Log(m_RotBuilder.ToString());
 		_ogdLog.GameStateParam("rot", m_RotBuilder.ToString());
         //_ogdLog.GameStateParam("rotY", quat.y);
